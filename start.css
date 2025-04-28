@@ -8,6 +8,7 @@ p {
     color: #01579B;
     font-family: "Yu Gothic";
     font-size: 20px;
+    padding: 15px;
 }
 
 body {
@@ -26,9 +27,45 @@ body {
   height: 100%;
   text-align: center;
 }
+.column2 {
+  flex: 100%;
+  margin-left: 15%;
+  margin-right: 15%;
+  height: 100%;
+  text-align: left;
+  border: 2px solid #01579B;
+
+}
 
 h1 {
     color: #01579B;
     font-family: "Yu Gothic";
     padding: 15px;
+}
+
+.nav {
+  overflow: hidden;
+  background-color: #C9E8FF;
+}
+
+.nav a {
+  float: left;
+  display: block;
+  color: #01579B;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  background-color: #01579B;
+  color: #C9E8FF;
+}
+
+.font {
+    font-family: Elephant;
+}
+
+audio {
+    padding: 10px;
 }
