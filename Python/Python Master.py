@@ -2,6 +2,7 @@ from flask import Flask, Response
 import json
 import mysql.connector
 import random
+import jsonpickle
 yhteys = mysql.connector.connect(
     host='127.0.0.1',
     port= 3306,
@@ -29,9 +30,9 @@ flight_game_backend_app = Flask(__name__)
 @flight_game_backend_app.route('/flight_game/<length>')
 def backend(length):
     try:
+        length = int(length)
         if length > 15:
             raise ValueError
-
         tilakoodi = 200
 
         def mult_calc(length):
@@ -96,7 +97,7 @@ def backend(length):
             count = 0
             class Questionsheet:
                 def __init__(self, clue, A, B, C, correct_answer):
-                    self.clue = clue
+                    self.clu = clue
                     self.A = A
                     self.B = B
                     self.C = C
@@ -127,7 +128,7 @@ def backend(length):
                 result = cursor.fetchall()
                 for row in result:
                     clue = row[0]
-                if cursor.rowcount == 0:
+                while cursor.rowcount == 0:
                     sql = f"select clue from clues where iso_country in (select iso_country from country where name = '{country3}') ORDER BY RAND() LIMIT 1;"
                     cursor = yhteys.cursor()
                     cursor.execute(sql)
@@ -142,7 +143,8 @@ def backend(length):
                 elif country3 == C:
                     correct_answer_position = 'C'
                 questionsheet = Questionsheet(clue, A, B, C, correct_answer_position)
-                questionsheets.append(questionsheet)
+                jsonquestionsheet = jsonpickle.encode(questionsheet)
+                questionsheets.append(jsonquestionsheet)
                 count = count+1
             return questionsheets
         def get_tasks(length):
@@ -156,17 +158,14 @@ def backend(length):
                     self.answer = answer
             while count < length:
                 while True:
-                    num = random.randint(1, length)
+                    num = random.randint(0, length-1)
                     num = int(num)
                     country = country_list[num]
                     if country not in done_country_list:
                         country3 = country
                         done_country_list.append(country)
                         break
-                    else:
-                        num = random.randint(1, length)
-                        num = int(num)
-                        country = country_list[num]
+
 
                 try:
                     cursor = yhteys.cursor(dictionary=True)
@@ -182,7 +181,8 @@ def backend(length):
                         option_c = result['option_c']
                         correct_answer = result['answer']
                         mission = Task(task, option_a, option_b, option_c, correct_answer)
-                        tasklist.append(mission)
+                        jsonmission = jsonpickle.encode(mission)
+                        tasklist.append(jsonmission)
                         count = count+1
                     else:
                         return None
@@ -209,3 +209,13 @@ def backend(length):
             }
     jsonvast = json.dumps(response)
     return Response(response=jsonvast, status=tilakoodi, mimetype="application/json")
+@flight_game_backend_app.errorhandler(404)
+def page_not_found(virhekoodi):
+    vastaus = {
+        "status" : "404",
+        "teksti" : "Virheellinen päätepiste"
+    }
+    jsonvast = json.dumps(vastaus)
+    return Response(response=jsonvast, status=404, mimetype="application/json")
+if __name__ == '__main__':
+    flight_game_backend_app.run(use_reloader=True, host='127.0.0.1', port=3000)
