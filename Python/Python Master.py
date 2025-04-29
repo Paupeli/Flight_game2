@@ -155,6 +155,19 @@ def backend(length):
                     self.c = c
                     self.answer = answer
             while count < length:
+                while True:
+                    num = random.randint(1, length)
+                    num = int(num)
+                    country = country_list[num]
+                    if country not in done_country_list:
+                        country3 = country
+                        done_country_list.append(country)
+                        break
+                    else:
+                        num = random.randint(1, length)
+                        num = int(num)
+                        country = country_list[num]
+
                 try:
                     cursor = yhteys.cursor(dictionary=True)
                     sql = f"SELECT task, option_a, option_b, option_c, answer FROM tasks where iso_country in(select iso_country from country where name = '{country3}') ORDER BY RAND() LIMIT 1;"
@@ -180,6 +193,7 @@ def backend(length):
         routecreator(length)
         wrong_country_selector(length)
         question_sheet_creator(length)
+        get_tasks(length)
         response = {
             "countries": country_list,
             "airports": airport_list,
