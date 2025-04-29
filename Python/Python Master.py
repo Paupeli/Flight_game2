@@ -26,7 +26,7 @@ points = 0
 
 
 flight_game_backend_app = Flask(__name__)
-@flight_game_backend_app('/flight_game/<length>')
+@flight_game_backend_app.route('/flight_game/<length>')
 def backend(length):
     try:
         if length > 15:
@@ -176,7 +176,10 @@ def backend(length):
                 except mysql.connector.Error as err:
                     print(f"Error: {err}")
             return tasklist
-
+        mult_calc(length)
+        routecreator(length)
+        wrong_country_selector(length)
+        question_sheet_creator(length)
         response = {
             "countries": country_list,
             "airports": airport_list,
@@ -184,12 +187,6 @@ def backend(length):
             "questionsheets": questionsheets,
             "Tasks": tasklist
         }
-
-
-
-
-
-
     except ValueError:
         tilakoodi = 400
         response = {
