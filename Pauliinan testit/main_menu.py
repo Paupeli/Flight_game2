@@ -26,7 +26,7 @@ def scoreboard(): #tästä scoreboardiin
 def start(): #tästä mennää takasin aloitussivulle
     return render_template("start.html")
 
-@app.errorhandler(404) #error handling
+@app.errorhandler(404)  #error handling
 def page_not_found(error):
     return jsonify({"error": "Not found", "code": 404}), 404
 
