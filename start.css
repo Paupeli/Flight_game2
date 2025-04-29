@@ -6,7 +6,7 @@ img {
 
 p {
     color: #01579B;
-    font-family: "Yu Gothic";
+    font-family: "Bookman Old Style";
     font-size: 20px;
     padding: 15px;
 }
@@ -32,8 +32,8 @@ body {
   margin-left: 15%;
   margin-right: 15%;
   height: 100%;
-  text-align: left;
   border: 2px solid #01579B;
+  align-items: center;
 
 }
 
@@ -67,5 +67,12 @@ h1 {
 }
 
 audio {
-    padding: 10px;
+    padding: 20px;
+}
+
+.kone {
+    border-radius: 50%;
+    padding-left: 25%;
+    padding-right: 25%;
+    float: right;
 }
