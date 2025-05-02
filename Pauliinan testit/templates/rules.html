@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rules</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
+</head>
+<body>
+<div class="nav"> <a href="{{ url_for('main_menu') }}" class="font">Main menu</a> <a href="{{ url_for('scoreboard') }}" class="font">Scoreboard</a> <a href="{{ url_for('start') }}" class="font">Quit</a></div>
+<h1>Rules:</h1>
+
+<div class="row">
+  <div class="column2">
+    <p>Welcome to Journey Across Europe!<br>
+
+    The rules are simple:<br>
+      1) You start in Helsinki Vantaa Airport.<br>
+          <img src="{{ url_for('static', filename='kone.gif') }}" alt="airplane" class="kone">
+      2) You get a clue where you should go next:<br>
+      - Right guess:<br>
+      +150, +100 or +50 points depending on the length of the route.<br>
+      - Wrong guess:<br>
+      -75, -50 or -25 points.<br>
+      - Guess wrong 3 times: game over!<br>
+      3) Once you get to the correct airport, you get a task:<br>
+      - Complete the task and get +75, +50 or +25 points!<br>
+      - Fail the task, shame on you, -37.5, -25 or -12.5 points.<br>
+      4) Finish the game by arriving to the final airport! :)
+    </p>
+
+  </div>
+</div>
+<audio autoplay="autoplay" controls="controls">
+     <source src="{{ url_for('static', filename='musa.mp3') }}">
+ </audio>
+</body>
+</html>

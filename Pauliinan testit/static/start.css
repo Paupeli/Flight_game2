@@ -1,0 +1,109 @@
+img {
+  border-radius: 50%;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+p {
+    color: #01579B;
+    font-family: "Bookman Old Style";
+    font-size: 20px;
+    padding: 15px;
+}
+
+body {
+    background-color: #EDF7FF;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 100%;
+  margin-left: 15%;
+  margin-right: 15%;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+.column2 {
+  flex: 100%;
+  margin-left: 15%;
+  margin-right: 15%;
+  height: 100%;
+  border: 2px solid #01579B;
+  align-items: center;
+
+}
+
+h1 {
+    color: #01579B;
+    font-family: "Yu Gothic";
+    padding: 15px;
+}
+
+.nav {
+  overflow: hidden;
+  background-color: #C9E8FF;
+}
+
+.nav a {
+  float: left;
+  display: block;
+  color: #01579B;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  background-color: #01579B;
+  color: #C9E8FF;
+}
+
+.font {
+    font-family: Elephant;
+}
+
+audio {
+    padding: 20px;
+}
+
+.kone {
+    border-radius: 50%;
+    padding-left: 25%;
+    padding-right: 25%;
+    float: right;
+}
+
+
+
+button {
+  padding: 17px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  background-color: #C9E8FF;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+}
+
+button:hover {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+}
+
+button:active {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}

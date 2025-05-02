@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
+</head>
+<body>
+<div class="row">
+<div class="column">
+    <h1>JOURNEY ACROSS EUROPE</h1>
+<a href="main_menu.html">
+    <img src="{{ url_for('static', filename='kone.gif') }}" alt="Start"></a>
+    <p>Click image to start!</p> </div></div>
+
+<audio autoplay="autoplay" controls="controls">
+     <source src="{{ url_for('static', filename='musa.mp3') }}"/>
+ </audio>
+</body>
+</html>
