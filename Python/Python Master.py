@@ -1,8 +1,39 @@
-from flask import Flask, Response
+from flask import Flask, jsonify, render_template, Response
 import json
 import mysql.connector
 import random
 import jsonpickle
+
+app = Flask(__name__)
+
+#tää pyörii nyt http://127.0.0.1:3000/
+#html tiedostot on templates kansiossa
+#js tiedostot kuvat yms yms static kansiossa
+
+@app.route("/")
+def start(): #tässä aloitussivu
+    return render_template("start.html")
+
+@app.route("/start")
+def go_to_start(): #quitistä takaisin aloitukseen
+    return render_template("start.html")
+
+@app.route("/new_game")
+def new_game(): #tästä aloitetaan peli ja mennään hahmonluonti/valinta sivulle
+    return render_template("new_game.html")
+
+@app.route("/rules")
+def rules(): #tästä instructions/rulesiin
+    return render_template("rules.html")
+
+@app.route("/scoreboard")
+def scoreboard(): #tästä scoreboardiin
+    return render_template("scoreboard.html")
+
+@app.route("/main_menu")
+def main_menu(): #tästä mennää takasin aloitussivulle
+    return render_template("main_menu.html")
+
 yhteys = mysql.connector.connect(
     host='127.0.0.1',
     port= 3306,
@@ -13,6 +44,7 @@ yhteys = mysql.connector.connect(
     collation='utf8mb3_general_ci'
 )
 
+global country_list, airport_list, wrong_country_list, done_country_list, cluelist, tasklist, questionsheets
 country_list = []
 airport_list = []
 wrong_country_list = []
@@ -26,8 +58,7 @@ points = 0
 #samat vanhat listat ja pistehommelit kuin vanhassakin
 
 
-flight_game_backend_app = Flask(__name__)
-@flight_game_backend_app.route('/flight_game/<length>')
+@app.route('/flight_game/<length>')
 def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funktioita :D)
     try:
         length = int(length)
@@ -219,14 +250,18 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
     jsonvast = json.dumps(response)
     return Response(response=jsonvast, status=tilakoodi, mimetype="application/json")
 
-@flight_game_backend_app.errorhandler(404) #virheenhallintaa, mikäli sivua ei löydy
-def page_not_found(virhekoodi):
-    vastaus = {
-        "status" : "404",
-        "teksti" : "Virheellinen päätepiste"
-    }
-    jsonvast = json.dumps(vastaus)
-    return Response(response=jsonvast, status=404, mimetype="application/json")
+#@flight_game_backend_app.errorhandler(404) #virheenhallintaa, mikäli sivua ei löydy
+#def page_not_found(virhekoodi):
+    #vastaus = {
+        #"status" : "404",
+        #"teksti" : "Virheellinen päätepiste"
+    #}
+    #jsonvast = json.dumps(vastaus)
+    #return Response(response=jsonvast, status=404, mimetype="application/json")
+
+@app.errorhandler(404)  # error handling
+def page_not_found(error):
+    return jsonify({"error": "Not found", "code": 404}), 404
 
 if __name__ == '__main__':
-    flight_game_backend_app.run(use_reloader=True, host='127.0.0.1', port=3000) #pyörittää apin
+    app.run(use_reloader=True, host='127.0.0.1', port=3000) #pyörittää apin

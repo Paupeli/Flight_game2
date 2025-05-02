@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Menu</title>
+    <script src="{{ url_for('static', filename='main_menu.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
+</head>
+
+<body>
+<div class="row">
+<div class="column">
+<div id ="main-menu">
+    <h1>Main Menu</h1>
+     <form action="{{ url_for('new_game') }}" method="get">
+                <button type="submit">New Game</button>
+            </form>
+            <form action="{{ url_for('rules') }}" method="get">
+                <button type="submit">Rules</button>
+            </form>
+            <form action="{{ url_for('scoreboard') }}" method="get">
+                <button type="submit">Scoreboard</button>
+            </form>
+            <form action="{{ url_for('start') }}" method="get">
+                <button type="submit">Quit</button>
+            </form>
+</div></div></div>
+
+</body>
+</html>
