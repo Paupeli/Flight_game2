@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, render_template, Response
+from flask_cors import CORS
 import json
 import mysql.connector
 import random
 import jsonpickle
 
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 #tää pyörii nyt http://127.0.0.1:3000/
 #html tiedostot on templates kansiossa
 #js tiedostot kuvat yms yms static kansiossa
