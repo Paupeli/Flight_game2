@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guess the country</title>
+    <script src="../../Javascript Testit/Pelitesti.js" defer></script>
+</head>
+<body>
+
+<div class="column">
+<div id ="Question">
+    <h1 id="questionname"></h1>
+    <div id="guess">
+            <form action="{{ url_for('new_game') }}" method="get">
+                <button type="submit">A</button>
+            </form>
+            <form action="{{ url_for('rules') }}" method="get">
+                <button type="submit">B</button>
+            </form>
+            <form action="{{ url_for('scoreboard') }}" method="get">
+                <button type="submit">C</button>
+            </form>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, render_template, Response
+from flask_cors import CORS
 import json
 import mysql.connector
 import random
 import jsonpickle
 
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 #tää pyörii nyt http://127.0.0.1:3000/
 #html tiedostot on templates kansiossa
 #js tiedostot kuvat yms yms static kansiossa
@@ -129,7 +131,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             count = 0 #while loopin toistojen laskemiseksi
             class Questionsheet: #kysymyslomakkeiden luokka, sisältää vihjeen, mahdolliset vastaukset ja oikean vastauksen
                 def __init__(self, clue, A, B, C, correct_answer):
-                    self.clu = clue
+                    self.clue = clue
                     self.A = A
                     self.B = B
                     self.C = C
