@@ -131,7 +131,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             count = 0 #while loopin toistojen laskemiseksi
             class Questionsheet: #kysymyslomakkeiden luokka, sisältää vihjeen, mahdolliset vastaukset ja oikean vastauksen
                 def __init__(self, clue, A, B, C, correct_answer):
-                    self.clu = clue
+                    self.clue = clue
                     self.A = A
                     self.B = B
                     self.C = C
