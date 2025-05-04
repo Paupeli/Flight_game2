@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="Muokkauksia ja main menu lisätty masteriin" />
+    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="ÄLä mergaa mainiin vielä _ MAIN">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/templates/old_user_select.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/outin_testit/main_menu_outin_KOPIO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Flight_game2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Flight_game2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pauliinan testit/main_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pauliinan testit/main_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/templates/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/Templates/rules.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/templates/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/Templates/start.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testit/Pythontest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Testit/Pythontest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outin testit/Static/main_menu_javascript.js" beforeDir="false" afterPath="$PROJECT_DIR$/outin_testit/Static_OUTI/main_menu_javascript.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outin testit/Templates/new_game.html" beforeDir="false" afterPath="$PROJECT_DIR$/Python/templates/new_game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outin testit/Templates/old_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/Python/templates/old_user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outin testit/mainmenu-hahmonluonti.py" beforeDir="false" afterPath="$PROJECT_DIR$/outin_testit/mainmenu-hahmonluonti.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/rules.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/start.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +38,32 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="outin" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -36,7 +80,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Paupeli/Flight_game2.git&quot;,
-    &quot;accountId&quot;: &quot;de52a5e1-5205-485a-84e4-528fc14bd38b&quot;
+    &quot;accountId&quot;: &quot;05ac2280-2a60-44c5-92df-bd10a5e29a1d&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -67,7 +111,7 @@
     &quot;Python.testi.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging outin&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -79,11 +123,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\outis\PycharmProjects\Flight_game2\Python\templates" />
       <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python\static" />
       <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python\templates" />
       <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Master" />
       <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python" />
-      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Pauliinan testit\static" />
     </key>
   </component>
   <component name="RunManager">
@@ -114,8 +158,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220" />
-        <option value="bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-PY-242.20224.347" />
+        <option value="bundled-python-sdk-c2d6afa66fbe-39cff9de6eef-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.20224.347" />
       </set>
     </attachedChunks>
   </component>
@@ -135,6 +179,11 @@
       <workItem from="1746176529645" duration="7563000" />
       <workItem from="1746271278425" duration="3269000" />
       <workItem from="1746280458344" duration="1893000" />
+      <workItem from="1746354465666" duration="38000" />
+      <workItem from="1746354823550" duration="257000" />
+      <workItem from="1746355089534" duration="370000" />
+      <workItem from="1746355573807" duration="487000" />
+      <workItem from="1746356076619" duration="750000" />
     </task>
     <task id="LOCAL-00001" summary="Main menu html,js ja backend luotu">
       <option name="closed" value="true" />
@@ -227,7 +276,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="outin" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -236,7 +297,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Main menu html,js ja backend luotu" />
     <MESSAGE value="Muokkauksia ja main menu lisätty masteriin" />
-    <option name="LAST_COMMIT_MESSAGE" value="Muokkauksia ja main menu lisätty masteriin" />
+    <MESSAGE value="ÄLä mergaa mainiin vielä _ MAIN" />
+    <option name="LAST_COMMIT_MESSAGE" value="ÄLä mergaa mainiin vielä _ MAIN" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Flight_game2$main.coverage" NAME="main Coverage Results" MODIFIED="1745931926951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

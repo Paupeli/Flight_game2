@@ -11,7 +11,7 @@ def main_menu(): #tässä main menu
     return render_template("main_menu.html")
 
 @app.route("/new_game")
-def new_game(): #tästä aloitetaan peli ja mennään hahmonluonti/valinta sivulle
+def new_game():
     return render_template("new_game.html")
 
 @app.route("/rules")
