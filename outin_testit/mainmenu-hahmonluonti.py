@@ -15,9 +15,9 @@ yhteys = mysql.connector.connect(
     collation='utf8mb3_general_ci'
 )
 
-flight_game_backend_app_OUTI = Flask(__name__, template_folder='Python/templates')
+flight_game_backend_app = Flask(__name__, template_folder='Python/templates')
 
-@flight_game_backend_app_OUTI.route("/new_game")
+@flight_game_backend_app.route("/new_game")
 def new_game():
     return render_template("new_game.html")
 
@@ -33,7 +33,7 @@ def old_users_fetch():
         users_list.append(user[0])
     return json.dumps(users_list)
 
-@flight_game_backend_app_OUTI.route('/old_user/<user>')
+@flight_game_backend_app.route('/old_user/<user>')
 def get_user(user):
     sql = f"select * from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
@@ -45,7 +45,7 @@ def get_user(user):
     if user:
         return jsonify(user_full_info)          #Ei välttämättä ole tarve palauttaa tietoa - riittää että screen_name on tallessa?
 
-@flight_game_backend_app_OUTI.route("/new_user")
+@flight_game_backend_app.route("/new_user")
 def create_new_user():
     user = requests.get.form("new_screen_name").text     #TÄHÄN tarvitaan new_screen_name -tieto API:sta
 
@@ -64,5 +64,5 @@ def create_new_user():
 
 
 if __name__ == '__main__':
-    flight_game_backend_app_OUTI.run(use_reloader=True, host='127.0.0.1', port=3000)
+    flight_game_backend_app.run(use_reloader=True, host='127.0.0.1', port=3000)
 
