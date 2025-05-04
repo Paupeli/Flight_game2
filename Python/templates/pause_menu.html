@@ -3,14 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Pause Menu</title>
+    <script src="{{ url_for('static', filename='pause_menu.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
 </head>
+
 <body>
+<div class="row">
+        <div class="column">
+            <div id="pause-menu">
 <h1>Game Paused</h1>
-    <ul>
-        <li><a href="/continue_game">Continue</a></li>
-        <li><a href="/scoreboard">Check Scoreboard</a></li>
-        <li><a href="/rules">Rules</a></li>
-        <li><a href="/quit_game">Quit</a></li>
-    </ul>
+                <div class="button-group">
+                    <button id="btn-main-menu">Main Menu</button>
+                    <button id="btn-continue">Continue</button>
+                    <button id="btn-scoreboard">Check Scoreboard</button>
+                    <button id="btn-rules">Rules</button>
+                    <button id="btn-quit">Quit</button>
+                </div>
+                <div id="pause-response"></div>
+            </div>
+        </div>
+    </div>
+<audio autoplay="autoplay" controls="controls">
+     <source src="{{ url_for('static', filename='musa.mp3') }}"/>
+ </audio>
 </body>
 </html>
+
