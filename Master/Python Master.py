@@ -54,13 +54,27 @@ def new_game(): #tästä aloitetaan peli ja mennään hahmonluonti/valinta sivul
 def rules(): #tästä instructions/rulesiin
     return render_template("rules.html")
 
-@app.route("/scoreboard")
-def scoreboard(): #tästä scoreboardiin
-    return render_template("scoreboard.html")
-
 @app.route("/main_menu")
 def main_menu(): #tästä mennää takasin aloitussivulle
     return render_template("main_menu.html")
+
+#SCOREBOARD:
+
+@app.route("/scoreboard")
+#Luodaan sanakirja sql:n palauttamista arvoista
+#Arvot ovat sanakirjassa valmiiksi järjestyksessä, koska sql-kysely järjestää ne! Ei tarvetta sorttailla
+def scoreboard():
+    sql = f"select screen_name, high_score from game where high_score != 0 order by high_score desc limit 5;"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    cursor.close()
+    return_data = []
+    for row in result:
+        screen_name = row[0] if row[0] is not None else "N/A"
+        high_score = row[1] if row[1] is not None else "N/A"
+        return_data.append({"screen_name" : screen_name , "high_score" : high_score})
+    return render_template("scoreboard.html", scoreboard = return_data)
 
 # HAHMON VALINTA JA LUONTI:
 
