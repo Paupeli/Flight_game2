@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="Muokkauksia ja main menu lisätty masteriin" />
+    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="pause menun html (ei vielä valmis)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Master/Python Master.py" beforeDir="false" afterPath="$PROJECT_DIR$/Master/Python Master.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/pause_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python/pause_menu.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,32 +61,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;JavaScript Debug.main_menu.html.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Python Master.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_menu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.testi.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.main_menu.html.executor": "Run",
+    "Python.Python Master.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_menu.executor": "Run",
+    "Python.pause_menu.executor": "Run",
+    "Python.testi.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Pauliinan",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python\static" />
-      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python\templates" />
       <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Master" />
       <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python" />
+      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python\static" />
+      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python\templates" />
       <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Pauliinan testit\static" />
     </key>
   </component>
@@ -236,12 +241,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Main menu html,js ja backend luotu" />
     <MESSAGE value="Muokkauksia ja main menu lisätty masteriin" />
-    <option name="LAST_COMMIT_MESSAGE" value="Muokkauksia ja main menu lisätty masteriin" />
+    <MESSAGE value="pause menun html (ei vielä valmis)" />
+    <option name="LAST_COMMIT_MESSAGE" value="pause menun html (ei vielä valmis)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Flight_game2$main.coverage" NAME="main Coverage Results" MODIFIED="1745931926951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flight_game2$testi.coverage" NAME="testi Coverage Results" MODIFIED="1746187780916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pauliinan testit" />
     <SUITE FILE_PATH="coverage/Flight_game2$main_menu.coverage" NAME="main_menu Coverage Results" MODIFIED="1746185726721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pauliinan testit" />
-    <SUITE FILE_PATH="coverage/Flight_game2$Python_Master.coverage" NAME="Python Master Coverage Results" MODIFIED="1746274068646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python" />
+    <SUITE FILE_PATH="coverage/Flight_game2$mainmenu_hahmonluonti.coverage" NAME="mainmenu-hahmonluonti Coverage Results" MODIFIED="1746361623603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/outin_testit" />
+    <SUITE FILE_PATH="coverage/Flight_game2$pause_menu.coverage" NAME="pause_menu Coverage Results" MODIFIED="1746367438131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python" />
+    <SUITE FILE_PATH="coverage/Flight_game2$Python_Master.coverage" NAME="Python Master Coverage Results" MODIFIED="1746367645922" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Master" />
   </component>
 </project>
