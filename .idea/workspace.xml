@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="pause menun html (ei vielä valmis)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen">
       <change beforePath="$PROJECT_DIR$/Master/Python Master.py" beforeDir="false" afterPath="$PROJECT_DIR$/Master/Python Master.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python/pause_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python/pause_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +22,32 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="outin" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -40,7 +64,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Paupeli/Flight_game2.git&quot;,
-    &quot;accountId&quot;: &quot;de52a5e1-5205-485a-84e4-528fc14bd38b&quot;
+    &quot;accountId&quot;: &quot;05ac2280-2a60-44c5-92df-bd10a5e29a1d&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -68,11 +92,11 @@
     "Python.Python Master.executor": "Run",
     "Python.main.executor": "Run",
     "Python.main_menu.executor": "Run",
-    "Python.pause_menu.executor": "Run",
+    "Python.mainmenu-hahmonluonti.executor": "Run",
     "Python.testi.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Pauliinan",
+    "git-widget-placeholder": "outin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -84,11 +108,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Master" />
-      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python" />
+      <recent name="C:\Users\outis\PycharmProjects\Flight_game2\Python\templates" />
       <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python\static" />
       <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python\templates" />
-      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Pauliinan testit\static" />
+      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Master" />
+      <recent name="C:\Users\OWNER\PycharmProjects\Ohjelmisto-2\Flight_game2\Python" />
     </key>
   </component>
   <component name="RunManager">
@@ -119,8 +143,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220" />
-        <option value="bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-PY-242.20224.347" />
+        <option value="bundled-python-sdk-c2d6afa66fbe-39cff9de6eef-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.20224.347" />
       </set>
     </attachedChunks>
   </component>
@@ -140,6 +164,11 @@
       <workItem from="1746176529645" duration="7563000" />
       <workItem from="1746271278425" duration="3269000" />
       <workItem from="1746280458344" duration="1893000" />
+      <workItem from="1746354465666" duration="38000" />
+      <workItem from="1746354823550" duration="257000" />
+      <workItem from="1746355089534" duration="370000" />
+      <workItem from="1746355573807" duration="487000" />
+      <workItem from="1746356076619" duration="8542000" />
     </task>
     <task id="LOCAL-00001" summary="Main menu html,js ja backend luotu">
       <option name="closed" value="true" />
@@ -221,7 +250,87 @@
       <option name="project" value="LOCAL" />
       <updated>1746282208666</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="ÄLä mergaa mainiin vielä _ MAIN">
+      <option name="closed" value="true" />
+      <created>1746356920012</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746356920012</updated>
+    </task>
+    <task id="LOCAL-00012" summary="ÄLä mergaa mainiin vielä _ MAIN">
+      <option name="closed" value="true" />
+      <created>1746358532717</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1746358532717</updated>
+    </task>
+    <task id="LOCAL-00013" summary="ÄLä mergaa mainiin vielä _ MAIN">
+      <option name="closed" value="true" />
+      <created>1746358868878</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1746358868878</updated>
+    </task>
+    <task id="LOCAL-00014" summary="ÄLä mergaa mainiin vielä _ MAIN">
+      <option name="closed" value="true" />
+      <created>1746360943850</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1746360943850</updated>
+    </task>
+    <task id="LOCAL-00015" summary="hahmonluontia">
+      <option name="closed" value="true" />
+      <created>1746361868863</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1746361868863</updated>
+    </task>
+    <task id="LOCAL-00016" summary="hahmonluontia">
+      <option name="closed" value="true" />
+      <created>1746362186542</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1746362186542</updated>
+    </task>
+    <task id="LOCAL-00017" summary="hahmonluontia">
+      <option name="closed" value="true" />
+      <created>1746363265873</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1746363265873</updated>
+    </task>
+    <task id="LOCAL-00018" summary="hahmonluontia">
+      <option name="closed" value="true" />
+      <created>1746363661668</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1746363661668</updated>
+    </task>
+    <task id="LOCAL-00019" summary="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen">
+      <option name="closed" value="true" />
+      <created>1746364345159</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1746364345160</updated>
+    </task>
+    <task id="LOCAL-00020" summary="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen">
+      <option name="closed" value="true" />
+      <created>1746364357037</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1746364357039</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,7 +341,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="outin" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -241,15 +362,26 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Main menu html,js ja backend luotu" />
     <MESSAGE value="Muokkauksia ja main menu lisätty masteriin" />
-    <MESSAGE value="pause menun html (ei vielä valmis)" />
-    <option name="LAST_COMMIT_MESSAGE" value="pause menun html (ei vielä valmis)" />
+    <MESSAGE value="ÄLä mergaa mainiin vielä _ MAIN" />
+    <MESSAGE value="hahmonluontia" />
+    <MESSAGE value="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen" />
+    <option name="LAST_COMMIT_MESSAGE" value="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Master/Python Master.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Flight_game2$main.coverage" NAME="main Coverage Results" MODIFIED="1745931926951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flight_game2$testi.coverage" NAME="testi Coverage Results" MODIFIED="1746187780916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pauliinan testit" />
     <SUITE FILE_PATH="coverage/Flight_game2$main_menu.coverage" NAME="main_menu Coverage Results" MODIFIED="1746185726721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pauliinan testit" />
+    <SUITE FILE_PATH="coverage/Flight_game2$Python_Master.coverage" NAME="Python Master Coverage Results" MODIFIED="1746274068646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python" />
+    <SUITE FILE_PATH="coverage/Flight_game2$main.coverage" NAME="main Coverage Results" MODIFIED="1746359378254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flight_game2$mainmenu_hahmonluonti.coverage" NAME="mainmenu-hahmonluonti Coverage Results" MODIFIED="1746361623603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/outin_testit" />
-    <SUITE FILE_PATH="coverage/Flight_game2$pause_menu.coverage" NAME="pause_menu Coverage Results" MODIFIED="1746367438131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python" />
-    <SUITE FILE_PATH="coverage/Flight_game2$Python_Master.coverage" NAME="Python Master Coverage Results" MODIFIED="1746367645922" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Master" />
   </component>
 </project>
