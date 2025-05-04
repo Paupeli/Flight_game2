@@ -46,10 +46,6 @@ def start(): #tässä aloitussivu
 def go_to_start(): #quitistä takaisin aloitukseen
     return render_template("start.html")
 
-@app.route("/new_game")
-def new_game(): #tästä aloitetaan peli ja mennään hahmonluonti/valinta sivulle
-    return render_template("new_game.html")
-
 @app.route("/rules")
 def rules(): #tästä instructions/rulesiin
     return render_template("rules.html")
@@ -337,4 +333,4 @@ def page_not_found(error):
     return jsonify({"error": "Not found", "code": 404}), 404
 
 if __name__ == '__main__':
-    app.run(use_reloader=True, host='127.0.0.1', port=3000) #pyörittää apin
+    app.run(use_reloader=True, host='127.0.0.1', port=2192) #pyörittää apin

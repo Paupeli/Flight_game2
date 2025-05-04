@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen">
-      <change afterPath="$PROJECT_DIR$/outin_testit/VANHA_scoreboard.py" afterDir="false" />
+    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="scoreboard">
+      <change afterPath="$PROJECT_DIR$/Python/templates/scoreboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Master/Python Master.py" beforeDir="false" afterPath="$PROJECT_DIR$/Master/Python Master.py" afterDir="false" />
     </list>
@@ -18,8 +18,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -87,27 +87,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.main_menu.html.executor": "Run",
-    "Python.Python Master.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main_menu.executor": "Run",
-    "Python.mainmenu-hahmonluonti.executor": "Run",
-    "Python.testi.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "outin",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.main_menu.html.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Python Master.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_menu.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mainmenu-hahmonluonti.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testi.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;outin&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\outis\PycharmProjects\Flight_game2\Python\templates" />
@@ -170,7 +170,7 @@
       <workItem from="1746354823550" duration="257000" />
       <workItem from="1746355089534" duration="370000" />
       <workItem from="1746355573807" duration="487000" />
-      <workItem from="1746356076619" duration="10109000" />
+      <workItem from="1746356076619" duration="12645000" />
     </task>
     <task id="LOCAL-00001" summary="Main menu html,js ja backend luotu">
       <option name="closed" value="true" />
@@ -356,7 +356,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746365080486</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="scoreboard">
+      <option name="closed" value="true" />
+      <created>1746366377659</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1746366377660</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,23 +399,14 @@
     <MESSAGE value="ÄLä mergaa mainiin vielä _ MAIN" />
     <MESSAGE value="hahmonluontia" />
     <MESSAGE value="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen" />
-    <option name="LAST_COMMIT_MESSAGE" value="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Master/Python Master.py</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="scoreboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="scoreboard" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Flight_game2$testi.coverage" NAME="testi Coverage Results" MODIFIED="1746187780916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pauliinan testit" />
     <SUITE FILE_PATH="coverage/Flight_game2$main_menu.coverage" NAME="main_menu Coverage Results" MODIFIED="1746185726721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pauliinan testit" />
-    <SUITE FILE_PATH="coverage/Flight_game2$Python_Master.coverage" NAME="Python Master Coverage Results" MODIFIED="1746274068646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python" />
-    <SUITE FILE_PATH="coverage/Flight_game2$main.coverage" NAME="main Coverage Results" MODIFIED="1746359378254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Flight_game2$Python_Master.coverage" NAME="Python Master Coverage Results" MODIFIED="1746367899040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Master" />
+    <SUITE FILE_PATH="coverage/Flight_game2$main.coverage" NAME="main Coverage Results" MODIFIED="1746367150554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flight_game2$mainmenu_hahmonluonti.coverage" NAME="mainmenu-hahmonluonti Coverage Results" MODIFIED="1746361623603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/outin_testit" />
   </component>
 </project>
