@@ -8,6 +8,7 @@
 </head>
 
 <body>
+
 <div class="row">
 <div class="column">
 <div id ="main-menu">
@@ -24,7 +25,12 @@
             <form action="{{ url_for('start') }}" method="get">
                 <button type="submit">Quit</button>
             </form>
+
 </div></div></div>
+
+<audio autoplay="autoplay" controls="controls">
+     <source src="{{ url_for('static', filename='musa.mp3') }}"/>
+ </audio>
 
 </body>
 </html>
