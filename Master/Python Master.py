@@ -22,7 +22,7 @@ def go_to_start(): #quitistä takaisin aloitukseen
 
 @app.route("/new_game")
 def new_game(): #tästä aloitetaan peli ja mennään hahmonluonti/valinta sivulle
-    return render_template("new_game.html")
+    return render_template("new_game_OUTIN_TESTI.html")
 
 @app.route("/rules")
 def rules(): #tästä instructions/rulesiin

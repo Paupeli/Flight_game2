@@ -18,7 +18,7 @@ flight_game_backend_app_OUTI = Flask(__name__, template_folder='Python/templates
 
 @flight_game_backend_app_OUTI.route("/new_game")
 def new_game():
-    return render_template("new_game.html")
+    return render_template("new_game_OUTIN_TESTI.html")
 
 @flight_game_backend_app_OUTI.route('/old_user')
 def old_users_fetch():
@@ -56,9 +56,6 @@ def page_not_found(virhekoodi):
 
 if __name__ == '__main__':
     flight_game_backend_app_OUTI.run(use_reloader=True, host='127.0.0.1', port=3000)
-
-
-
 
 #    global option
 #    global user
