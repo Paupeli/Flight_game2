@@ -100,12 +100,12 @@ def get_user(user):
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def create_new_user():
     user = requests.get.form("new_screen_name").text                                # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
-
-    sql = f"select * from game where screen_name = '{user}';"
+    #Huom, sql-injektion esto puuttuu :D
+    sql = f"select screen_name from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchone()
-    if not result:
+    if user in result:
         pass #404
     else:
         sql2 = f"update game set location = (select ident from airport where ident = 'EFHK') where screen_name = '{user}';"
