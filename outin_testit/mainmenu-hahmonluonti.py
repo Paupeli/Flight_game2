@@ -1,7 +1,8 @@
-from symbol import pass_stmt
 
 import mysql.connector
-from flask import Flask, Response, jsonify
+from flask import Flask, Response, jsonify, render_template
+import json
+import jsonpickle
 
 yhteys = mysql.connector.connect(
     host='127.0.0.1',
@@ -13,9 +14,13 @@ yhteys = mysql.connector.connect(
     collation='utf8mb3_general_ci'
 )
 
-flight_game_backend_app = Flask(__name__)
+flight_game_backend_app_OUTI = Flask(__name__, template_folder='outin_testit\Templates_OUTI')
 
-@flight_game_backend_app.route('/old_user')
+@flight_game_backend_app_OUTI.route("/new_game")
+def new_game():
+    return render_template("new_game.html")
+
+@flight_game_backend_app_OUTI.route('/old_user')
 def old_users_fetch():
     sql = f"select screen_name from game;"
     cursor = yhteys.cursor()
@@ -25,7 +30,7 @@ def old_users_fetch():
     return jsonify(users)
     #front-endiin printti! >> OMAT NAPIT OLEMASSA OLEVILLE >> get seuraavaan?
 
-@flight_game_backend_app.route('/old_user/<user>')
+@flight_game_backend_app_OUTI.route('/old_user/<user>')
 def get_user(user):
     sql = f"select * from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
@@ -38,7 +43,7 @@ def get_user(user):
         page_not_found()
 
 
-@flight_game_backend_app.errorhandler(404) #TUPLA! POISTA IN CASE
+@flight_game_backend_app_OUTI.errorhandler(404) #TUPLA! POISTA IN CASE
 def page_not_found(virhekoodi):
     vastaus = {
         "status" : "404",
@@ -48,7 +53,7 @@ def page_not_found(virhekoodi):
     return Response(response=jsonvast, status=404, mimetype="application/json")
 
 if __name__ == '__main__':
-    flight_game_backend_app.run(use_reloader=True, host='127.0.0.1', port=3000)
+    flight_game_backend_app_OUTI.run(use_reloader=True, host='127.0.0.1', port=3000)
 
 
 
