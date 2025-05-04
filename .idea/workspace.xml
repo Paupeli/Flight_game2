@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="hahmonluontia">
+      <change beforePath="$PROJECT_DIR$/Master/Python Master.py" beforeDir="false" afterPath="$PROJECT_DIR$/Master/Python Master.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outin_testit/mainmenu-hahmonluonti.py" beforeDir="false" afterPath="$PROJECT_DIR$/outin_testit/mainmenu-hahmonluonti.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -168,7 +169,7 @@
       <workItem from="1746354823550" duration="257000" />
       <workItem from="1746355089534" duration="370000" />
       <workItem from="1746355573807" duration="487000" />
-      <workItem from="1746356076619" duration="7490000" />
+      <workItem from="1746356076619" duration="8161000" />
     </task>
     <task id="LOCAL-00001" summary="Main menu html,js ja backend luotu">
       <option name="closed" value="true" />
@@ -306,7 +307,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746363265873</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="hahmonluontia">
+      <option name="closed" value="true" />
+      <created>1746363661668</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1746363661668</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,6 +350,16 @@
     <MESSAGE value="ÄLä mergaa mainiin vielä _ MAIN" />
     <MESSAGE value="hahmonluontia" />
     <option name="LAST_COMMIT_MESSAGE" value="hahmonluontia" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Master/Python Master.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Flight_game2$testi.coverage" NAME="testi Coverage Results" MODIFIED="1746187780916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pauliinan testit" />
