@@ -1,7 +1,7 @@
 'use strict';
 
-document.getElementById("saved-user-btn").addEventListener("click", () => {
-  window.location.href = "/saved_user";
+document.getElementById("old-user-btn").addEventListener("click", () => {
+  window.location.href = "/old_user";
 });
 document.getElementById("new-user-btn").addEventListener("click", () => {
   window.location.href = "/new_user";
