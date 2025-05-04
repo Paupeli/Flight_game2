@@ -1,6 +1,7 @@
 
 import mysql.connector
 from flask import Flask, Response, jsonify, render_template
+import requests
 import json
 import jsonpickle
 
@@ -33,7 +34,7 @@ def old_users_fetch():
     return json.dumps(users_list)           #muutettu jsonify > json dumps
 
 def create_new_user():
-    new_user = request.from[]                         #ottaa inputin frontista
+    new_user = requests.form['new_screen_name']                                              #ottaa inputin frontista
     #hakee
     pass                                                                      #front-endiin printti! >> OMAT NAPIT OLEMASSA OLEVILLE >> get seuraavaan?
 
