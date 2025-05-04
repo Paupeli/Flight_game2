@@ -28,15 +28,10 @@ def old_users_fetch():
     cursor.execute(sql)
     users = cursor.fetchall()
     cursor.close()
-    users_list = []                     #TÄMÄ FOR-LOOP, KOSKA TULEE MUUTEN TUPLENA > vaikea käsitellä > muunnetaan listaksi
+    users_list = []
     for user in users:
         users_list.append(user)
-    return json.dumps(users_list)           #muutettu jsonify > json dumps
-
-def create_new_user():
-    new_user = requests.form['new_screen_name']                                              #ottaa inputin frontista
-    #hakee
-    pass                                                                      #front-endiin printti! >> OMAT NAPIT OLEMASSA OLEVILLE >> get seuraavaan?
+    return json.dumps(users_list)
 
 @flight_game_backend_app_OUTI.route('/old_user/<user>')
 def get_user(user):
@@ -46,9 +41,28 @@ def get_user(user):
     user_full_info = cursor.fetchall()
     cursor.close()
     if user:
-        return jsonify(user_full_info)
+        return jsonify(user_full_info)          #Ei välttämättä ole tarve palauttaa tietoa - riittää että screen_name on tallessa?
     if not user:
         pass #404
+
+@flight_game_backend_app_OUTI.route("/new_user")
+def create_new_user():
+    user = requests.get("new_screen_name").text     #TÄHÄN tarvitaan new_screen_name -tieto API:sta
+
+    sql = f"select * from game where screen_name = '{new_user}';"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    cursor.close()
+    if not result:
+        pass #404
+    else:
+        sql2 = f"update game set location = (select ident from airport where ident = 'EFHK') where screen_name = '{user}';"
+        kursori = yhteys.cursor()
+        kursori.execute(sql2)
+        yhteys.commit()
+        cursor.close()
+        return json.dumps(user)                 #Ei välttämättä ole tarve palauttaa tietoa - riittää että screen_name on tallessa?
 
 
 if __name__ == '__main__':
