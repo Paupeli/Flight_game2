@@ -5,23 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="ÄLä mergaa mainiin vielä _ MAIN">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Python/templates/old_user_select.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/outin_testit/main_menu_outin_KOPIO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Flight_game2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Flight_game2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pauliinan testit/main_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pauliinan testit/main_menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python/templates/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/Templates/rules.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python/templates/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/Templates/start.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Testit/Pythontest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Testit/Pythontest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outin testit/Static/main_menu_javascript.js" beforeDir="false" afterPath="$PROJECT_DIR$/outin_testit/Static_OUTI/main_menu_javascript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outin testit/Templates/new_game.html" beforeDir="false" afterPath="$PROJECT_DIR$/Python/templates/new_game.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outin testit/Templates/old_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/Python/templates/old_user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outin testit/mainmenu-hahmonluonti.py" beforeDir="false" afterPath="$PROJECT_DIR$/outin_testit/mainmenu-hahmonluonti.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/rules.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/start.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outin_testit/mainmenu-hahmonluonti.py" beforeDir="false" afterPath="$PROJECT_DIR$/outin_testit/mainmenu-hahmonluonti.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,26 +86,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;JavaScript Debug.main_menu.html.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Python Master.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_menu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.testi.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Merging outin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.main_menu.html.executor": "Run",
+    "Python.Python Master.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_menu.executor": "Run",
+    "Python.testi.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "outin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\outis\PycharmProjects\Flight_game2\Python\templates" />
@@ -183,7 +168,7 @@
       <workItem from="1746354823550" duration="257000" />
       <workItem from="1746355089534" duration="370000" />
       <workItem from="1746355573807" duration="487000" />
-      <workItem from="1746356076619" duration="750000" />
+      <workItem from="1746356076619" duration="2431000" />
     </task>
     <task id="LOCAL-00001" summary="Main menu html,js ja backend luotu">
       <option name="closed" value="true" />
@@ -265,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746282208666</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="ÄLä mergaa mainiin vielä _ MAIN">
+      <option name="closed" value="true" />
+      <created>1746356920012</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746356920012</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

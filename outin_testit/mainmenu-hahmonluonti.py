@@ -14,7 +14,7 @@ yhteys = mysql.connector.connect(
     collation='utf8mb3_general_ci'
 )
 
-flight_game_backend_app_OUTI = Flask(__name__, template_folder='outin_testit\Templates_OUTI')
+flight_game_backend_app_OUTI = Flask(__name__, template_folder='Python/templates')
 
 @flight_game_backend_app_OUTI.route("/new_game")
 def new_game():
@@ -27,7 +27,10 @@ def old_users_fetch():
     cursor.execute(sql)
     users = cursor.fetchall()
     cursor.close()
-    return jsonify(users)
+    users_list = []                     #TÄMÄ FOR-LOOP, KOSKA TULEE MUUTEN TUPLENA > vaikea käsitellä > muunnetaan listaksi
+    for user in users:
+        users_list.append(user)
+    return jsonify(users_list)
     #front-endiin printti! >> OMAT NAPIT OLEMASSA OLEVILLE >> get seuraavaan?
 
 @flight_game_backend_app_OUTI.route('/old_user/<user>')
@@ -35,13 +38,12 @@ def get_user(user):
     sql = f"select * from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
-    user = cursor.fetchall()
+    user_full_info = cursor.fetchall()
     cursor.close()
     if user:
-        return jsonify(user)
+        return jsonify(user_full_info)
     if not user:
         page_not_found()
-
 
 @flight_game_backend_app_OUTI.errorhandler(404) #TUPLA! POISTA IN CASE
 def page_not_found(virhekoodi):
