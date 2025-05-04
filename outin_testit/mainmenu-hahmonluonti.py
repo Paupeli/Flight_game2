@@ -18,9 +18,9 @@ flight_game_backend_app_OUTI = Flask(__name__, template_folder='Python/templates
 
 @flight_game_backend_app_OUTI.route("/new_game")
 def new_game():
-    return render_template("new_game_OUTIN_TESTI.html")
+    return render_template("new_game.html")
 
-@flight_game_backend_app_OUTI.route('/old_user')
+#@flight_game_backend_app_OUTI.route('/old_user')
 def old_users_fetch():
     sql = f"select screen_name from game;"
     cursor = yhteys.cursor()
@@ -31,9 +31,13 @@ def old_users_fetch():
     for user in users:
         users_list.append(user)
     return jsonify(users_list)
-    #front-endiin printti! >> OMAT NAPIT OLEMASSA OLEVILLE >> get seuraavaan?
 
-@flight_game_backend_app_OUTI.route('/old_user/<user>')
+def create_new_user():
+    #ottaa inputin frontista
+    #hakee
+    pass                                                                      #front-endiin printti! >> OMAT NAPIT OLEMASSA OLEVILLE >> get seuraavaan?
+
+# @flight_game_backend_app_OUTI.route('/old_user/<user>')
 def get_user(user):
     sql = f"select * from game where screen_name = '{user}';"
     cursor = yhteys.cursor()

@@ -12,7 +12,7 @@ def main_menu(): #tässä main menu
 
 @app.route("/new_game")
 def new_game():
-    return render_template("new_game_OUTIN_TESTI.html")
+    return render_template("new_game.html")
 
 @app.route("/rules")
 def rules(): #tästä instructions/rulesiin
