@@ -3,7 +3,7 @@ from flask import Flask, jsonify, render_template
 app = Flask(__name__)
 
 #tää pyörii nyt http://127.0.0.1:5000/
-#html tiedostot on templates kansiossa
+#html tiedostot on Templates_OUTI kansiossa
 #js tiedostot kuvat yms yms static kansiossa
 
 @app.route("/")

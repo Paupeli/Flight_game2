@@ -4,6 +4,7 @@ import json
 import mysql.connector
 import random
 import jsonpickle
+import requests
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -11,6 +12,31 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 #tää pyörii nyt http://127.0.0.1:3000/
 #html tiedostot on templates kansiossa
 #js tiedostot kuvat yms yms static kansiossa
+
+yhteys = mysql.connector.connect(
+    host='127.0.0.1',
+    port= 3306,
+    database='flight_game',
+    user='keltanokat',
+    password='lentopeli',
+    autocommit=True,
+    collation='utf8mb3_general_ci'
+)
+
+global country_list, airport_list, wrong_country_list, done_country_list, cluelist, tasklist, questionsheets
+country_list = []
+airport_list = []
+wrong_country_list = []
+done_country_list = []
+cluelist = []
+tasklist = []
+questionsheets = []
+total_points = 0
+wrong_answers = 0
+points = 0
+#samat vanhat listat ja pistehommelit kuin vanhassakin
+
+# MAIN MENU
 
 @app.route("/")
 def start(): #tässä aloitussivu
@@ -36,28 +62,59 @@ def scoreboard(): #tästä scoreboardiin
 def main_menu(): #tästä mennää takasin aloitussivulle
     return render_template("main_menu.html")
 
-yhteys = mysql.connector.connect(
-    host='127.0.0.1',
-    port= 3306,
-    database='flight_game',
-    user='keltanokat',
-    password='lentopeli',
-    autocommit=True,
-    collation='utf8mb3_general_ci'
-)
+# HAHMON VALINTA JA LUONTI:
 
-global country_list, airport_list, wrong_country_list, done_country_list, cluelist, tasklist, questionsheets
-country_list = []
-airport_list = []
-wrong_country_list = []
-done_country_list = []
-cluelist = []
-tasklist = []
-questionsheets = []
-total_points = 0
-wrong_answers = 0
-points = 0
-#samat vanhat listat ja pistehommelit kuin vanhassakin
+@app.route("/new_game")
+#tämä avaa new game -valikon (url)
+def new_game():
+    return render_template("new_game.html")
+
+@app.route('/old_user')
+# tämä palauttaa listan vanhoista käyttäjistä valikkoa varten
+def old_users_fetch():
+    sql = f"select screen_name from game;"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    users = cursor.fetchall()
+    cursor.close()
+    users_list = []
+    for user in users:
+        users_list.append(user[0])
+    return json.dumps(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
+
+@app.route('/old_user/<user>')
+# tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
+def get_user(user):
+    user = user
+    sql = f"select * from game where screen_name = '{user}';"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    user_full_info = cursor.fetchall()
+    cursor.close()
+    if not user:
+        pass #404
+    if user:
+        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+
+@app.route("/new_user")
+# tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
+def create_new_user():
+    user = requests.get.form("new_screen_name").text                                # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
+    #Huom, sql-injektion esto puuttuu :D
+    sql = f"select screen_name from game where screen_name = '{user}';"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    if user in result:
+        pass #404
+    else:
+        sql2 = f"update game set location = (select ident from airport where ident = 'EFHK') where screen_name = '{user}';"
+        cursor.execute(sql2)
+        yhteys.commit()
+        cursor.close()
+        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+
+# HAHMONLUONTI PÄÄTTYY TÄHÄN
 
 
 @app.route('/flight_game/<length>')
