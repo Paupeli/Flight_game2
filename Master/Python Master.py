@@ -94,7 +94,7 @@ def get_user(user):
     if not user:
         pass #404
     if user:
-        return json.dumps(user)
+        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
 @app.route("/new_user")
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
@@ -112,7 +112,7 @@ def create_new_user():
         cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
-        return json.dumps(user)
+        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
 # HAHMONLUONTI PÄÄTTYY TÄHÄN
 
