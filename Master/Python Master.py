@@ -57,6 +57,10 @@ def main_menu(): #tästä mennää takasin aloitussivulle
 #SCOREBOARD:
 
 @app.route("/scoreboard")
+def scoreboard_html():
+    return render_template('scoreboard.html')
+
+@app.route("/flight_game/scoreboard")
 #Luodaan sanakirja sql:n palauttamista arvoista
 #Arvot ovat sanakirjassa valmiiksi järjestyksessä, koska sql-kysely järjestää ne! Ei tarvetta sorttailla
 def scoreboard():
@@ -70,7 +74,7 @@ def scoreboard():
         screen_name = row[0] if row[0] is not None else "N/A"
         high_score = row[1] if row[1] is not None else "N/A"
         return_data.append({"screen_name" : screen_name , "high_score" : high_score})
-    return render_template("scoreboard.html", scoreboard = return_data)
+    return jsonify(return_data)
 
 # HAHMON VALINTA JA LUONTI:
 
