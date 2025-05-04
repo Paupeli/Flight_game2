@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 
-app = Flask(__name__)
+app= Flask (__name__)
 
 @app.route("/pause_menu", methods=["GET"]) #näiden pitäis viedä oikeille sivuille
 def pause_menu():
