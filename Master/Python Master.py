@@ -62,7 +62,7 @@ def scoreboard(): #tästä scoreboardiin
 def main_menu(): #tästä mennää takasin aloitussivulle
     return render_template("main_menu.html")
 
-# HAHMO VALINTA JA LUONTI:
+# HAHMON VALINTA JA LUONTI:
 
 @app.route("/new_game")
 #tämä avaa new game -valikon (url)

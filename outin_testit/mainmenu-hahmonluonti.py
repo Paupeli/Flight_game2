@@ -17,11 +17,15 @@ yhteys = mysql.connector.connect(
 
 flight_game_backend_app = Flask(__name__, template_folder='Python/templates')
 
-@flight_game_backend_app.route("/new_game")
+# HAHMON VALINTA JA LUONTI:
+
+@app.route("/new_game")
+#tämä avaa new game -valikon (url)
 def new_game():
     return render_template("new_game.html")
 
-@flight_game_backend_app_OUTI.route('/old_user')
+@app.route('/old_user')
+# tämä palauttaa listan vanhoista käyttäjistä valikkoa varten
 def old_users_fetch():
     sql = f"select screen_name from game;"
     cursor = yhteys.cursor()
@@ -31,10 +35,12 @@ def old_users_fetch():
     users_list = []
     for user in users:
         users_list.append(user[0])
-    return json.dumps(users_list)
+    return json.dumps(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
 
-@flight_game_backend_app.route('/old_user/<user>')
+@app.route('/old_user/<user>')
+# tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def get_user(user):
+    user = user
     sql = f"select * from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
@@ -43,11 +49,12 @@ def get_user(user):
     if not user:
         pass #404
     if user:
-        return jsonify(user_full_info)          #Ei välttämättä ole tarve palauttaa tietoa - riittää että screen_name on tallessa?
+        return json.dumps(user)
 
-@flight_game_backend_app.route("/new_user")
+@app.route("/new_user")
+# tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def create_new_user():
-    user = requests.get.form("new_screen_name").text     #TÄHÄN tarvitaan new_screen_name -tieto API:sta
+    user = requests.get.form("new_screen_name").text                                # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
 
     sql = f"select * from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
@@ -60,7 +67,9 @@ def create_new_user():
         cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
-        return json.dumps(user)                 #Ei välttämättä ole tarve palauttaa tietoa - riittää että screen_name on tallessa?
+        return json.dumps(user)
+
+# HAHMONLUONTI PÄÄTTYY TÄHÄN
 
 
 if __name__ == '__main__':
