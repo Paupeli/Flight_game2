@@ -62,7 +62,7 @@ def scoreboard(): #tästä scoreboardiin
 def main_menu(): #tästä mennää takasin aloitussivulle
     return render_template("main_menu.html")
 
-# HAHMO VALINTA JA LUONTI:
+# HAHMON VALINTA JA LUONTI:
 
 @app.route("/new_game")
 #tämä avaa new game -valikon (url)
@@ -94,25 +94,25 @@ def get_user(user):
     if not user:
         pass #404
     if user:
-        return json.dumps(user)
+        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
 @app.route("/new_user")
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def create_new_user():
     user = requests.get.form("new_screen_name").text                                # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
-
-    sql = f"select * from game where screen_name = '{user}';"
+    #Huom, sql-injektion esto puuttuu :D
+    sql = f"select screen_name from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchone()
-    if not result:
+    if user in result:
         pass #404
     else:
         sql2 = f"update game set location = (select ident from airport where ident = 'EFHK') where screen_name = '{user}';"
         cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
-        return json.dumps(user)
+        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
 # HAHMONLUONTI PÄÄTTYY TÄHÄN
 

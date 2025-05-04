@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="hahmonluontia">
+    <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen">
       <change beforePath="$PROJECT_DIR$/Master/Python Master.py" beforeDir="false" afterPath="$PROJECT_DIR$/Master/Python Master.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outin_testit/mainmenu-hahmonluonti.py" beforeDir="false" afterPath="$PROJECT_DIR$/outin_testit/mainmenu-hahmonluonti.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +168,7 @@
       <workItem from="1746354823550" duration="257000" />
       <workItem from="1746355089534" duration="370000" />
       <workItem from="1746355573807" duration="487000" />
-      <workItem from="1746356076619" duration="8161000" />
+      <workItem from="1746356076619" duration="8542000" />
     </task>
     <task id="LOCAL-00001" summary="Main menu html,js ja backend luotu">
       <option name="closed" value="true" />
@@ -315,7 +314,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746363661668</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen">
+      <option name="closed" value="true" />
+      <created>1746364345159</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1746364345160</updated>
+    </task>
+    <task id="LOCAL-00020" summary="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen">
+      <option name="closed" value="true" />
+      <created>1746364357037</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1746364357039</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,7 +364,8 @@
     <MESSAGE value="Muokkauksia ja main menu lisätty masteriin" />
     <MESSAGE value="ÄLä mergaa mainiin vielä _ MAIN" />
     <MESSAGE value="hahmonluontia" />
-    <option name="LAST_COMMIT_MESSAGE" value="hahmonluontia" />
+    <MESSAGE value="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen" />
+    <option name="LAST_COMMIT_MESSAGE" value="main tiedoston päivitys hahmonluonnilla + main menun siirto sql connectorin jälkeen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
