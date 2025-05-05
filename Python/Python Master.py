@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, Response
+from flask import Flask, jsonify, render_template, Response, redirect
 from flask_cors import CORS
 import json
 import mysql.connector
@@ -53,6 +53,26 @@ def rules(): #tästä instructions/rulesiin
 @app.route("/main_menu")
 def main_menu(): #tästä mennää takasin aloitussivulle
     return render_template("main_menu.html")
+
+#PAUSE MENU
+
+@app.route("/main_menu")
+def pause_main_menu():
+    return render_template("main_menu.html")  #vie takasin main menuun
+
+@app.route("/scoreboard")
+def pause_scoreboard_html():
+    return render_template('scoreboard.html')  #vie scoreboardiin
+
+@app.route("/rules")
+def pause_rules():
+    return render_template("rules.html")  #vie rulesiin
+
+@app.route("/quit")
+def quit_game():
+    return redirect('/') #vie takas alotussivulle
+
+#PAUSE MENU LOPPUU TÄHÄN!!
 
 #SCOREBOARD:
 
