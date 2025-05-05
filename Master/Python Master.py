@@ -46,10 +46,6 @@ def start(): #tässä aloitussivu
 def go_to_start(): #quitistä takaisin aloitukseen
     return render_template("start.html")
 
-@app.route("/new_game")
-def new_game(): #tästä aloitetaan peli ja mennään hahmonluonti/valinta sivulle
-    return render_template("new_game.html")
-
 @app.route("/rules")
 def rules(): #tästä instructions/rulesiin
     return render_template("rules.html")
@@ -61,6 +57,10 @@ def main_menu(): #tästä mennää takasin aloitussivulle
 #SCOREBOARD:
 
 @app.route("/scoreboard")
+def scoreboard_html():
+    return render_template('scoreboard.html')
+
+@app.route("/flight_game/scoreboard")
 #Luodaan sanakirja sql:n palauttamista arvoista
 #Arvot ovat sanakirjassa valmiiksi järjestyksessä, koska sql-kysely järjestää ne! Ei tarvetta sorttailla
 def scoreboard():
@@ -74,7 +74,7 @@ def scoreboard():
         screen_name = row[0] if row[0] is not None else "N/A"
         high_score = row[1] if row[1] is not None else "N/A"
         return_data.append({"screen_name" : screen_name , "high_score" : high_score})
-    return render_template("scoreboard.html", scoreboard = return_data)
+    return jsonify(return_data)
 
 # HAHMON VALINTA JA LUONTI:
 
@@ -337,4 +337,4 @@ def page_not_found(error):
     return jsonify({"error": "Not found", "code": 404}), 404
 
 if __name__ == '__main__':
-    app.run(use_reloader=True, host='127.0.0.1', port=3000) #pyörittää apin
+    app.run(use_reloader=True, host='127.0.0.1', port=2192) #pyörittää apin

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scoreboard</title>
+</head>
+<body>
+<div class="row">
+<div class="column">
+<div id ="scoreboard">
+    <h1>Scoreboard</h1>
+    <table>
+        <tr>
+            <th>User</th>
+            <th>High Score</th>
+        </tr>
+        <tbody id="insideTable">
+        </tbody>
+    </table>
+</div></div></div>
+</body>
+</html>
+
+<script>
+    fetch("/scoreboard")
+    .then(response => response.json())
+    .then(data =>
+        const insideTable = document.querySelector('#insideTable tbody');
+        data.forEach(entry => {
+            const row = document.createElement('tr')
+            const userRow = document.createElement('td');
+            const scoreRow = document.createElement('td');
+            userRow.textContent = entry.user
+            scoreRow.textContent = entry.score
+            row.appendChild(userRow);
+            row.appendChild(scoreRow);
+            insideTable.appendChild(row);
+        }
+    )
+</script>

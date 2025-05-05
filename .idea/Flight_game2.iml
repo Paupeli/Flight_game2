@@ -8,7 +8,7 @@
   <component name="TemplatesService">
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/outin testit/Templates" />
+        <option value="$MODULE_DIR$/Templates" />
       </list>
     </option>
   </component>
