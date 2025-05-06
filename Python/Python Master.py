@@ -34,6 +34,7 @@ questionsheets = []
 total_points = 0
 wrong_answers = 0
 points = 0
+
 #samat vanhat listat ja pistehommelit kuin vanhassakin
 
 # MAIN MENU
@@ -169,7 +170,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 a = 10-length
                 b = a / 10
                 mult = 1 + b #esim. reitinpituus = 5, 10-5=5, 5/10=0.5, 1+0.5=1.5, kerroin siis 1,5
-            elif length == 10:
+            else:
                 mult = 1 #jos reitin pituus on 10, kerroin yhdessä
             return mult
 
@@ -221,12 +222,12 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
         def question_sheet_creator(length): #luo kysymyslomakkeet
             count = 0 #while loopin toistojen laskemiseksi
             class Questionsheet: #kysymyslomakkeiden luokka, sisältää vihjeen, mahdolliset vastaukset ja oikean vastauksen
-                def __init__(self, clue, A, B, C, correct_answer):
+                def __init__(self, clue, a, b, c, answer):
                     self.clue = clue
-                    self.A = A
-                    self.B = B
-                    self.C = C
-                    self.correct_answer = correct_answer
+                    self.a = a
+                    self.b = b
+                    self.c = c
+                    self.answer = answer
             while length > count: #toistaa looppia kunnes laskuri on samassa reitin pituuden kanssa
                 while True:
                     num1 = random.randint(1, len(wrong_country_list))
@@ -320,7 +321,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     print(f"Error: {err}")
             return tasklist
 
-        mult_calc(length)
+        mult = mult_calc(length)
         routecreator(length)
         wrong_country_selector(length)
         question_sheet_creator(length)
@@ -331,7 +332,9 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             "airports": airport_list,
             "wrong countries": wrong_country_list,
             "questionsheets": questionsheets,
-            "Tasks": tasklist
+            "Tasks": tasklist,
+            "Mult": mult
+
         } #funktioiden palauttamat arvot json-muodossa
 
     except ValueError: #virheenkäsittelyä, mikäli reitti on liian pitkä tai lyhyt
