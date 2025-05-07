@@ -77,13 +77,13 @@ def quit_game():
 #SCOREBOARD:
 
 @app.route("/scoreboard")
-def scoreboard_html():
+def scoreboard():
     return render_template('scoreboard.html')
 
 @app.route("/flight_game/scoreboard")
 #Luodaan sanakirja sql:n palauttamista arvoista
 #Arvot ovat sanakirjassa valmiiksi järjestyksessä, koska sql-kysely järjestää ne! Ei tarvetta sorttailla
-def scoreboard():
+def scoreboard_json():
     sql = f"select screen_name, high_score from game where high_score != 0 order by high_score desc limit 5;"
     cursor = yhteys.cursor()
     cursor.execute(sql)
