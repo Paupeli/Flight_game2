@@ -321,6 +321,22 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     print(f"Error: {err}")
             return tasklist
 
+    ####TÄN PITÄIS HAKEE KOORDINATIT KARTTAAN, VOI OLLA ET PITÄÄ VIEL MUOKKAA  :DDD
+        cursor = yhteys.cursor(dictionary=True)
+        coordinates = []
+
+        for airport_code in airport_list:
+            cursor.execute("SELECT latitude_deg, longitude_deg FROM airport WHERE ident = %s", (airport_code,))
+            result = cursor.fetchone()
+            if result:
+                coordinates.append({
+                    "lat": result["latitude_deg"],
+                    "lng": result["longitude_deg"],
+                    "code": airport_code
+                })
+
+        cursor.close()
+
         mult = mult_calc(length)
         routecreator(length)
         wrong_country_selector(length)
@@ -333,7 +349,8 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             "wrong countries": wrong_country_list,
             "questionsheets": questionsheets,
             "Tasks": tasklist,
-            "Mult": mult
+            "Mult": mult,
+            "coordinates": coordinates
 
         } #funktioiden palauttamat arvot json-muodossa
 
