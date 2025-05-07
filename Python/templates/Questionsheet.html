@@ -8,17 +8,23 @@
 <body>
 
 <div class="column">
+    <div>
+        <h1 id="score"></h1>
+        <h1 id="wronganswers"></h1>
+        <h1 id="question_num"></h1>
+        <h2 id="feedback"></h2>
+    </div>
 <div id ="Question">
     <h1 id="questionname"></h1>
     <div id="guess">
-            <form action="{{ url_for('new_game') }}" method="get">
-                <button type="submit">A</button>
+            <form action="" method="get">
+                <button type="submit" id="A">A</button>
             </form>
-            <form action="{{ url_for('rules') }}" method="get">
-                <button type="submit">B</button>
+            <form action="" method="get">
+                <button type="submit" id="B">B</button>
             </form>
-            <form action="{{ url_for('scoreboard') }}" method="get">
-                <button type="submit">C</button>
+            <form action="" method="get">
+                <button type="submit" id="C">C</button>
             </form>
 </div>
 </div>
