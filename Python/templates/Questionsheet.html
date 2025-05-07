@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Guess the country</title>
     <script src="../../Javascript Testit/Pelitesti.js" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
 </head>
 <body>
 
@@ -29,6 +30,10 @@
 </div>
 </div>
 </div>
+
+<audio autoplay="autoplay" controls="controls">
+     <source src="{{ url_for('static', filename='musa.mp3') }}"/>
+ </audio>
 
 </body>
 </html>
