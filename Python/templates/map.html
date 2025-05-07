@@ -15,32 +15,33 @@
 <body>
   <div id="map"></div>
 <script>
+  //luo leaflet kartan, jonka leveysaste on 55 ja pituusaste on 15, zoom-taso 5
   const map = L.map('map').setView([55, 15], 5);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); //lataa kartan openstreetmapista
 
   const planeIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/2983/2983886.png',
     iconSize: [40, 40],
     iconAnchor: [20, 20]
-  });
+  }); //lentokone icon
 
-  fetch('/flight_game/<length>')
+  fetch('/flight_game/<length>') //hakee ja palauttaa reitin palvelimelta
     .then(response => response.json())
     .then(data => {
-      const coords = data.coordinates;
-      const latlngs = coords.map(c => [c.lat, c.lng]);
+      const coords = data.coordinates; //lista sijainneista, joissa on lat ja lng
+      const latlngs = coords.map(c => [c.lat, c.lng]); //lista [lat, lng] reitin piirtämistä varten
 
       // piirtää reitin
       L.polyline(latlngs, { color: 'blue' }).addTo(map);
 
 
       coords.forEach(c => {
-        L.marker([c.lat, c.lng]).addTo(map).bindPopup(c.code);
-      });
+        L.marker([c.lat, c.lng]).addTo(map);
+      }); //lisätään merkki jokaiselle koordinaatille (tätä ei välttämättä tarvi)
 
 
-      const marker = L.marker(latlngs[0], { icon: planeIcon }).addTo(map);
+      const marker = L.marker(latlngs[0], { icon: planeIcon }).addTo(map); //asettaa lentokoneen lähtökohtaan
 
       // liikuttaa lentokonetta
       let segment = 0;
