@@ -24,7 +24,11 @@ async function sheetFunction() {
         const taskarray = jsondata.Tasks
         const mult = jsondata.mult
         let score = 0
+        let gainedscore = 0
         let wronganswers = 0
+        let lastanswercorrect = false
+
+        let isInTasks = false
 
 
         console.log('taskarray: ', taskarray)
@@ -34,27 +38,48 @@ async function sheetFunction() {
         const parsedtasks = taskarray.map(jsonStr => JSON.parse(jsonStr));
 
         let currentquestionindx = 0
+        let taskindex = 0
         function displayCurrentQuestion() {
-            if (currentquestionindx < parsedquestionsheets.length) {
+            const taskorclueindex = isInTasks ? taskindex : currentquestionindx
+            if (!isInTasks && currentquestionindx < parsedquestionsheets.length) {
                 const question = parsedquestionsheets[currentquestionindx]
                 countryclue.textContent = question.clue
                 a.textContent = question.a
                 b.textContent = question.b
                 c.textContent = question.c
-                enableButtons(true);
-                let questionnum = currentquestionindx+1
+                feedback.textContent = ""
+                enableButtons(true)
+                let questionnum = currentquestionindx + 1
                 let questionnum_str = toString(questionnum)
                 questionnumberdisplay.textContent = questionnum_str
+            } else if (isInTasks && currentquestionindx < parsedquestionsheets.length) {
+                const question = parsedtasks[currentquestionindx]
+                countryclue.textContent = question.task
+                a.textContent = question.a
+                b.textContent = question.b
+                c.textContent = question.c
+                feedback.textContent = ""
+                enableButtons(true)
+            }
 
-
-            } else {
+            else {
             window.location.href ="Python/templates/finish.html"
                 }
             }
 
         function nextQuestion() {
-            currentQuestionIndex++;
-            displayCurrentQuestion();
+            if (isInTasks) {
+                isInTasks = false
+                displayCurrentQuestion()
+            } else {
+                currentquestionindx++
+                if (lastanswercorrect) {
+                    isInTasks = true
+                    displayCurrentQuestion()
+                } else {
+                    displayCurrentQuestion()
+                }
+            }
         }
 
         function enableButtons(enabled) {
@@ -67,31 +92,27 @@ async function sheetFunction() {
             enableButtons(false)
             const currentQuestion = parsedquestionsheets[currentquestionindx]
             const answer = currentQuestion.answer
-            if (selected === answer) {
-                score = score+(100*mult)
-                const task = parsedtasks[currentquestionindx]
-                countryclue.textContent = task.task
-                a.textContent = task.a
-                b.textContent = task.b
-                c.textContent = task.c
-                enableButtons(true);
-
-            }
-            else {
-                score = score-(50*mult)
+            if (selected === answer && !isInTasks) {
+                gainedscore = 100*mult
+                score = score+gainedscore
+                feedback.textContent = "Correct, you got"; $(gainedscore); "points"
+                lastanswercorrect = true
+            } else if (selected !== answer && !isInTasks) {
+                gainedscore = 50*mult
+                score = score-gainedscore
+                feedback.textContent = "Oh no, you lost"; $(gainedscore); "points"
                 wronganswers++
-
+            } else if (selected === answer && isInTasks) {
+                gainedscore = 50*mult
+                feedback.textContent = "Correct, you got"; $(gainedscore); "points"
+                score = score+gainedscore
+            } else {
+                gainedscore = 25*mult
+                feedback.textContent = "Oh no, you lost"; $(gainedscore); "points"
+                score = score-gainedscore
             }
         }
 
-
-
-        parsedtasks.forEach(obj => {
-            console.log("Task: ", obj.task)
-            console.log("a: ", obj.a)
-            console.log("b: ", obj.b)
-            console.log("c: ", obj.c)
-        })
 
         document.getElementById('A').addEventListener('click', function(e) {
             e.preventDefault(); // Prevent form submission
