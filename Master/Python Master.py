@@ -83,7 +83,7 @@ def scoreboard():
 def new_game():
     return render_template("new_game.html")
 
-@app.route('/old_user')
+@app.route('/new_game/old_user')
 # tämä palauttaa listan vanhoista käyttäjistä valikkoa varten
 def old_users_fetch():
     sql = f"select screen_name from game;"
@@ -96,21 +96,22 @@ def old_users_fetch():
         users_list.append(user[0])
     return json.dumps(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
 
-@app.route('/old_user/<user>')
+@app.route('new_game/old_user/<user>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def get_user(user):
     user = user
-    sql = f"select * from game where screen_name = '{user}';"
+    sql = f"select screen_name from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
-    user_full_info = cursor.fetchall()
+    result = cursor.fetchone()
     cursor.close()
-    if not user:
-        pass #404
-    if user:
+    if not result:
+        jsonify({"error": "Not found", "code": 404}), 404
+    if result:
+        user = result
         return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
-@app.route("/new_user")
+@app.route("new_game/new_user")
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def create_new_user():
     user = requests.get.form("new_screen_name").text                                # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
@@ -120,7 +121,7 @@ def create_new_user():
     cursor.execute(sql)
     result = cursor.fetchone()
     if user in result:
-        pass #404
+        jsonify({"error": "Not found", "code": 404}), 404
     else:
         sql2 = f"update game set location = (select ident from airport where ident = 'EFHK') where screen_name = '{user}';"
         cursor.execute(sql2)
@@ -130,8 +131,13 @@ def create_new_user():
 
 # HAHMONLUONTI PÄÄTTYY TÄHÄN
 
+#                  REITIN PITUUDEN VALINTA TÄHÄN:
 
-@app.route('/flight_game/<length>')
+@app.route('/new_game/pick_lenght')
+def pick_lenght():
+    return render_template(pick_lenght.html)                        #SYÖTETÄÄN 'lenght' arvo (5, 10, 15) Ronin koodille
+
+@app.route('/new_game/<length>')
 def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funktioita :D)
     try:
         length = int(length)

@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e684d2c0-3104-4a44-b637-96bb8c9f0a7a" name="Changes" comment="scoreboard">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Master/Python Master.py" beforeDir="false" afterPath="$PROJECT_DIR$/Master/Python Master.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python/templates/scoreboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/Python/templates/scoreboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testit/Pythontest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Testit/Pythontest.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +103,7 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "JavaScript Debug.main_menu.html.executor": "Run",
     "Python.Python Master.executor": "Run",
+    "Python.Pythontest.executor": "Run",
     "Python.main.executor": "Run",
     "Python.main_menu.executor": "Run",
     "Python.mainmenu-hahmonluonti.executor": "Run",
@@ -181,7 +183,9 @@
       <workItem from="1746354823550" duration="257000" />
       <workItem from="1746355089534" duration="370000" />
       <workItem from="1746355573807" duration="487000" />
-      <workItem from="1746356076619" duration="15959000" />
+      <workItem from="1746356076619" duration="16569000" />
+      <workItem from="1746470289739" duration="857000" />
+      <workItem from="1746603726787" duration="1521000" />
     </task>
     <task id="LOCAL-00001" summary="Main menu html,js ja backend luotu">
       <option name="closed" value="true" />
@@ -383,7 +387,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746368879343</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="scoreboard">
+      <option name="closed" value="true" />
+      <created>1746378652106</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1746378652107</updated>
+    </task>
+    <task id="LOCAL-00027" summary="scoreboard">
+      <option name="closed" value="true" />
+      <created>1746378930335</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1746378930335</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,7 +445,8 @@
     <SUITE FILE_PATH="coverage/Flight_game2$testi.coverage" NAME="testi Coverage Results" MODIFIED="1746187780916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pauliinan testit" />
     <SUITE FILE_PATH="coverage/Flight_game2$main_menu.coverage" NAME="main_menu Coverage Results" MODIFIED="1746185726721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pauliinan testit" />
     <SUITE FILE_PATH="coverage/Flight_game2$Python_Master.coverage" NAME="Python Master Coverage Results" MODIFIED="1746367899040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Master" />
-    <SUITE FILE_PATH="coverage/Flight_game2$main.coverage" NAME="main Coverage Results" MODIFIED="1746367150554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Flight_game2$Pythontest.coverage" NAME="Pythontest Coverage Results" MODIFIED="1746605257501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Testit" />
+    <SUITE FILE_PATH="coverage/Flight_game2$main.coverage" NAME="main Coverage Results" MODIFIED="1746605191061" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flight_game2$mainmenu_hahmonluonti.coverage" NAME="mainmenu-hahmonluonti Coverage Results" MODIFIED="1746361623603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/outin_testit" />
   </component>
 </project>
