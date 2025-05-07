@@ -14,4 +14,4 @@
             row.appendChild(scoreRow);
             insideTable.appendChild(row);
         }
-    )}
+    )})
