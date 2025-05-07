@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Scoreboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
+    <script src="../static/scoreboard.js" defer></script>
 </head>
 <body>
 <div class="row">
 <div class="column">
+  <h1>Scoreboard</h1>
 <div id ="scoreboard">
-    <h1>Scoreboard</h1>
+
     <table>
         <tr>
             <th>User</th>
@@ -18,23 +21,12 @@
         </tbody>
     </table>
 </div></div></div>
+<audio autoplay="autoplay" controls="controls">
+     <source src="{{ url_for('static', filename='musa.mp3') }}"/>
+ </audio>
 </body>
 </html>
 
 <script>
-    fetch("/scoreboard")
-    .then(response => response.json())
-    .then(data =>
-        const insideTable = document.querySelector('#insideTable tbody');
-        data.forEach(entry => {
-            const row = document.createElement('tr')
-            const userRow = document.createElement('td');
-            const scoreRow = document.createElement('td');
-            userRow.textContent = entry.user
-            scoreRow.textContent = entry.score
-            row.appendChild(userRow);
-            row.appendChild(scoreRow);
-            insideTable.appendChild(row);
-        }
-    )
+
 </script>

@@ -107,3 +107,24 @@ button:active {
   transform: translateY(10px);
   transition: 100ms;
 }
+
+
+table {
+    table-layout: fixed;
+    width: 100%;
+  border-collapse: collapse;
+    border-color: #03A9F4;
+    border: 10px;
+    padding: 5px;
+    color: #C9E8FF;
+    font-family: "Bookman Old Style";
+}
+
+th {
+    font-family: "Bookman Old Style";
+    color: #C9E8FF;
+}
+
+#scoreboard {
+    background-color: #01579B;
+}
