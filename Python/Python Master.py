@@ -116,7 +116,7 @@ def old_users_fetch():
         users_list.append(user[0])
     return json.dumps(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
 
-@app.route('new_game/old_user/<user>')
+@app.route('/new_game/old_user/<user>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def get_user(user):
     user = user
@@ -131,7 +131,7 @@ def get_user(user):
         user = result
         return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
-@app.route("new_game/new_user")
+@app.route("/new_game/new_user")
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def create_new_user():
     user = requests.get.form("new_screen_name").text                                # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
@@ -326,20 +326,20 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             return game_state['tasklist']
 
     ####TÄN PITÄIS HAKEE KOORDINATIT KARTTAAN, VOI OLLA ET PITÄÄ VIEL MUOKKAA  :DDD
-        cursor = yhteys.cursor(dictionary=True)
-        coordinates = []
+        #cursor = yhteys.cursor(dictionary=True)
+        #coordinates = []
 
-        for airport_code in airport_list:
-            cursor.execute("SELECT latitude_deg, longitude_deg FROM airport WHERE ident = %s", (airport_code,))
-            result = cursor.fetchone()
-            if result:
-                coordinates.append({
-                    "lat": result["latitude_deg"],
-                    "lng": result["longitude_deg"],
-                    "code": airport_code
-                })
+        #for airport_code in airport_list:
+            #cursor.execute("SELECT latitude_deg, longitude_deg FROM airport WHERE ident = %s", (airport_code,))
+            #result = cursor.fetchone()
+            #if result:
+                #coordinates.append({
+                    #"lat": result["latitude_deg"],
+                    #"lng": result["longitude_deg"],
+                    #"code": airport_code
+                #})
 
-        cursor.close()
+        #cursor.close()
 
         mult = mult_calc(length)
         routecreator(length, game_state)
