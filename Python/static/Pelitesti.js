@@ -88,6 +88,7 @@ async function sheetFunction() {
                     displayCurrentQuestion()
                 } else {
                     displayCurrentQuestion()
+                    taskindex++
                 }
             }
         }
