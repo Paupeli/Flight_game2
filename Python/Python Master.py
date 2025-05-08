@@ -179,6 +179,10 @@ def create_new_user(username):
 def new_user():
     return render_template("new_user.html")
 
+@app.route("/new_game/questionsheet")
+def questions():
+    return render_template("questionsheet.html")
+
 # HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
 # REITIN PITUUDEN VALINTA TÄHÄN:
