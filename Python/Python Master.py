@@ -118,7 +118,7 @@ def save_score(user):
         yhteys.commit()
         cursor.close()
     else: new_high_score = False
-    return jsonify(new_high_score)                                                             #Tarkistetaan toimiiko true/false
+    return jsonify({"new_high_score": new_high_score})                                                             #Tarkistetaan toimiiko true/false
 
 # HAHMON VALINTA JA LUONTI:
 
