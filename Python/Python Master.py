@@ -1,4 +1,6 @@
-from flask import Flask, jsonify, render_template, Response, redirect
+from formatter import NullWriter
+
+from flask import Flask, jsonify, render_template, Response, redirect, request
 from flask_cors import CORS
 import json
 import mysql.connector
@@ -30,12 +32,10 @@ def reset_game_state():
         'airport_list': [],
         'wrong_country_list': [],
         'done_country_list': [],
-        'cluelist': [],
+        'cluelist': [],                         #clues ei vielä missään!
         'tasklist': [],
-        'questionsheets': [],
-        'total_points': 0,
-        'wrong_answers': 0,
-        'points': 0
+        'questionsheets': []
+       # 'user': None                       #Lisätty user-arvo tänne, emt vielä muokkaanko frontissa eri?
     }
 
 #samat vanhat listat ja pistehommelit kuin vanhassakin
@@ -96,6 +96,30 @@ def scoreboard_json():
         return_data.append({"screen_name" : screen_name , "high_score" : high_score})
     return jsonify(return_data)
 
+@app.route("/flight_game/scoreboard/save_score/<user>", methods=['POST'])
+def save_score(user):
+    new_high_score = False
+    data = request.get_json()
+    score = data.get('score')
+    sql1 = f"select high_score from game where screen_name = '{user}';"
+    cursor = yhteys.cursor()
+    cursor.execute(sql1)
+    high_score = cursor.fetchone()
+    if high_score or high_score[0] is None:
+        new_high_score = True
+        sql2 = f"update game set high_score = {score} where screen_name = '{user}';"
+        cursor.execute(sql2)
+        yhteys.commit()
+        cursor.close()
+    elif high_score[0] < score:
+        new_high_score = True
+        sql2 = f"update game set high_score = {score} where screen_name = '{user}';"
+        cursor.execute(sql2)
+        yhteys.commit()
+        cursor.close()
+    else: new_high_score = False
+    return jsonify(new_high_score)                                                             #Tarkistetaan toimiiko true/false
+
 # HAHMON VALINTA JA LUONTI:
 
 @app.route("/new_game")
@@ -103,7 +127,11 @@ def scoreboard_json():
 def new_game():
     return render_template("new_game.html")
 
-@app.route('/new_game/old_user')
+@app.route("/new_game/old_user")
+def old_user():
+    return render_template("old_user.html")
+
+@app.route('/new_game/old_user/fetch')
 # tämä palauttaa listan vanhoista käyttäjistä valikkoa varten
 def old_users_fetch():
     sql = f"select screen_name from game;"
@@ -114,7 +142,7 @@ def old_users_fetch():
     users_list = []
     for user in users:
         users_list.append(user[0])
-    return json.dumps(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
+    return jsonify(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
 
 @app.route('/new_game/old_user/<user>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
