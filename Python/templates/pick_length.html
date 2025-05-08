@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pick Length</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
+</head>
+<body>
+<div class="row">
+<div class="column">
+<div id="New Game">
+    <h1>Pick the Length of Your Route</h1>
+    <button onclick="startGame(5)">5</button>
+    <button onclick="startGame(10)">10</button>
+    <button onclick="startGame(15)">15</button>
+    <button onclick="window.location.href='/main_menu'">Main Menu</button>
+</div>
+</div>
+</div>
+<script>
+function startGame(length) {
+    window.location.href = `/new_game/${length}`;
+}
+</script>
+</body>
+</html>
