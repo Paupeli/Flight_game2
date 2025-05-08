@@ -20,6 +20,7 @@ async function sheetFunction() {
         console.log('All Data:', jsondata)
         console.log('Questionsheets', jsondata.questionsheets)
         console.log('Tasks', jsondata.Tasks)
+        let taskindex = 0
 
         const questionsheetarray = jsondata.questionsheets
         const taskarray = jsondata.Tasks
@@ -59,7 +60,7 @@ async function sheetFunction() {
                 let questionnum_str = questionnum.toString()
                 questionnumberdisplay.textContent = "Current question: " + questionnum_str
             } else if (isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
-                const question = parsedtasks[currentquestionindx]
+                const question = parsedtasks[taskindex]
                 countryclue.textContent = question.task
                 a.textContent = question.a
                 b.textContent = question.b
@@ -78,6 +79,7 @@ async function sheetFunction() {
         function nextQuestion() {
             if (isInTasks) {
                 isInTasks = false
+                taskindex++
                 displayCurrentQuestion()
             } else {
                 currentquestionindx++
