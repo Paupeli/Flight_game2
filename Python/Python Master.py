@@ -179,7 +179,11 @@ def create_new_user(username):
 def new_user():
     return render_template("new_user.html")
 
-# HAHMONLUONTI PÄÄTTYY TÄHÄN.
+@app.route("/new_game/questionsheet")
+def questions():
+    return render_template("questionsheet.html")
+
+# HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
 # PELIN LOPETUS:
 @app.route("/new_game/finish")
