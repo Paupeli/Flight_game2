@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New User</title>
+    <script src="{{ url_for('static', filename='new_user.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
+</head>
+<body>
+<div class="row">
+<div class="column">
+    <h1>Create New User</h1>
+    <div id="new-user-form">
+        <input type="text" id="username-input" placeholder="Enter username" class="username-input">
+        <button id="create-user-btn" class="username-button">Create User</button>
+    </div>
+    <button id="new_game-btn">Go Back</button>
+    <button id="main_menu-btn">Main Menu</button>
+    <button id="quit-btn">Quit</button>
+</div></div>
+
+<audio autoplay="autoplay" controls="controls">
+     <source src="{{ url_for('static', filename='musa.mp3') }}"/>
+ </audio>
+</body>
+</html>

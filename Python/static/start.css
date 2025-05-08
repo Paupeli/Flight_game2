@@ -133,3 +133,41 @@ th {
 
     margin: 10px;
 }
+
+.username-button {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #C9E8FF;
+    color: #01579B;
+    border: 2px solid #01579B;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Bookman Old Style";
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.username-button:hover {
+    background-color: #01579B;
+    color: #C9E8FF;
+}
+
+.username-input {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: 2px solid #01579B;
+    border-radius: 5px;
+    font-family: "Bookman Old Style";
+    font-size: 16px;
+    color: #01579B;
+}
+
+.username-input:focus {
+    outline: none;
+    border-color: #03A9F4;
+    box-shadow: 0 0 5px #03A9F4;
+}

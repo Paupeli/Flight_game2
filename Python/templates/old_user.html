@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>New Game</title>
-    <script src="../../outin_testit/Static_OUTI/main_menu_javascript.js" defer></script>
-    <link rel="stylesheet" href="../../start.css">
+    <script src="{{ url_for('static', filename='old_user.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
 </head>
 
 <body>
+
 <div class="row">
 <div class="column">
-<div id ="new-saved-select">
-    <h1>New Game</h1>
-    <button id="saved-user-btn">Saved User</button>
-    <button id="new-user-btn">New User</button>
-    <button id="quit-btn">Quit</button>
-</div></div></div>
+  <h1>Choose your username</h1>
+<div id="OldUser">
+    <div id="insideTable">
+        <!-- nimimerkit tähän -->
+    </div>
+</div>
+    <button id="new_game-btn" >Go Back</button>
+<button id="main_menu-btn">Main Menu</button>
+    <button id="quit-btn">Quit</button></div></div>
+
+
+
 <audio autoplay="autoplay" controls="controls">
      <source src="{{ url_for('static', filename='musa.mp3') }}"/>
  </audio>
