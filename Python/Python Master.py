@@ -1,4 +1,6 @@
-from flask import Flask, jsonify, render_template, Response, redirect
+from formatter import NullWriter
+
+from flask import Flask, jsonify, render_template, Response, redirect, request
 from flask_cors import CORS
 import json
 import mysql.connector
@@ -30,12 +32,10 @@ def reset_game_state():
         'airport_list': [],
         'wrong_country_list': [],
         'done_country_list': [],
-        'cluelist': [],
+        'cluelist': [],                         #clues ei vielä missään!
         'tasklist': [],
-        'questionsheets': [],
-        'total_points': 0,
-        'wrong_answers': 0,
-        'points': 0
+        'questionsheets': []
+       # 'user': None                       #Lisätty user-arvo tänne, emt vielä muokkaanko frontissa eri?
     }
 
 #samat vanhat listat ja pistehommelit kuin vanhassakin
@@ -96,6 +96,30 @@ def scoreboard_json():
         return_data.append({"screen_name" : screen_name , "high_score" : high_score})
     return jsonify(return_data)
 
+@app.route("/flight_game/scoreboard/save_score/<user>", methods=['POST'])
+def save_score(user):
+    new_high_score = False
+    data = request.get_json()
+    score = data.get('score')
+    sql1 = f"select high_score from game where screen_name = '{user}';"
+    cursor = yhteys.cursor()
+    cursor.execute(sql1)
+    high_score = cursor.fetchone()
+    if high_score is None or high_score[0] is None:
+        new_high_score = True
+        sql2 = f"update game set high_score = {score} where screen_name = '{user}';"
+        cursor.execute(sql2)
+        yhteys.commit()
+        cursor.close()
+    elif high_score[0] < score:
+        new_high_score = True
+        sql2 = f"update game set high_score = {score} where screen_name = '{user}';"
+        cursor.execute(sql2)
+        yhteys.commit()
+        cursor.close()
+    else: new_high_score = False
+    return jsonify({"new_high_score": new_high_score})                                                             #Tarkistetaan toimiiko true/false
+
 # HAHMON VALINTA JA LUONTI:
 
 @app.route("/new_game")
@@ -103,7 +127,11 @@ def scoreboard_json():
 def new_game():
     return render_template("new_game.html")
 
-@app.route('/new_game/old_user')
+@app.route("/new_game/old_user")
+def old_user():
+    return render_template("old_user.html")
+
+@app.route('/new_game/old_user/fetch')
 # tämä palauttaa listan vanhoista käyttäjistä valikkoa varten
 def old_users_fetch():
     sql = f"select screen_name from game;"
@@ -114,28 +142,27 @@ def old_users_fetch():
     users_list = []
     for user in users:
         users_list.append(user[0])
-    return json.dumps(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
+    return jsonify(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
 
-@app.route('/new_game/old_user/<user>')
+@app.route('/new_game/old_user/<username>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
-def get_user(user):
-    user = user
-    sql = f"select screen_name from game where screen_name = '{user}';"
+def get_user(username):
+    sql = f"select screen_name from game where screen_name = '{username}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchone()
     cursor.close()
     if not result:
-        jsonify({"error": "Not found", "code": 404}), 404
-    if result:
-        user = result
-        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+        return jsonify({"error": "Not found", "code": 404}), 404
+    user = result[0]
+    return jsonify({'username': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
+                                            # ELI tämä vain päivittää user-arvon bäkkärille mutta ei palauta mitään :)
 
-@app.route("/new_game/new_user")
+@app.route("/new_game/new_user/<username>")
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
-def create_new_user():
-    user = requests.get.form("new_screen_name").text                                # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
+def create_new_user(username):                               # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
     #Huom, sql-injektion esto puuttuu :D
+    user = username
     sql = f"select screen_name from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
@@ -143,20 +170,21 @@ def create_new_user():
     if user in result:
         jsonify({"error": "Not found", "code": 404}), 404
     else:
-        sql2 = f"update game set location = (select ident from airport where ident = 'EFHK') where screen_name = '{user}';"
+        #Tehdään uusi id !
+        new_id = "SELECT COALESCE(MAX(id), 0) + 1 FROM game;"
+        cursor.execute(new_id)
+        next_id = cursor.fetchone()[0]
+
+        #tungetaan käyttäjä sql:ään
+        sql2 = f"INSERT INTO game (id, location, screen_name, score, high_score) VALUES ('{next_id}', 'EFHK', '{user}', 0, 0);"
         cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
-        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+        return jsonify({'username': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
-@app.route("/new_user")
-#tämä avaa new game -valikon (url)
-def new_game():
-    return render_template("new_user.html")
+# HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
-# HAHMONLUONTI PÄÄTTYY TÄHÄN
-
-#                  REITIN PITUUDEN VALINTA TÄHÄN:
+# REITIN PITUUDEN VALINTA TÄHÄN:
 
 @app.route('/new_game/pick_lenght')
 def pick_lenght():
@@ -354,7 +382,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
 
         #pyöräyttää edelliset funktiot parametreinään reitin pituus
         response = {
-
+          
             "countries": game_state['country_list'],
             "airports": game_state['airport_list'],
             "wrong countries": game_state['wrong_country_list'],
