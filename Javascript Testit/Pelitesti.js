@@ -12,7 +12,9 @@ let feedback = document.querySelector('#feedback')
 async function sheetFunction() {
     console.log('Fetching..')
     try {
-        const response = await fetch(`http://127.0.0.1:2192/flight_game/5`)
+        const gameLenght = localStorage.getItem('gameLenght');
+        const username = localStorage.getItem('username');
+        const response = await fetch(`http://127.0.0.1:2192/new_game/${gameLenght}`)
         const jsondata = await response.json()
 
         console.log('All Data:', jsondata)
@@ -62,6 +64,8 @@ async function sheetFunction() {
             }
 
             else {
+            localStorage.setItem('finalScore', score);
+            localStorage.setItem('username', username);
             window.location.href ="Python/templates/finish.html"
                 }
             }
