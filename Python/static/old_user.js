@@ -12,7 +12,6 @@ fetch("/new_game/old_user/fetch")
             button.addEventListener('click', () => {
                 window.location.href = '/new_game/pick_length';
             });
-
             insideTable.appendChild(button);
         });
     });
