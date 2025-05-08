@@ -1,8 +1,8 @@
 'use strict'
 const countryclue = document.querySelector('#questionname')
-const a = document.querySelector('#A')
-const b = document.querySelector('#B')
-const c = document.querySelector('#C')
+const A = document.querySelector('#A')
+const B = document.querySelector('#B')
+const C = document.querySelector('#C')
 const scoredisplay = document.querySelector('#score')
 const wronganswerdisplay = document.querySelector('#wronganswers')
 const questionnumberdisplay = document.querySelector('#question_num')
@@ -102,13 +102,15 @@ async function sheetFunction() {
                 if (selected === answer) {
                     gainedscore = 100*mult
                     score = score+gainedscore
-                    feedback.textContent = "Correct, you got" + gainedscore + "points"
+                    let gainedscorestr = gainedscore.toString()
+                    feedback.textContent = "Correct, you got" + gainedscorestr + "points"
                     lastanswercorrect = true
                     scoredisplay.textContent = score
                 } else if (selected !== answer) {
                     gainedscore = 50*mult
                     score = score-gainedscore
-                    feedback.textContent = "Oh no, you lost" + gainedscore + "points"
+                    let gainedscorestr = gainedscore.toString()
+                    feedback.textContent = "Oh no, you lost" + gainedscorestr + "points"
                     wronganswers++
                     scoredisplay.textContent = score
                     lastanswercorrect = false
@@ -121,12 +123,14 @@ async function sheetFunction() {
                 const answer = currentQuestion.correct_answer
                 if (selected === answer && isInTasks) {
                     gainedscore = 50*mult
-                    feedback.textContent = "Correct, you got"+ gainedscore+ "points"
+                    let gainedscorestr = gainedscore.toString()
+                    feedback.textContent = "Correct, you got"+ gainedscorestr + "points"
                     score = score+gainedscore
                     scoredisplay.textContent = score
                 } else {
                     gainedscore = 25*mult
-                    feedback.textContent = "Oh no, you lost"+ gainedscore+ "points"
+                    let gainedscorestr = gainedscore.toString()
+                    feedback.textContent = "Oh no, you lost"+ gainedscorestr + "points"
                     score = score-gainedscore
                     scoredisplay.textContent = score
                 }}
