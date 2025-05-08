@@ -115,6 +115,7 @@ async function sheetFunction() {
                     let wronganswersstr = wronganswers.toString()
                     wronganswerdisplay.textContent = wronganswersstr
                 }
+
             } else {
                 const currentQuestion = parsedtasks[currentquestionindx]
                 const answer = currentQuestion.correct_answer
