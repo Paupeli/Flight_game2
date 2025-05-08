@@ -10,3 +10,7 @@ document.getElementById("new-user-btn").addEventListener("click", () => {
 document.getElementById("quit-btn").addEventListener("click", () => {
   window.location.href = "/start"; //byeee
 });
+
+document.getElementById("main_menu-btn").addEventListener("click", () => {
+  window.location.href = "/main_menu"; //main menuun menee tämä
+});
