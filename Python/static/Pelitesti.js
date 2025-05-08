@@ -14,7 +14,7 @@ async function sheetFunction() {
     try {
         const gameLength = localStorage.getItem('gameLength');
         const username = localStorage.getItem('username');
-        const response = await fetch(`http://127.0.0.1:2192/new_game/${gameLength}`)
+        const response = await fetch(`http://127.0.0.1:3000/createroute/10`)
         const jsondata = await response.json()
 
         console.log('All Data:', jsondata)
@@ -39,15 +39,17 @@ async function sheetFunction() {
 
         const parsedquestionsheets = questionsheetarray.map(jsonStr => JSON.parse(jsonStr));
         const parsedtasks = taskarray.map(jsonStr => JSON.parse(jsonStr));
+        console.log(parsedquestionsheets)
+        console.log(parsedtasks)
 
         let currentquestionindx = 0
         function displayCurrentQuestion() {
             if (!isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
                 const question = parsedquestionsheets[currentquestionindx]
-                countryclue.textContent = question.clue
-                a.textContent = question.a
-                b.textContent = question.b
-                c.textContent = question.c
+                countryclue.textContent = question.clu
+                a.textContent = question.A
+                b.textContent = question.B
+                c.textContent = question.C
                 feedback.textContent = ""
                 enableButtons(true)
                 let questionnum = currentquestionindx + 1
@@ -66,7 +68,7 @@ async function sheetFunction() {
             else {
             localStorage.setItem('finalScore', score);
             localStorage.setItem('username', username);
-            window.location.href ="Python/templates/finish.html"
+            window.location.href ="../templates/finish.html"
                 }
             }
 
@@ -100,30 +102,31 @@ async function sheetFunction() {
                 if (selected === answer) {
                     gainedscore = 100*mult
                     score = score+gainedscore
-                    feedback.textContent = "Correct, you got" + $(gainedscore) + "points"
+                    feedback.textContent = "Correct, you got" + gainedscore + "points"
                     lastanswercorrect = true
                     scoredisplay.textContent = score
                 } else if (selected !== answer) {
                     gainedscore = 50*mult
                     score = score-gainedscore
-                    feedback.textContent = "Oh no, you lost" + $(gainedscore) + "points"
+                    feedback.textContent = "Oh no, you lost" + gainedscore + "points"
                     wronganswers++
                     scoredisplay.textContent = score
                     lastanswercorrect = false
                     let wronganswersstr = wronganswers.toString()
                     wronganswerdisplay.textContent = wronganswersstr
                 }
+
             } else {
                 const currentQuestion = parsedtasks[currentquestionindx]
-                const answer = currentQuestion.answer
+                const answer = currentQuestion.correct_answer
                 if (selected === answer && isInTasks) {
                     gainedscore = 50*mult
-                    feedback.textContent = "Correct, you got"+ $(gainedscore)+ "points"
+                    feedback.textContent = "Correct, you got"+ gainedscore+ "points"
                     score = score+gainedscore
                     scoredisplay.textContent = score
                 } else {
                     gainedscore = 25*mult
-                    feedback.textContent = "Oh no, you lost"+ $(gainedscore)+ "points"
+                    feedback.textContent = "Oh no, you lost"+ gainedscore+ "points"
                     score = score-gainedscore
                     scoredisplay.textContent = score
                 }}
