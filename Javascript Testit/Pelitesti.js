@@ -1,6 +1,5 @@
 'use strict'
 const countryclue = document.querySelector('#questionname')
-const playerguess = document.querySelector('#guess')
 const a = document.querySelector('#A')
 const b = document.querySelector('#B')
 const c = document.querySelector('#C')
@@ -13,7 +12,7 @@ let feedback = document.querySelector('#feedback')
 async function sheetFunction() {
     console.log('Fetching..')
     try {
-        const response = await fetch(`http://127.0.0.1:3000/flight_game/5`)
+        const response = await fetch(`http://127.0.0.1:2192/flight_game/5`)
         const jsondata = await response.json()
 
         console.log('All Data:', jsondata)
@@ -27,6 +26,8 @@ async function sheetFunction() {
         let gainedscore = 0
         let wronganswers = 0
         let lastanswercorrect = false
+        scoredisplay.textContent = score
+        wronganswerdisplay.textContent = wronganswers
 
         let isInTasks = false
 
@@ -38,10 +39,8 @@ async function sheetFunction() {
         const parsedtasks = taskarray.map(jsonStr => JSON.parse(jsonStr));
 
         let currentquestionindx = 0
-        let taskindex = 0
         function displayCurrentQuestion() {
-            const taskorclueindex = isInTasks ? taskindex : currentquestionindx
-            if (!isInTasks && currentquestionindx < parsedquestionsheets.length) {
+            if (!isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
                 const question = parsedquestionsheets[currentquestionindx]
                 countryclue.textContent = question.clue
                 a.textContent = question.a
@@ -50,9 +49,9 @@ async function sheetFunction() {
                 feedback.textContent = ""
                 enableButtons(true)
                 let questionnum = currentquestionindx + 1
-                let questionnum_str = toString(questionnum)
+                let questionnum_str = questionnum.toString()
                 questionnumberdisplay.textContent = questionnum_str
-            } else if (isInTasks && currentquestionindx < parsedquestionsheets.length) {
+            } else if (isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
                 const question = parsedtasks[currentquestionindx]
                 countryclue.textContent = question.task
                 a.textContent = question.a
@@ -90,27 +89,41 @@ async function sheetFunction() {
 
         function checkAnswer(selected) {
             enableButtons(false)
-            const currentQuestion = parsedquestionsheets[currentquestionindx]
-            const answer = currentQuestion.answer
-            if (selected === answer && !isInTasks) {
-                gainedscore = 100*mult
-                score = score+gainedscore
-                feedback.textContent = "Correct, you got"; $(gainedscore); "points"
-                lastanswercorrect = true
-            } else if (selected !== answer && !isInTasks) {
-                gainedscore = 50*mult
-                score = score-gainedscore
-                feedback.textContent = "Oh no, you lost"; $(gainedscore); "points"
-                wronganswers++
-            } else if (selected === answer && isInTasks) {
-                gainedscore = 50*mult
-                feedback.textContent = "Correct, you got"; $(gainedscore); "points"
-                score = score+gainedscore
+
+            if (!isInTasks) {
+                const currentQuestion = parsedquestionsheets[currentquestionindx]
+                const answer = currentQuestion.answer
+                if (selected === answer) {
+                    gainedscore = 100*mult
+                    score = score+gainedscore
+                    feedback.textContent = "Correct, you got" + $(gainedscore) + "points"
+                    lastanswercorrect = true
+                    scoredisplay.textContent = score
+                } else if (selected !== answer) {
+                    gainedscore = 50*mult
+                    score = score-gainedscore
+                    feedback.textContent = "Oh no, you lost" + $(gainedscore) + "points"
+                    wronganswers++
+                    scoredisplay.textContent = score
+                    lastanswercorrect = false
+                    let wronganswersstr = wronganswers.toString()
+                    wronganswerdisplay.textContent = wronganswersstr
+                }
             } else {
-                gainedscore = 25*mult
-                feedback.textContent = "Oh no, you lost"; $(gainedscore); "points"
-                score = score-gainedscore
-            }
+                const currentQuestion = parsedtasks[currentquestionindx]
+                const answer = currentQuestion.answer
+                if (selected === answer && isInTasks) {
+                    gainedscore = 50*mult
+                    feedback.textContent = "Correct, you got"+ $(gainedscore)+ "points"
+                    score = score+gainedscore
+                    scoredisplay.textContent = score
+                } else {
+                    gainedscore = 25*mult
+                    feedback.textContent = "Oh no, you lost"+ $(gainedscore)+ "points"
+                    score = score-gainedscore
+                    scoredisplay.textContent = score
+                }}
+            setTimeout(nextQuestion, 2000)
         }
 
 
@@ -128,6 +141,9 @@ async function sheetFunction() {
             e.preventDefault(); // Prevent form submission
             checkAnswer('C');
         });
+
+        enableButtons(false)
+        displayCurrentQuestion()
 
 
     } catch (error) {
