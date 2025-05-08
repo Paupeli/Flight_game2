@@ -23,5 +23,8 @@ function startGame(length) {
     window.location.href = `/new_game/${length}`;
 }
 </script>
+<audio autoplay="autoplay" controls="controls">
+     <source src="{{ url_for('static', filename='musa.mp3') }}"/>
+ </audio>
 </body>
 </html>
