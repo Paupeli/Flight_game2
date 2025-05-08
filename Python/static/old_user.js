@@ -1,6 +1,6 @@
 'use strict'
 
-fetch("/new_game/old_user")
+fetch("/new_game/old_user/fetch")
     .then(response => response.json())
     .then(data => {
         const insideTable = document.getElementById('insideTable');
