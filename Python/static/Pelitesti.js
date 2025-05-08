@@ -1,8 +1,8 @@
 'use strict'
 const countryclue = document.querySelector('#questionname')
-const A = document.querySelector('#A')
-const B = document.querySelector('#B')
-const C = document.querySelector('#C')
+const a = document.querySelector('#A')
+const b = document.querySelector('#B')
+const c = document.querySelector('#C')
 const scoredisplay = document.querySelector('#score')
 const wronganswerdisplay = document.querySelector('#wronganswers')
 const questionnumberdisplay = document.querySelector('#question_num')
@@ -14,7 +14,7 @@ async function sheetFunction() {
     try {
         const gameLength = localStorage.getItem('gameLength');
         const username = localStorage.getItem('username');
-        const response = await fetch(`http://127.0.0.1:3000/createroute/10`)
+        const response = await fetch(`http://127.0.0.1:3000/createroute/${gameLength}`)
         const jsondata = await response.json()
 
         console.log('All Data:', jsondata)
@@ -50,9 +50,9 @@ async function sheetFunction() {
             if (!isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
                 const question = parsedquestionsheets[currentquestionindx]
                 countryclue.textContent = question.clu
-                A.textContent = question.A
-                B.textContent = question.B
-                C.textContent = question.C
+                a.textContent = question.a
+                b.textContent = question.b
+                c.textContent = question.c
                 feedback.textContent = ""
                 enableButtons(true)
                 let questionnum = currentquestionindx + 1
@@ -61,9 +61,9 @@ async function sheetFunction() {
             } else if (isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
                 const question = parsedtasks[currentquestionindx]
                 countryclue.textContent = question.task
-                A.textContent = question.a
-                B.textContent = question.b
-                C.textContent = question.c
+                a.textContent = question.a
+                b.textContent = question.b
+                c.textContent = question.c
                 feedback.textContent = ""
                 enableButtons(true)
             }
@@ -101,7 +101,7 @@ async function sheetFunction() {
 
             if (!isInTasks) {
                 const currentQuestion = parsedquestionsheets[currentquestionindx]
-                const answer = currentQuestion.answer
+                const answer = currentQuestion.correct_answer
                 if (selected === answer) {
                     gainedscore = 100*mult
                     score = score+gainedscore
@@ -123,7 +123,7 @@ async function sheetFunction() {
 
             } else {
                 const currentQuestion = parsedtasks[currentquestionindx]
-                const answer = currentQuestion.correct_answer
+                const answer = currentQuestion.answer
                 if (selected === answer && isInTasks) {
                     gainedscore = 50*mult
                     feedback.textContent = "Correct, you got "+ gainedscore + "points"
@@ -142,17 +142,17 @@ async function sheetFunction() {
 
         document.getElementById('A').addEventListener('click', function(e) {
             e.preventDefault(); // Prevent form submission
-            checkAnswer('A');
+            checkAnswer('a');
         });
 
         document.getElementById('B').addEventListener('click', function(e) {
             e.preventDefault(); // Prevent form submission
-            checkAnswer('B');
+            checkAnswer('b');
         });
 
         document.getElementById('C').addEventListener('click', function(e) {
             e.preventDefault(); // Prevent form submission
-            checkAnswer('C');
+            checkAnswer('c');
         });
 
         enableButtons(false)
