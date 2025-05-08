@@ -12,20 +12,12 @@
         <div class="column">
             <div id="pause-menu">
 <h1>Game Paused</h1>
-                <div class="button-group">
-                    <button id="btn-main-menu">Main Menu</button>
-                    <button id="btn-continue">Continue</button>
-                    <button id="btn-scoreboard">Scoreboard</button>
-                    <button id="btn-rules">Rules</button>
-                    <button id="btn-quit">Quit</button>
-                </div>
-                <div id="pause-response"></div>
-            </div>
-        </div>
-    </div>
+           <button class="menu-button" onclick="window.location.href='/main_menu'">Return to Main Menu</button>
+                <button class="menu-button" onclick="window.history.back()">Continue</button>
 <audio autoplay="autoplay" controls="controls">
      <source src="{{ url_for('static', filename='musa.mp3') }}"/>
  </audio>
+            </div></div></div>
 </body>
 </html>
 

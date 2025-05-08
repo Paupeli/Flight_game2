@@ -48,17 +48,10 @@ def main_menu(): #tästä mennää takasin aloitussivulle
 
 #PAUSE MENU
 
-@app.route("/scoreboard")
-def pause_scoreboard_html():
-    return render_template('scoreboard.html')  #vie scoreboardiin
+@app.route("/pause")
+def pause():
+    return render_template("pause_menu.html")
 
-@app.route("/rules")
-def pause_rules():
-    return render_template("rules.html")  #vie rulesiin
-
-@app.route("/quit")
-def quit_game():
-    return redirect('/') #vie takas alotussivulle
 
 #PAUSE MENU LOPPUU TÄHÄN!!
 
