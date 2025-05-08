@@ -14,7 +14,7 @@ async function sheetFunction() {
     try {
         const gameLength = localStorage.getItem('gameLength');
         const username = localStorage.getItem('username');
-        const response = await fetch(`http://127.0.0.1:3000/createroute/10`)
+        const response = await fetch(`http://127.0.0.1:3000/createroute/${gameLength}`)
         const jsondata = await response.json()
 
         console.log('All Data:', jsondata)
