@@ -14,7 +14,7 @@ async function sheetFunction() {
     try {
         const gameLenght = localStorage.getItem('gameLength');
         const username = localStorage.getItem('username');
-        const response = await fetch(`http://127.0.0.1:2192/new_game/${gameLength}`)
+        const response = await fetch(`http://127.0.0.1:3000/createroute/10`)
         const jsondata = await response.json()
 
         console.log('All Data:', jsondata)
@@ -66,7 +66,7 @@ async function sheetFunction() {
             else {
             localStorage.setItem('finalScore', score);
             localStorage.setItem('username', username);
-            window.location.href ="Python/templates/finish.html"
+            window.location.href ="../templates/finish.html"
                 }
             }
 
