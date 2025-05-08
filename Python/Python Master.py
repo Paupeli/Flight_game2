@@ -105,7 +105,7 @@ def save_score(user):
     cursor = yhteys.cursor()
     cursor.execute(sql1)
     high_score = cursor.fetchone()
-    if high_score or high_score[0] is None:
+    if high_score is None or high_score[0] is None:
         new_high_score = True
         sql2 = f"update game set high_score = {score} where screen_name = '{user}';"
         cursor.execute(sql2)
@@ -118,7 +118,7 @@ def save_score(user):
         yhteys.commit()
         cursor.close()
     else: new_high_score = False
-    return jsonify(new_high_score)                                                             #Tarkistetaan toimiiko true/false
+    return jsonify({"new_high_score": new_high_score})                                                             #Tarkistetaan toimiiko true/false
 
 # HAHMON VALINTA JA LUONTI:
 
