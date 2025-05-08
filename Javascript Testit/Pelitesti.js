@@ -12,9 +12,9 @@ let feedback = document.querySelector('#feedback')
 async function sheetFunction() {
     console.log('Fetching..')
     try {
-        const gameLenght = localStorage.getItem('gameLenght');
+        const gameLenght = localStorage.getItem('gameLength');
         const username = localStorage.getItem('username');
-        const response = await fetch(`http://127.0.0.1:2192/new_game/${gameLenght}`)
+        const response = await fetch(`http://127.0.0.1:2192/new_game/${gameLength}`)
         const jsondata = await response.json()
 
         console.log('All Data:', jsondata)
