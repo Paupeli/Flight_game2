@@ -6,7 +6,7 @@ import json
 import mysql.connector
 import random
 import jsonpickle
-import requests
+import traceback #lisätty virheenkäsittelyä varten
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -403,6 +403,12 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 "status": tilakoodi,
                 "teksti": "Virheellinen luku"
             }
+    except Exception as e:
+        print("Virhe backendissä:", e)
+        traceback.print_exc()
+        tilakoodi = 500
+        response = {"status": tilakoodi, "teksti": "Sisäinen virhe"}
+
     jsonvast = json.dumps(response)
     return Response(response=jsonvast, status=tilakoodi, mimetype="application/json")
 
