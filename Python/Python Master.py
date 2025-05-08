@@ -182,6 +182,10 @@ def create_new_user(username):                               # !!!! TÄHÄN tarv
         cursor.close()
         return jsonify({'username': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
+@app.route("/new_game/new_user")
+def new_user():
+    return render_template("new_user.html")
+
 # HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
 # REITIN PITUUDEN VALINTA TÄHÄN:
