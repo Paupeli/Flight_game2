@@ -101,7 +101,7 @@ async function sheetFunction() {
 
             if (!isInTasks) {
                 const currentQuestion = parsedquestionsheets[currentquestionindx]
-                const answer = currentQuestion.answer
+                const answer = currentQuestion.correct_answer
                 if (selected === answer) {
                     gainedscore = 100*mult
                     score = score+gainedscore
@@ -123,7 +123,7 @@ async function sheetFunction() {
 
             } else {
                 const currentQuestion = parsedtasks[currentquestionindx]
-                const answer = currentQuestion.correct_answer
+                const answer = currentQuestion.answer
                 if (selected === answer && isInTasks) {
                     gainedscore = 50*mult
                     feedback.textContent = "Correct, you got "+ gainedscore + "points"
