@@ -30,6 +30,7 @@ localStorage.setItem('username', username);
     });
 });
 
+
 document.getElementById("new_game-btn").addEventListener("click", () => {
     window.location.href = "/new_game";
 });
