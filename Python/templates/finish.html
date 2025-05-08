@@ -3,8 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Finished</title>
+    <script src="{{ url_for('static', filename='finish.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
 </head>
 <body>
+<div class="row">
+    <div class="column">
+        <div id ="game-finished">
+<h1>GAME FINISHED</h1>
+<div>
+<a><img src="{{ url_for('static', filename='kone.gif') }}" alt="Start"></a>
+</div>
 
+<div>
+<button id="main_menu-btn">Main Menu</button>
+<button id="scoreboard-btn">Scoreboard</button>
+<button id="quit-btn">Quit</button>
+</div>
+
+<audio autoplay="autoplay" controls="controls">
+     <source src=src="{{ url_for('static', filename='musa.mp3') }}"/>
+    </audio>
+</div></div></div>
 </body>
 </html>
