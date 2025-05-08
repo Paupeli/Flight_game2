@@ -190,9 +190,9 @@ def new_user():
 
 # REITIN PITUUDEN VALINTA TÄHÄN:
 
-@app.route('/new_game/pick_lenght')
-def pick_lenght():
-    return render_template('pick_lenght.html')                        #SYÖTETÄÄN 'lenght' arvo (5, 10, 15) Ronin koodille
+@app.route('/new_game/pick_length')
+def pick_length():
+    return render_template('pick_length.html')                        #SYÖTETÄÄN 'lenght' arvo (5, 10, 15) Ronin koodille
 
 @app.route('/new_game/<length>')
 def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funktioita :D)
