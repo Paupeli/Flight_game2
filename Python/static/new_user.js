@@ -7,7 +7,7 @@ document.getElementById('create-user-btn').addEventListener('click', () => {
         alert('Please enter a username');
         return;
     }
-localStorage.setItem('username', username);
+sessionStorage.setItem('username', username);
 
      fetch(`/new_game/new_user/${username}`, {
         method: 'GET',

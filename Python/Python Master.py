@@ -392,4 +392,4 @@ def page_not_found(error):
     return jsonify({"error": "Not found", "code": 404}), 404
 
 if __name__ == '__main__':
-    app.run(use_reloader=True, host='127.0.0.1', port=3000) #pyörittää apin
+    app.run(use_reloader=True, host='127.0.0.1', port=2910) #pyörittää apin

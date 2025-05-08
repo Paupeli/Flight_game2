@@ -1,12 +1,12 @@
 'use strict';
 
-const user = localStorage.getItem("username");
-const score = Number(localStorage.getItem("finalScore"));
+const user = sessionStorage.getItem("username");
+const score = Number(sessionStorage.getItem("finalScore"));
 
 if (user && !isNaN(score)) {
   saveScore(user, score);
 } else {
-  console.error("Missing username or score in localStorage.");
+  console.error("Missing username or score in sessionStorage.");
 }
 
 //tallentaa scoren
