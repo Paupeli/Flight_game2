@@ -1,4 +1,3 @@
-from formatter import NullWriter
 
 from flask import Flask, jsonify, render_template, Response, redirect, request
 from flask_cors import CORS
@@ -6,7 +5,6 @@ import json
 import mysql.connector
 import random
 import jsonpickle
-import requests
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -185,10 +183,15 @@ def new_user():
 def pick_length():
     return render_template('pick_length.html')                        #SYÖTETÄÄN 'lenght' arvo (5, 10, 15) Ronin koodille
 
-@app.route('/new_game/<length>')
+@app.route('/createroute/<length>')
 def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funktioita :D)
     try:
-        game_state = reset_game_state()
+        country_list = []
+        airport_list = []
+        wrong_country_list = []
+        done_country_list = []
+        tasklist = []
+        questionsheets = []
         length = int(length)
         if length > 15 or length <= 0:
             raise ValueError #jos pituus on yli 15, nolla tai nollaa pienempi tekee ValueErrorin, joka pysäyttää koodin
@@ -375,12 +378,6 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 "status": tilakoodi,
                 "teksti": "Virheellinen luku"
             }
-    except Exception as e:
-        print("Virhe backendissä:", e)
-        traceback.print_exc()
-        tilakoodi = 500
-        response = {"status": tilakoodi, "teksti": "Sisäinen virhe"}
-
     jsonvast = json.dumps(response)
     return Response(response=jsonvast, status=tilakoodi, mimetype="application/json")
 
