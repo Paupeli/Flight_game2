@@ -158,30 +158,34 @@ def get_user(username):
     return jsonify({'username': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
                                             # ELI tämä vain päivittää user-arvon bäkkärille mutta ei palauta mitään :)
 
-@app.route("/new_game/new_user/<username>")
+@app.route("/new_game/new_user/<username>", methods=['GET'])
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 # !!!! TÄHÄN tarvitaan "username" -tieto API:sta !!!!
 def create_new_user(username):
     #Huom, sql-injektion esto puuttuu :D
-    user = username
-    sql = f"select screen_name from game where screen_name = '{user}';"
-    cursor = yhteys.cursor()
-    cursor.execute(sql)
-    result = cursor.fetchone()
-    if result:
-        return jsonify({"error": "Not found", "code": 404}), 404
-    else:
-        #Tehdään uusi id !
+    try:
+        user = username
+        sql = f"select screen_name from game where screen_name = '{user}';"
+        cursor = yhteys.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchone()
+
+        if result:
+            return jsonify({"error": "Username already exists"}), 400
+
+        # Tehdään uusi id !
         new_id = "SELECT COALESCE(MAX(id), 0) + 1 FROM game;"
         cursor.execute(new_id)
         next_id = cursor.fetchone()[0]
 
-        #tungetaan käyttäjä sql:ään
+        # tungetaan käyttäjä sql:ään
         sql2 = f"INSERT INTO game (id, location, screen_name, score, high_score) VALUES ('{next_id}', 'EFHK', '{user}', 0, 0);"
         cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
-        return jsonify({'username': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+        return jsonify({'username': user})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
 @app.route("/new_game/new_user")
 def new_user():
