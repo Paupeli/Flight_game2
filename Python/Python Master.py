@@ -147,17 +147,16 @@ def old_users_fetch():
 @app.route('/new_game/old_user/<user>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def get_user(user):
-    user = user
     sql = f"select screen_name from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchone()
     cursor.close()
     if not result:
-        jsonify({"error": "Not found", "code": 404}), 404
-    if result:
-        user = result
-        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+        return jsonify({"error": "Not found", "code": 404}), 404
+    user = result[0]
+    return jsonify({'user': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
+                                            # ELI tämä vain päivittää user-arvon bäkkärille mutta ei palauta mitään :)
 
 @app.route("/new_game/new_user")
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
@@ -175,11 +174,11 @@ def create_new_user():
         cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
-        return json.dumps(user)     #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+        return jsonify({'user': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
-# HAHMONLUONTI PÄÄTTYY TÄHÄN
+# HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
-#                  REITIN PITUUDEN VALINTA TÄHÄN:
+# REITIN PITUUDEN VALINTA TÄHÄN:
 
 @app.route('/new_game/pick_lenght')
 def pick_lenght():
