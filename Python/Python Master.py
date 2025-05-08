@@ -24,10 +24,6 @@ yhteys = mysql.connector.connect(
     autocommit=True,
     collation='utf8mb3_general_ci'
 )
-
-
-
-
 #samat vanhat listat ja pistehommelit kuin vanhassakin
 
 # MAIN MENU
@@ -162,12 +158,12 @@ def create_new_user(username):
         return jsonify({"error": "Not found", "code": 404}), 404
     else:
         #Tehdään uusi id !
-        new_id = "SELECT COALESCE(MAX(id), 0) + 1 FROM game;"
+        new_id = "select COALESCE(MAX(id), 0) + 1 from game;"
         cursor.execute(new_id)
         next_id = cursor.fetchone()[0]
 
         #tungetaan käyttäjä sql:ään
-        sql2 = f"INSERT INTO game (id, location, screen_name, score, high_score) VALUES ('{next_id}', 'EFHK', '{user}', 0, 0);"
+        sql2 = f"insert into game (id, location, screen_name, score, high_score) values ('{next_id}', 'EFHK', '{user}', 0, 0);"
         cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
@@ -178,6 +174,11 @@ def new_user():
     return render_template("new_user.html")
 
 # HAHMONLUONTI PÄÄTTYY TÄHÄN:
+
+# PELIN LOPPURUUTU
+@app.route("/finish")
+def finish():
+    return render_template("finish.html")
 
 # REITIN PITUUDEN VALINTA TÄHÄN:
 
