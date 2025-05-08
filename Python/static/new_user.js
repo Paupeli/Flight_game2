@@ -7,18 +7,19 @@ document.getElementById('create-user-btn').addEventListener('click', () => {
         alert('Please enter a username');
         return;
     }
+localStorage.setItem('username', username);
 
-    fetch('/new_game/new_user', {
-        method: 'POST',
+     fetch(`/new_game/new_user/${username}`, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ new_screen_name: username })
+        }
     })
     .then(response => response.json())
     .then(result => {
-        if (result.success) {
-            window.location.href = `/new_game/old_user/${username}`;
+        if (result.username) {
+            sessionStorage.setItem('username', username);
+            window.location.href = '/new_game/pick_length';
         } else {
             alert(result.error || 'Failed to create new username');
         }
