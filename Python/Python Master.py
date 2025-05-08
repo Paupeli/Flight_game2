@@ -160,15 +160,16 @@ def get_user(username):
 
 @app.route("/new_game/new_user/<username>")
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
-def create_new_user(username):                               # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
+# !!!! TÄHÄN tarvitaan "username" -tieto API:sta !!!!
+def create_new_user(username):
     #Huom, sql-injektion esto puuttuu :D
     user = username
     sql = f"select screen_name from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchone()
-    if user in result:
-        jsonify({"error": "Not found", "code": 404}), 404
+    if result:
+        return jsonify({"error": "Not found", "code": 404}), 404
     else:
         #Tehdään uusi id !
         new_id = "SELECT COALESCE(MAX(id), 0) + 1 FROM game;"
@@ -182,7 +183,7 @@ def create_new_user(username):                               # !!!! TÄHÄN tarv
         cursor.close()
         return jsonify({'username': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
-# HAHMONLUONTI PÄÄTTYY TÄHÄN:
+# HAHMONLUONTI PÄÄTTYY TÄHÄN.
 
 # REITIN PITUUDEN VALINTA TÄHÄN:
 
