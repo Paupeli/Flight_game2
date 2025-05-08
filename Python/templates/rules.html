@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Rules</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
+    <script src="{{ url_for('static', filename='rules.js') }}" defer></script>
 </head>
 <body>
 <div class="nav"> <a href="{{ url_for('main_menu') }}" class="font">Main menu</a> <a href="{{ url_for('scoreboard') }}" class="font">Scoreboard</a> <a href="{{ url_for('start') }}" class="font">Quit</a></div>
@@ -31,6 +32,12 @@
 
   </div>
 </div>
+
+<div class="row"><div class="column">
+    <button id="new_game-btn" class="lonelybttn">Start Game</button>
+</div> </div>
+
+
 <audio autoplay="autoplay" controls="controls">
      <source src="{{ url_for('static', filename='musa.mp3') }}">
  </audio>
