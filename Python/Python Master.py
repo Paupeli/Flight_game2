@@ -203,6 +203,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
         airport_list = []
         wrong_country_list = []
         done_country_list = []
+        done_country_list2 = []
         tasklist = []
         questionsheets = []
         length = int(length)
@@ -228,13 +229,13 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             pituus = int(length)
             tehdyt = 0 #while loopin toistojen laskemiseksi
             while tehdyt < pituus:  # looppaa niin kauan kunnes lentokenttiä on reitinpituuden verran
-                num = random.randint(1, 261)
+                num = random.randint(1, 43)
                 sql = f"select airport.name, country.name from airport inner join country on airport.iso_country = country.iso_country and airport.id = {num} order by rand();"
                 cursor = yhteys.cursor()
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 while cursor.rowcount == 0:  # jos ei saa lentokenttää ekalla sql-komennolla, kokeilee sitä uudelleen
-                    num = random.randint(1, 261)
+                    num = random.randint(1, 43)
                     sql = f"select airport.name, country.name from airport inner join country on airport.iso_country = country.iso_country and airport.id = {num} order by rand();"
                     cursor = yhteys.cursor()
                     cursor.execute(sql)
@@ -251,13 +252,13 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             tehdyt = 0 #while loopin toistojen laskemiseksi
             needed = int(length) * 1.5 #monta toistoa tarvitsee tehdä, että saadaan haluttu määrä vääriä maita
             while tehdyt < needed:
-                num = random.randint(1, 130)
+                num = random.randint(1, 43)
                 sql = f"select airport.name, country.name from airport inner join country on airport.iso_country = country.iso_country and airport.id = {num} order by rand();"
                 cursor = yhteys.cursor()
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 while cursor.rowcount == 0: #toistaa sql-komentoa, mikäli SQL:stä ei saa mitään ekalla kerralla
-                    num = random.randint(1, 130)
+                    num = random.randint(1, 43)
                     sql = f"select airport.name, country.name from airport inner join country on airport.iso_country = country.iso_country and airport.id = {num} order by rand();"
                     cursor = yhteys.cursor()
                     cursor.execute(sql)
@@ -272,12 +273,19 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
         def question_sheet_creator(length): #luo kysymyslomakkeet
             count = 0 #while loopin toistojen laskemiseksi
             class Questionsheet: #kysymyslomakkeiden luokka, sisältää vihjeen, mahdolliset vastaukset ja oikean vastauksen
-                def __init__(self, clue, A, B, C, correct_answer):
+                def __init__(self, clue, a, b, c, correct_answer):
                     self.clu = clue
-                    self.A = A
-                    self.B = B
-                    self.C = C
+                    self.a = a
+                    self.b = b
+                    self.c = c
                     self.correct_answer = correct_answer
+            class Task: #samankaltainen luokka kuin edellisessäkin funktiossa
+                def __init__(self, task, a, b, c, answer):
+                    self.task = task
+                    self.a = a
+                    self.b = b
+                    self.c = c
+                    self.answer = answer
             while length > count: #toistaa looppia kunnes laskuri on samassa reitin pituuden kanssa
                 while True:
                     num1 = random.randint(1, len(wrong_country_list))
@@ -297,13 +305,14 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     snum3 = random.randint(1, len(selection_list)) #luo numerot sitä varten, että mikä maa on mikäkin vastaus
                     if snum1 != snum2 and snum1 != snum3 and snum2 != snum3: #varmistaa etteivät numerot ole samoja
                         break
-                A = selection_list[snum1 - 1]
-                B = selection_list[snum2 - 1]
-                C = selection_list[snum3 - 1]
+                a = selection_list[snum1 - 1]
+                b = selection_list[snum2 - 1]
+                c = selection_list[snum3 - 1]
                 #valitsee mikä maa on mikäkin vaihtoehto
-                sql = f"select clue from clues where iso_country in (select iso_country from country where name = '{country3}') ORDER BY RAND() LIMIT 1;"
+                sql1 = f"select clue from clues where iso_country in (select iso_country from country where name = '{country3}') ORDER BY RAND() LIMIT 1;"
+                sql2 = f"SELECT task, option_a, option_b, option_c, answer FROM tasks where iso_country in(select iso_country from country where name = '{country3}') ORDER BY RAND() LIMIT 1;"
                 cursor = yhteys.cursor()
-                cursor.execute(sql)
+                cursor.execute(sql1)
                 result = cursor.fetchall()
                 #sql-komento, joka valitsee yhden vihjeen sille maalle, joka valittiin oikeaksi maaksi
                 for row in result:
@@ -316,42 +325,20 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     for row in result:
                         clue = row[0]
                 correct_answer_position = ''
-                if country3 == A:
-                    correct_answer_position = 'A'
-                elif country3 == B:
-                    correct_answer_position = 'B'
-                elif country3 == C:
-                    correct_answer_position = 'C'
+                if country3 == a:
+                    correct_answer_position = 'a'
+                elif country3 == b:
+                    correct_answer_position = 'b'
+                elif country3 == c:
+                    correct_answer_position = 'c'
                 #laittaa maille vastaavat vastausvaihtoehdot luettavaan muoton
-                questionsheet = Questionsheet(clue, A, B, C, correct_answer_position) #luo Questionsheet luokkaa hyödyntäen kysymyslomakkeen, johon sisältyy vihje, vastausvaihtoehdot ja oikea vastaus
+                questionsheet = Questionsheet(clue, a, b, c, correct_answer_position) #luo Questionsheet luokkaa hyödyntäen kysymyslomakkeen, johon sisältyy vihje, vastausvaihtoehdot ja oikea vastaus
                 jsonquestionsheet = jsonpickle.encode(questionsheet) #tekee edellisestä kysymyslomakkeesta json:ille luettavan version
                 questionsheets.append(jsonquestionsheet) #lisää kysymyslomakkeen kysymyslomakelistaan
                 count = count+1 #nostaa laskuria
-            return questionsheets
-
-        def get_tasks(length): #ottaa tehtävät
-            count = 0 #while loopin toistojen laskemiseksi
-            class Task: #samankaltainen luokka kuin edellisessäkin funktiossa
-                def __init__(self, task, a, b, c, answer):
-                    self.task = task
-                    self.a = a
-                    self.b = b
-                    self.c = c
-                    self.answer = answer
-
-            while count < length:
-                while True:
-                    num = random.randint(0, length-1) #nämä luvut siksi että listat ovat hassuja olioita
-                    num = int(num)
-                    country = country_list[num]
-                    if country not in done_country_list:
-                        country3 = country
-                        done_country_list.append(country)
-                        break
                 try:
                     cursor = yhteys.cursor(dictionary=True)
-                    sql = f"SELECT task, option_a, option_b, option_c, answer FROM tasks where iso_country in(select iso_country from country where name = '{country3}') ORDER BY RAND() LIMIT 1;"
-                    cursor.execute(sql)
+                    cursor.execute(sql2)
                     result = cursor.fetchone()
                     #Pauliinan koodia edellisestä peliversiosta, varmaan selkämpää kuin mun :D
 
@@ -364,18 +351,20 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                         mission = Task(task, option_a, option_b, option_c, correct_answer)
                         jsonmission = jsonpickle.encode(mission)
                         tasklist.append(jsonmission)
-                        count = count+1 #sama idea kuin edellisessäkin funktiossa
+                        done_country_list.append(country3)
+
+
                     else:
                         return None
                 except mysql.connector.Error as err:
                     print(f"Error: {err}")
-            return tasklist
+            return questionsheets, tasklist
+
 
         mult = mult_calc(length)
         routecreator(length)
         wrong_country_selector(length)
         question_sheet_creator(length)
-        get_tasks(length)
         #pyöräyttää edelliset funktiot parametreinään reitin pituus
         response = {
             "countries": country_list,
