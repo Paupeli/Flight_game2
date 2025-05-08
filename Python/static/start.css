@@ -116,15 +116,20 @@ table {
     border-color: #03A9F4;
     border: 10px;
     padding: 5px;
-    color: #C9E8FF;
+    color: #01579B;
     font-family: "Bookman Old Style";
 }
 
 th {
     font-family: "Bookman Old Style";
-    color: #C9E8FF;
+    color: #01579B;
 }
 
 #scoreboard {
-    background-color: #01579B;
+    background-color: #C9E8FF;
+}
+
+.lonelybttn {
+
+    margin: 10px;
 }

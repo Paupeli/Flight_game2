@@ -7,6 +7,7 @@
     <script src="../static/scoreboard.js" defer></script>
 </head>
 <body>
+<div class="nav"> <a href="{{ url_for('main_menu') }}" class="font">Main menu</a> <a href="{{ url_for('rules') }}" class="font">Rules</a> <a href="{{ url_for('start') }}" class="font">Quit</a></div>
 <div class="row">
 <div class="column">
   <h1>Scoreboard</h1>
@@ -21,6 +22,10 @@
         </tbody>
     </table>
 </div></div></div>
+<div class="row"><div class="column">
+    <button id="new_game-btn" class="lonelybttn">Start Game</button>
+</div> </div>
+
 <audio autoplay="autoplay" controls="controls">
      <source src="{{ url_for('static', filename='musa.mp3') }}"/>
  </audio>
