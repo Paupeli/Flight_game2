@@ -12,7 +12,7 @@ let feedback = document.querySelector('#feedback')
 async function sheetFunction() {
     console.log('Fetching..')
     try {
-        const gameLenght = localStorage.getItem('gameLength');
+        const gameLength = localStorage.getItem('gameLength');
         const username = localStorage.getItem('username');
         const response = await fetch(`http://127.0.0.1:3000/createroute/10`)
         const jsondata = await response.json()
