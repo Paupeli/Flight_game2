@@ -68,7 +68,7 @@ async function sheetFunction() {
             else {
             localStorage.setItem('finalScore', score);
             localStorage.setItem('username', username);
-            window.location.href =("finish.html")
+            window.location.href =("/new_game/finish")
                 }
             }
 
