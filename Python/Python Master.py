@@ -131,10 +131,6 @@ def new_game():
 def old_user():
     return render_template("old_user.html")
 
-@app.route("/new_user")
-def new_user():
-    return render_template("new_user.html")
-
 @app.route('/new_game/old_user/fetch')
 # tämä palauttaa listan vanhoista käyttäjistä valikkoa varten
 def old_users_fetch():
@@ -148,10 +144,10 @@ def old_users_fetch():
         users_list.append(user[0])
     return jsonify(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
 
-@app.route('/new_game/old_user/<user>')
+@app.route('/new_game/old_user/<username>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
-def get_user(user):
-    sql = f"select screen_name from game where screen_name = '{user}';"
+def get_user(username):
+    sql = f"select screen_name from game where screen_name = '{username}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchone()
@@ -159,34 +155,36 @@ def get_user(user):
     if not result:
         return jsonify({"error": "Not found", "code": 404}), 404
     user = result[0]
-    return jsonify({'user': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
+    return jsonify({'username': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
                                             # ELI tämä vain päivittää user-arvon bäkkärille mutta ei palauta mitään :)
 
-@app.route("/new_game/new_user", methods=['POST'])
-def create_new_user():
-    try:
-        data = request.get_json()
-        new_name = data.get('new_screen_name')
-        
-        if not new_name:
-            return jsonify({"success": False, "error": "No username provided"}), 400
-            
-        # Check if username already exists
-        cursor = yhteys.cursor()
-        cursor.execute("SELECT screen_name FROM game WHERE screen_name = %s", (new_name,))
-        if cursor.fetchone():
-            return jsonify({"success": False, "error": "Username already exists"}), 400
-            
-        # Create new user
-        cursor.execute("INSERT INTO game (screen_name, location) VALUES (%s, (SELECT ident FROM airport WHERE ident = 'EFHK'))", 
-                      (new_name,))
+@app.route("/new_game/new_user/<username>")
+# tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
+def create_new_user(username):                               # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
+    #Huom, sql-injektion esto puuttuu :D
+    user = username
+    sql = f"select screen_name from game where screen_name = '{user}';"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    if user in result:
+        jsonify({"error": "Not found", "code": 404}), 404
+    else:
+        #Tehdään uusi id !
+        new_id = "SELECT COALESCE(MAX(id), 0) + 1 FROM game;"
+        cursor.execute(new_id)
+        next_id = cursor.fetchone()[0]
+
+        #tungetaan käyttäjä sql:ään
+        sql2 = f"INSERT INTO game (id, location, screen_name, score, high_score) VALUES ('{next_id}', 'EFHK', '{user}', 0, 0);"
+        cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
-        
-        return jsonify({"success": True})
-        
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        return jsonify({'username': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+
+@app.route("/new_game/new_user")
+def new_user():
+    return render_template("new_user.html")
 
 # HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
@@ -365,20 +363,20 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             return game_state['tasklist']
 
     ####TÄN PITÄIS HAKEE KOORDINATIT KARTTAAN, VOI OLLA ET PITÄÄ VIEL MUOKKAA  :DDD
-        cursor = yhteys.cursor(dictionary=True)
-        coordinates = []
+        #cursor = yhteys.cursor(dictionary=True)
+        #coordinates = []
 
-        for airport_code in game_state ['airport_list']:
-            cursor.execute("SELECT latitude_deg, longitude_deg FROM airport WHERE ident = %s", (airport_code,))
-            result = cursor.fetchone()
-            if result:
-                coordinates.append({
-                    "lat": result["latitude_deg"],
-                    "lng": result["longitude_deg"],
-                    "code": airport_code
-                })
+        #for airport_code in airport_list:
+            #cursor.execute("SELECT latitude_deg, longitude_deg FROM airport WHERE ident = %s", (airport_code,))
+            #result = cursor.fetchone()
+            #if result:
+                #coordinates.append({
+                    #"lat": result["latitude_deg"],
+                    #"lng": result["longitude_deg"],
+                    #"code": airport_code
+                #})
 
-        cursor.close()
+        #cursor.close()
 
         mult = mult_calc(length)
         routecreator(length, game_state)
@@ -394,7 +392,6 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             "wrong countries": game_state['wrong_country_list'],
             "questionsheets": game_state['questionsheets'],
             "Tasks": game_state['tasklist'],
-            "coordinates": coordinates,
             "Mult": mult
 
         } #funktioiden palauttamat arvot json-muodossa
