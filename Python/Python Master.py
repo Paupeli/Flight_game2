@@ -1,4 +1,3 @@
-from formatter import NullWriter
 
 from flask import Flask, jsonify, render_template, Response, redirect, request
 from flask_cors import CORS
@@ -6,7 +5,6 @@ import json
 import mysql.connector
 import random
 import jsonpickle
-import requests
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -25,18 +23,8 @@ yhteys = mysql.connector.connect(
     collation='utf8mb3_general_ci'
 )
 
-def reset_game_state():
-    #Nollaa pelin tilan, jotta voi pelata uudelleen tai nollata pausettaessa
-    return {
-        'country_list': [],
-        'airport_list': [],
-        'wrong_country_list': [],
-        'done_country_list': [],
-        'cluelist': [],                         #clues ei vielä missään!
-        'tasklist': [],
-        'questionsheets': []
-       # 'user': None                       #Lisätty user-arvo tänne, emt vielä muokkaanko frontissa eri?
-    }
+
+
 
 #samat vanhat listat ja pistehommelit kuin vanhassakin
 
@@ -195,10 +183,15 @@ def new_user():
 def pick_length():
     return render_template('pick_length.html')                        #SYÖTETÄÄN 'lenght' arvo (5, 10, 15) Ronin koodille
 
-@app.route('/new_game/<length>')
+@app.route('/createroute/<length>')
 def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funktioita :D)
     try:
-        game_state = reset_game_state()
+        country_list = []
+        airport_list = []
+        wrong_country_list = []
+        done_country_list = []
+        tasklist = []
+        questionsheets = []
         length = int(length)
         if length > 15 or length <= 0:
             raise ValueError #jos pituus on yli 15, nolla tai nollaa pienempi tekee ValueErrorin, joka pysäyttää koodin
@@ -214,11 +207,11 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 a = 10-length
                 b = a / 10
                 mult = 1 + b #esim. reitinpituus = 5, 10-5=5, 5/10=0.5, 1+0.5=1.5, kerroin siis 1,5
-            else:
+            elif length == 10:
                 mult = 1 #jos reitin pituus on 10, kerroin yhdessä
             return mult
 
-        def routecreator(length, game_state): #tekee reitin
+        def routecreator(length): #tekee reitin
             pituus = int(length)
             tehdyt = 0 #while loopin toistojen laskemiseksi
             while tehdyt < pituus:  # looppaa niin kauan kunnes lentokenttiä on reitinpituuden verran
@@ -235,12 +228,13 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     result = cursor.fetchall()
                 else:
                     for row in result:
-                        if row[1] not in game_state['country_list']:  # lisää lentokentät ja maat listoihin
-                            game_state['airport_list'].append(row[0])
-                            game_state['country_list'].append(row[1])
-            return game_state['airport_list'], game_state['country_list'] #palauttaa listat json:oitavaksi :D
+                        if row[1] not in country_list: #lisää lentokentät ja maat listoihin
+                            airport_list.append(row[0])
+                            country_list.append(row[1])
+                            tehdyt = tehdyt + 1
+            return airport_list, country_list #palauttaa listat json:oitavaksi :D
 
-        def wrong_country_selector(length, game_state): #valitsee väärät maat kysymyksiä varten
+        def wrong_country_selector(length): #valitsee väärät maat kysymyksiä varten
             tehdyt = 0 #while loopin toistojen laskemiseksi
             needed = int(length) * 1.5 #monta toistoa tarvitsee tehdä, että saadaan haluttu määrä vääriä maita
             while tehdyt < needed:
@@ -257,31 +251,32 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     result = cursor.fetchall()
                 else:
                     for row in result:
-                        if row[1] not in game_state['country_list'] and row[1] not in game_state['wrong_country_list']:
-                            game_state['wrong_country_list'].append(row[1])  # lisää maan väärien maiden listaan ja lisää yhden toiston laskuriin
-            return game_state['wrong_country_list']
+                        if row[1] not in country_list and row[1] not in wrong_country_list:
+                            wrong_country_list.append(row[1]) #lisää maan väärien maiden listaan ja lisää yhden toiston laskuriin
+                            tehdyt = tehdyt + 1
+            return wrong_country_list
 
-        def question_sheet_creator(length, game_state): #luo kysymyslomakkeet
+        def question_sheet_creator(length): #luo kysymyslomakkeet
             count = 0 #while loopin toistojen laskemiseksi
             class Questionsheet: #kysymyslomakkeiden luokka, sisältää vihjeen, mahdolliset vastaukset ja oikean vastauksen
-                def __init__(self, clue, a, b, c, answer):
-                    self.clue = clue
-                    self.a = a
-                    self.b = b
-                    self.c = c
-                    self.answer = answer
+                def __init__(self, clue, A, B, C, correct_answer):
+                    self.clu = clue
+                    self.A = A
+                    self.B = B
+                    self.C = C
+                    self.correct_answer = correct_answer
             while length > count: #toistaa looppia kunnes laskuri on samassa reitin pituuden kanssa
                 while True:
-                    num1 = random.randint(1, len(game_state['wrong_country_list']))
-                    num2 = random.randint(1, len(game_state['wrong_country_list']))
-                    num3 = random.randint(1, len(game_state['country_list']))
+                    num1 = random.randint(1, len(wrong_country_list))
+                    num2 = random.randint(1, len(wrong_country_list))
+                    num3 = random.randint(1, len(country_list))
                     #numerot ovat seuraavaa koodia varten. Num3 määräytyy oikeiden maiden perusteella. 1 & 2 taas väärien.
-                    country1 = game_state['wrong_country_list'][num1 - 1]
-                    country2 = game_state['wrong_country_list'][num2 - 1]
-                    country3 = game_state['country_list'][num3 - 1]
+                    country1 = wrong_country_list[num1 - 1]
+                    country2 = wrong_country_list[num2 - 1]
+                    country3 = country_list[num3 - 1]
                     selection_list = [country1, country2, country3]
                     #luo edellisten numeroiden perusteella listan maista, käyttäen edellämainittuja numeroita
-                    if country1 not in game_state['done_country_list'] and country2 not in game_state['done_country_list'] and country3 not in game_state['done_country_list']:
+                    if country1 not in done_country_list and country2 not in done_country_list and country3 not in done_country_list:
                         break #looppi toteutuu niin pitkään kunnes mikään maista ei ole listassa, jossa on maat, jotka seuraava funktio käy läpi.
                 while True:
                     snum1 = random.randint(1, len(selection_list))
@@ -317,11 +312,11 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 #laittaa maille vastaavat vastausvaihtoehdot luettavaan muoton
                 questionsheet = Questionsheet(clue, A, B, C, correct_answer_position) #luo Questionsheet luokkaa hyödyntäen kysymyslomakkeen, johon sisältyy vihje, vastausvaihtoehdot ja oikea vastaus
                 jsonquestionsheet = jsonpickle.encode(questionsheet) #tekee edellisestä kysymyslomakkeesta json:ille luettavan version
-                game_state['questionsheets'].append(jsonquestionsheet) #lisää kysymyslomakkeen kysymyslomakelistaan
+                questionsheets.append(jsonquestionsheet) #lisää kysymyslomakkeen kysymyslomakelistaan
                 count = count+1 #nostaa laskuria
-            return game_state['questionsheets']
+            return questionsheets
 
-        def get_tasks(length, game_state): #ottaa tehtävät
+        def get_tasks(length): #ottaa tehtävät
             count = 0 #while loopin toistojen laskemiseksi
             class Task: #samankaltainen luokka kuin edellisessäkin funktiossa
                 def __init__(self, task, a, b, c, answer):
@@ -335,10 +330,10 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 while True:
                     num = random.randint(0, length-1) #nämä luvut siksi että listat ovat hassuja olioita
                     num = int(num)
-                    country = game_state['country_list'][num]
-                    if country not in game_state['done_country_list']:
+                    country = country_list[num]
+                    if country not in done_country_list:
                         country3 = country
-                        game_state['done_country_list'].append(country)
+                        done_country_list.append(country)
                         break
                 try:
                     cursor = yhteys.cursor(dictionary=True)
@@ -355,46 +350,26 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                         correct_answer = result['answer']
                         mission = Task(task, option_a, option_b, option_c, correct_answer)
                         jsonmission = jsonpickle.encode(mission)
-                        game_state['tasklist'].append(jsonmission)
+                        tasklist.append(jsonmission)
                         count = count+1 #sama idea kuin edellisessäkin funktiossa
                     else:
                         return None
                 except mysql.connector.Error as err:
                     print(f"Error: {err}")
-            return game_state['tasklist']
+            return tasklist
 
-    ####TÄN PITÄIS HAKEE KOORDINATIT KARTTAAN, VOI OLLA ET PITÄÄ VIEL MUOKKAA  :DDD
-        #cursor = yhteys.cursor(dictionary=True)
-        #coordinates = []
-
-        #for airport_code in airport_list:
-            #cursor.execute("SELECT latitude_deg, longitude_deg FROM airport WHERE ident = %s", (airport_code,))
-            #result = cursor.fetchone()
-            #if result:
-                #coordinates.append({
-                    #"lat": result["latitude_deg"],
-                    #"lng": result["longitude_deg"],
-                    #"code": airport_code
-                #})
-
-        #cursor.close()
-
-        mult = mult_calc(length)
-        routecreator(length, game_state)
-        wrong_country_selector(length, game_state)
-        question_sheet_creator(length, game_state)
-        get_tasks(length, game_state)
-
+        mult_calc(length)
+        routecreator(length)
+        wrong_country_selector(length)
+        question_sheet_creator(length)
+        get_tasks(length)
         #pyöräyttää edelliset funktiot parametreinään reitin pituus
         response = {
-          
-            "countries": game_state['country_list'],
-            "airports": game_state['airport_list'],
-            "wrong countries": game_state['wrong_country_list'],
-            "questionsheets": game_state['questionsheets'],
-            "Tasks": game_state['tasklist'],
-            "Mult": mult
-
+            "countries": country_list,
+            "airports": airport_list,
+            "wrong countries": wrong_country_list,
+            "questionsheets": questionsheets,
+            "Tasks": tasklist
         } #funktioiden palauttamat arvot json-muodossa
 
     except ValueError: #virheenkäsittelyä, mikäli reitti on liian pitkä tai lyhyt
@@ -405,6 +380,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             }
     jsonvast = json.dumps(response)
     return Response(response=jsonvast, status=tilakoodi, mimetype="application/json")
+
 
 #@flight_game_backend_app.errorhandler(404) #virheenhallintaa, mikäli sivua ei löydy
 #def page_not_found(virhekoodi):
@@ -420,4 +396,4 @@ def page_not_found(error):
     return jsonify({"error": "Not found", "code": 404}), 404
 
 if __name__ == '__main__':
-    app.run(use_reloader=True, host='127.0.0.1', port=2192) #pyörittää apin
+    app.run(use_reloader=True, host='127.0.0.1', port=3000) #pyörittää apin

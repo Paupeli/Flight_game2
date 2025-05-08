@@ -23,24 +23,9 @@ yhteys = mysql.connector.connect(
     collation='utf8mb3_general_ci'
 )
 
-country_list = []
-airport_list = []
-wrong_country_list = []
-done_country_list = []
-cluelist = []
-tasklist = []
-questionsheets = []
 
-def reset_game_state():
-    #Nollaa pelin tilan, jotta voi pelata uudelleen tai nollata pausettaessa
-    country_list = []
-    airport_list = []
-    wrong_country_list = []
-    done_country_list = []
-    cluelist = []
-    tasklist = []
-    questionsheets = []
-    return country_list, airport_list, wrong_country_list, done_country_list, cluelist, tasklist, questionsheets
+
+
 #samat vanhat listat ja pistehommelit kuin vanhassakin
 
 # MAIN MENU
@@ -201,6 +186,12 @@ def pick_length():
 @app.route('/createroute/<length>')
 def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funktioita :D)
     try:
+        country_list = []
+        airport_list = []
+        wrong_country_list = []
+        done_country_list = []
+        tasklist = []
+        questionsheets = []
         length = int(length)
         if length > 15 or length <= 0:
             raise ValueError #jos pituus on yli 15, nolla tai nollaa pienempi tekee ValueErrorin, joka pysäyttää koodin
@@ -216,46 +207,44 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 a = 10-length
                 b = a / 10
                 mult = 1 + b #esim. reitinpituus = 5, 10-5=5, 5/10=0.5, 1+0.5=1.5, kerroin siis 1,5
-            else:
+            elif length == 10:
                 mult = 1 #jos reitin pituus on 10, kerroin yhdessä
             return mult
 
         def routecreator(length): #tekee reitin
             pituus = int(length)
             tehdyt = 0 #while loopin toistojen laskemiseksi
-            yritykset1 = 0
-            while tehdyt < pituus and yritykset1 < 1000:  # looppaa niin kauan kunnes lentokenttiä on reitinpituuden verran
-                num = random.randint(1, 43)
+            while tehdyt < pituus:  # looppaa niin kauan kunnes lentokenttiä on reitinpituuden verran
+                num = random.randint(1, 261)
                 sql = f"select airport.name, country.name from airport inner join country on airport.iso_country = country.iso_country and airport.id = {num} order by rand();"
                 cursor = yhteys.cursor()
                 cursor.execute(sql)
                 result = cursor.fetchall()
-                yritykset1 += 1
                 while cursor.rowcount == 0:  # jos ei saa lentokenttää ekalla sql-komennolla, kokeilee sitä uudelleen
-                    num = random.randint(1, 43)
+                    num = random.randint(1, 261)
                     sql = f"select airport.name, country.name from airport inner join country on airport.iso_country = country.iso_country and airport.id = {num} order by rand();"
                     cursor = yhteys.cursor()
                     cursor.execute(sql)
                     result = cursor.fetchall()
-                    yritykset1 += 1
                 else:
                     for row in result:
-                        if row[1] not in country_list:  # lisää lentokentät ja maat listoihin
+                        if row[1] not in country_list: #lisää lentokentät ja maat listoihin
                             airport_list.append(row[0])
                             country_list.append(row[1])
-            return  #palauttaa listat json:oitavaksi :D
+                            tehdyt = tehdyt + 1
+            return airport_list, country_list #palauttaa listat json:oitavaksi :D
 
         def wrong_country_selector(length): #valitsee väärät maat kysymyksiä varten
             tehdyt = 0 #while loopin toistojen laskemiseksi
             needed = int(length) * 1.5 #monta toistoa tarvitsee tehdä, että saadaan haluttu määrä vääriä maita
             while tehdyt < needed:
-                num = random.randint(1, 43)
+                num = random.randint(1, 130)
                 sql = f"select airport.name, country.name from airport inner join country on airport.iso_country = country.iso_country and airport.id = {num} order by rand();"
                 cursor = yhteys.cursor()
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 while cursor.rowcount == 0: #toistaa sql-komentoa, mikäli SQL:stä ei saa mitään ekalla kerralla
-                    num = random.randint(1, 43)
+                    num = random.randint(1, 130)
                     sql = f"select airport.name, country.name from airport inner join country on airport.iso_country = country.iso_country and airport.id = {num} order by rand();"
                     cursor = yhteys.cursor()
                     cursor.execute(sql)
@@ -263,18 +252,19 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 else:
                     for row in result:
                         if row[1] not in country_list and row[1] not in wrong_country_list:
-                            wrong_country_list.append(row[1])  # lisää maan väärien maiden listaan ja lisää yhden toiston laskuriin
+                            wrong_country_list.append(row[1]) #lisää maan väärien maiden listaan ja lisää yhden toiston laskuriin
+                            tehdyt = tehdyt + 1
             return wrong_country_list
 
         def question_sheet_creator(length): #luo kysymyslomakkeet
             count = 0 #while loopin toistojen laskemiseksi
             class Questionsheet: #kysymyslomakkeiden luokka, sisältää vihjeen, mahdolliset vastaukset ja oikean vastauksen
-                def __init__(self, clue, a, b, c, answer):
-                    self.clue = clue
-                    self.a = a
-                    self.b = b
-                    self.c = c
-                    self.answer = answer
+                def __init__(self, clue, A, B, C, correct_answer):
+                    self.clu = clue
+                    self.A = A
+                    self.B = B
+                    self.C = C
+                    self.correct_answer = correct_answer
             while length > count: #toistaa looppia kunnes laskuri on samassa reitin pituuden kanssa
                 while True:
                     num1 = random.randint(1, len(wrong_country_list))
@@ -368,38 +358,18 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     print(f"Error: {err}")
             return tasklist
 
-    ####TÄN PITÄIS HAKEE KOORDINATIT KARTTAAN, VOI OLLA ET PITÄÄ VIEL MUOKKAA  :DDD
-        #cursor = yhteys.cursor(dictionary=True)
-        #coordinates = []
-
-        #for airport_code in airport_list:
-            #cursor.execute("SELECT latitude_deg, longitude_deg FROM airport WHERE ident = %s", (airport_code,))
-            #result = cursor.fetchone()
-            #if result:
-                #coordinates.append({
-                    #"lat": result["latitude_deg"],
-                    #"lng": result["longitude_deg"],
-                    #"code": airport_code
-                #})
-
-        #cursor.close()
-
-        mult = mult_calc(length)
+        mult_calc(length)
         routecreator(length)
         wrong_country_selector(length)
         question_sheet_creator(length)
         get_tasks(length)
-
         #pyöräyttää edelliset funktiot parametreinään reitin pituus
         response = {
-          
             "countries": country_list,
             "airports": airport_list,
             "wrong countries": wrong_country_list,
-            "questionsheets":questionsheets,
-            "Tasks": tasklist,
-            "Mult": mult
-
+            "questionsheets": questionsheets,
+            "Tasks": tasklist
         } #funktioiden palauttamat arvot json-muodossa
 
     except ValueError: #virheenkäsittelyä, mikäli reitti on liian pitkä tai lyhyt
@@ -410,6 +380,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             }
     jsonvast = json.dumps(response)
     return Response(response=jsonvast, status=tilakoodi, mimetype="application/json")
+
 
 #@flight_game_backend_app.errorhandler(404) #virheenhallintaa, mikäli sivua ei löydy
 #def page_not_found(virhekoodi):
