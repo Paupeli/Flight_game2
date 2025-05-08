@@ -10,13 +10,11 @@ fetch("/new_game/old_user/fetch")
             button.className = 'username-button';
 
             button.addEventListener('click', () => {
-                window.location.href = `/new_game/old_user/${username}`;
+                window.location.href = '/new_game/pick_length';
             });
-
             insideTable.appendChild(button);
         });
     });
-
 document.getElementById("new_game-btn").addEventListener("click", () => {
   window.location.href = "/new_game";
 });

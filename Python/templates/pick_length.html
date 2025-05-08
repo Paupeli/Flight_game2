@@ -19,6 +19,7 @@
 </div>
 <script>
 function startGame(length) {
+  localStorage.setItem('gameLength', length);
     window.location.href = `/new_game/${length}`;
 }
 </script>
