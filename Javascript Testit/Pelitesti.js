@@ -12,10 +12,9 @@ let feedback = document.querySelector('#feedback')
 async function sheetFunction() {
     console.log('Fetching..')
     try {
-        const gameLength = localStorage.getItem('gameLength');
+        const gameLenght = localStorage.getItem('gameLenght');
         const username = localStorage.getItem('username');
-        const response = await fetch(
-            `http://127.0.0.1:2192/new_game/${gameLength}`)
+        const response = await fetch(`http://127.0.0.1:2192/new_game/${gameLenght}`)
         const jsondata = await response.json()
 
         console.log('All Data:', jsondata)
@@ -34,18 +33,16 @@ async function sheetFunction() {
 
         let isInTasks = false
 
+
         console.log('taskarray: ', taskarray)
         console.log('questionsheetarray: ', questionsheetarray)
 
-        const parsedquestionsheets = questionsheetarray.map(
-            jsonStr => JSON.parse(jsonStr));
+        const parsedquestionsheets = questionsheetarray.map(jsonStr => JSON.parse(jsonStr));
         const parsedtasks = taskarray.map(jsonStr => JSON.parse(jsonStr));
 
         let currentquestionindx = 0
-
         function displayCurrentQuestion() {
-            if (!isInTasks && currentquestionindx <
-                parsedquestionsheets.length && wronganswers < 3) {
+            if (!isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
                 const question = parsedquestionsheets[currentquestionindx]
                 countryclue.textContent = question.clue
                 a.textContent = question.a
@@ -56,8 +53,7 @@ async function sheetFunction() {
                 let questionnum = currentquestionindx + 1
                 let questionnum_str = questionnum.toString()
                 questionnumberdisplay.textContent = questionnum_str
-            } else if (isInTasks && currentquestionindx <
-                parsedquestionsheets.length && wronganswers < 3) {
+            } else if (isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
                 const question = parsedtasks[currentquestionindx]
                 countryclue.textContent = question.task
                 a.textContent = question.a
@@ -65,14 +61,14 @@ async function sheetFunction() {
                 c.textContent = question.c
                 feedback.textContent = ""
                 enableButtons(true)
-            } else {
+            }
 
-
-        localStorage.setItem('finalScore', score);
-        localStorage.setItem('username', username);
-        window.location.href = "../Python/templates/finish.html"
-    }
-}
+            else {
+            localStorage.setItem('finalScore', score);
+            localStorage.setItem('username', username);
+            window.location.href ="Python/templates/finish.html"
+                }
+            }
 
         function nextQuestion() {
             if (isInTasks) {
