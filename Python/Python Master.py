@@ -1,3 +1,4 @@
+from formatter import NullWriter
 
 from flask import Flask, jsonify, render_template, Response, redirect, request
 from flask_cors import CORS
@@ -5,6 +6,7 @@ import json
 import mysql.connector
 import random
 import jsonpickle
+import requests
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -22,10 +24,6 @@ yhteys = mysql.connector.connect(
     autocommit=True,
     collation='utf8mb3_general_ci'
 )
-
-
-
-
 #samat vanhat listat ja pistehommelit kuin vanhassakin
 
 # MAIN MENU
@@ -146,34 +144,30 @@ def get_user(username):
     return jsonify({'username': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
                                             # ELI tämä vain päivittää user-arvon bäkkärille mutta ei palauta mitään :)
 
-@app.route("/new_game/new_user/<username>", methods=['GET'])
+@app.route("/new_game/new_user/<username>")
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 # !!!! TÄHÄN tarvitaan "username" -tieto API:sta !!!!
 def create_new_user(username):
     #Huom, sql-injektion esto puuttuu :D
-    try:
-        user = username
-        sql = f"select screen_name from game where screen_name = '{user}';"
-        cursor = yhteys.cursor()
-        cursor.execute(sql)
-        result = cursor.fetchone()
-
-        if result:
-            return jsonify({"error": "Username already exists"}), 400
-
-        # Tehdään uusi id !
-        new_id = "SELECT COALESCE(MAX(id), 0) + 1 FROM game;"
+    user = username
+    sql = f"select screen_name from game where screen_name = '{user}';"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    if result:
+        return jsonify({"error": "Not found", "code": 404}), 404
+    else:
+        #Tehdään uusi id !
+        new_id = "select COALESCE(MAX(id), 0) + 1 from game;"
         cursor.execute(new_id)
         next_id = cursor.fetchone()[0]
 
-        # tungetaan käyttäjä sql:ään
-        sql2 = f"INSERT INTO game (id, location, screen_name, score, high_score) VALUES ('{next_id}', 'EFHK', '{user}', 0, 0);"
+        #tungetaan käyttäjä sql:ään
+        sql2 = f"insert into game (id, location, screen_name, score, high_score) values ('{next_id}', 'EFHK', '{user}', 0, 0);"
         cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
-        return jsonify({'username': user})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+        return jsonify({'username': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
 @app.route("/new_game/new_user")
 def new_user():
@@ -185,21 +179,21 @@ def questions():
 
 # HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
+# PELIN LOPPURUUTU
+@app.route("/finish")
+def finish():
+    return render_template("finish.html")
+
 # REITIN PITUUDEN VALINTA TÄHÄN:
 
 @app.route('/new_game/pick_length')
 def pick_length():
     return render_template('pick_length.html')                        #SYÖTETÄÄN 'lenght' arvo (5, 10, 15) Ronin koodille
 
-@app.route('/createroute/<length>')
+@app.route('/new_game/<length>')
 def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funktioita :D)
     try:
-        country_list = []
-        airport_list = []
-        wrong_country_list = []
-        done_country_list = []
-        tasklist = []
-        questionsheets = []
+        game_state = reset_game_state()
         length = int(length)
         if length > 15 or length <= 0:
             raise ValueError #jos pituus on yli 15, nolla tai nollaa pienempi tekee ValueErrorin, joka pysäyttää koodin
@@ -386,6 +380,12 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 "status": tilakoodi,
                 "teksti": "Virheellinen luku"
             }
+    except Exception as e:
+        print("Virhe backendissä:", e)
+        traceback.print_exc()
+        tilakoodi = 500
+        response = {"status": tilakoodi, "teksti": "Sisäinen virhe"}
+
     jsonvast = json.dumps(response)
     return Response(response=jsonvast, status=tilakoodi, mimetype="application/json")
 
