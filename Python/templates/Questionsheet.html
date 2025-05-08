@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Guess the country</title>
-    <script src="{{ url_for('static', filename='Pelitesti.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='start.css') }}">
+    <script src="/Python/static/Pelitesti.js" defer></script>
+    <link rel="stylesheet" href="/Python/static/start.css">
 </head>
 <body>
 
@@ -18,13 +18,15 @@
 <div id ="Question">
     <h1 id="questionname"></h1>
     <div>
-            <div class="column">
-                <button class="ans" type="submit" id="A">A</button>
-
-                <button class="ans" type="submit" id="B">B</button>
-
-                <button class="ans" type="submit" id="C">C</button>
-            </div>
+            <form action="" method="get">
+                <button type="submit" id="A">A</button>
+            </form>
+            <form action="" method="get">
+                <button type="submit" id="B">B</button>
+            </form>
+            <form action="" method="get">
+                <button type="submit" id="C">C</button>
+            </form>
 </div>
 </div>
 </div>
