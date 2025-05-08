@@ -131,6 +131,10 @@ def new_game():
 def old_user():
     return render_template("old_user.html")
 
+@app.route("/new_user")
+def new_user():
+    return render_template("new_user.html")
+
 @app.route('/new_game/old_user/fetch')
 # tämä palauttaa listan vanhoista käyttäjistä valikkoa varten
 def old_users_fetch():
@@ -158,23 +162,31 @@ def get_user(user):
     return jsonify({'user': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
                                             # ELI tämä vain päivittää user-arvon bäkkärille mutta ei palauta mitään :)
 
-@app.route("/new_game/new_user")
-# tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
+@app.route("/new_game/new_user", methods=['POST'])
 def create_new_user():
-    user = requests.get.form("new_screen_name").text                                # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
-    #Huom, sql-injektion esto puuttuu :D
-    sql = f"select screen_name from game where screen_name = '{user}';"
-    cursor = yhteys.cursor()
-    cursor.execute(sql)
-    result = cursor.fetchone()
-    if user in result:
-        jsonify({"error": "Not found", "code": 404}), 404
-    else:
-        sql2 = f"update game set location = (select ident from airport where ident = 'EFHK') where screen_name = '{user}';"
-        cursor.execute(sql2)
+    try:
+        data = request.get_json()
+        new_name = data.get('new_screen_name')
+        
+        if not new_name:
+            return jsonify({"success": False, "error": "No username provided"}), 400
+            
+        # Check if username already exists
+        cursor = yhteys.cursor()
+        cursor.execute("SELECT screen_name FROM game WHERE screen_name = %s", (new_name,))
+        if cursor.fetchone():
+            return jsonify({"success": False, "error": "Username already exists"}), 400
+            
+        # Create new user
+        cursor.execute("INSERT INTO game (screen_name, location) VALUES (%s, (SELECT ident FROM airport WHERE ident = 'EFHK'))", 
+                      (new_name,))
         yhteys.commit()
         cursor.close()
-        return jsonify({'user': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+        
+        return jsonify({"success": True})
+        
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 # HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
