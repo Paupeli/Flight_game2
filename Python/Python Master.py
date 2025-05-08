@@ -144,10 +144,10 @@ def old_users_fetch():
         users_list.append(user[0])
     return jsonify(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
 
-@app.route('/new_game/old_user/<user>')
+@app.route('/new_game/old_user/<username>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
-def get_user(user):
-    sql = f"select screen_name from game where screen_name = '{user}';"
+def get_user(username):
+    sql = f"select screen_name from game where screen_name = '{username}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchone()
@@ -155,14 +155,14 @@ def get_user(user):
     if not result:
         return jsonify({"error": "Not found", "code": 404}), 404
     user = result[0]
-    return jsonify({'user': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
+    return jsonify({'username': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
                                             # ELI tämä vain päivittää user-arvon bäkkärille mutta ei palauta mitään :)
 
-@app.route("/new_game/new_user")
+@app.route("/new_game/new_user/<username>")
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
-def create_new_user():
-    user = requests.get.form("new_screen_name").text                                # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
+def create_new_user(username):                               # !!!! TÄHÄN tarvitaan "new_screen_name" -tieto API:sta !!!!
     #Huom, sql-injektion esto puuttuu :D
+    user = username
     sql = f"select screen_name from game where screen_name = '{user}';"
     cursor = yhteys.cursor()
     cursor.execute(sql)
@@ -170,11 +170,17 @@ def create_new_user():
     if user in result:
         jsonify({"error": "Not found", "code": 404}), 404
     else:
-        sql2 = f"update game set location = (select ident from airport where ident = 'EFHK') where screen_name = '{user}';"
+        #Tehdään uusi id !
+        new_id = "SELECT COALESCE(MAX(id), 0) + 1 FROM game;"
+        cursor.execute(new_id)
+        next_id = cursor.fetchone()[0]
+
+        #tungetaan käyttäjä sql:ään
+        sql2 = f"INSERT INTO game (id, location, screen_name, score, high_score) VALUES ('{next_id}', 'EFHK', '{user}', 0, 0);"
         cursor.execute(sql2)
         yhteys.commit()
         cursor.close()
-        return jsonify({'user': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
+        return jsonify({'username': user})                      #Palauttaa arvon "user", mutta onko tällä käyttöä frontissa? Tärkeää sql-kyselyissä.
 
 # HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
