@@ -185,6 +185,11 @@ def questions():
 
 # HAHMONLUONTI PÄÄTTYY TÄHÄN:
 
+# PELIN LOPETUS:
+@app.route("/new_game/finish")
+def finish():
+    return render_template("finish.html")
+
 # REITIN PITUUDEN VALINTA TÄHÄN:
 
 @app.route('/new_game/pick_length')
