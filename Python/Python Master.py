@@ -220,7 +220,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                 a = 10-length
                 b = a / 10
                 mult = 1 + b #esim. reitinpituus = 5, 10-5=5, 5/10=0.5, 1+0.5=1.5, kerroin siis 1,5
-            elif length == 10:
+            else:
                 mult = 1 #jos reitin pituus on 10, kerroin yhdessä
             return mult
 
@@ -371,7 +371,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     print(f"Error: {err}")
             return tasklist
 
-        mult_calc(length)
+        mult = mult_calc(length)
         routecreator(length)
         wrong_country_selector(length)
         question_sheet_creator(length)
@@ -382,7 +382,8 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
             "airports": airport_list,
             "wrong countries": wrong_country_list,
             "questionsheets": questionsheets,
-            "Tasks": tasklist
+            "Tasks": tasklist,
+            "Mult": mult
         } #funktioiden palauttamat arvot json-muodossa
 
     except ValueError: #virheenkäsittelyä, mikäli reitti on liian pitkä tai lyhyt

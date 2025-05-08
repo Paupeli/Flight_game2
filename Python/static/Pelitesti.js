@@ -23,19 +23,22 @@ async function sheetFunction() {
 
         const questionsheetarray = jsondata.questionsheets
         const taskarray = jsondata.Tasks
-        const mult = jsondata.mult
+        const mult = parseInt(jsondata.Mult)
         let score = 0
         let gainedscore = 0
         let wronganswers = 0
         let lastanswercorrect = false
-        scoredisplay.textContent = score
-        wronganswerdisplay.textContent = wronganswers
+        scoredisplay.textContent = "Score: " + score
+        wronganswerdisplay.textContent = "Wrong answers: " + wronganswers
 
         let isInTasks = false
 
 
         console.log('taskarray: ', taskarray)
         console.log('questionsheetarray: ', questionsheetarray)
+        console.log('jsonmult: ', jsondata.Mult)
+        console.log('mult: ', mult)
+
 
         const parsedquestionsheets = questionsheetarray.map(jsonStr => JSON.parse(jsonStr));
         const parsedtasks = taskarray.map(jsonStr => JSON.parse(jsonStr));
@@ -47,20 +50,20 @@ async function sheetFunction() {
             if (!isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
                 const question = parsedquestionsheets[currentquestionindx]
                 countryclue.textContent = question.clu
-                a.textContent = question.A
-                b.textContent = question.B
-                c.textContent = question.C
+                A.textContent = question.A
+                B.textContent = question.B
+                C.textContent = question.C
                 feedback.textContent = ""
                 enableButtons(true)
                 let questionnum = currentquestionindx + 1
                 let questionnum_str = questionnum.toString()
-                questionnumberdisplay.textContent = questionnum_str
+                questionnumberdisplay.textContent = "Current question: " + questionnum_str
             } else if (isInTasks && currentquestionindx < parsedquestionsheets.length && wronganswers < 3) {
                 const question = parsedtasks[currentquestionindx]
                 countryclue.textContent = question.task
-                a.textContent = question.a
-                b.textContent = question.b
-                c.textContent = question.c
+                A.textContent = question.a
+                B.textContent = question.b
+                C.textContent = question.c
                 feedback.textContent = ""
                 enableButtons(true)
             }
@@ -102,20 +105,20 @@ async function sheetFunction() {
                 if (selected === answer) {
                     gainedscore = 100*mult
                     score = score+gainedscore
-                    let gainedscorestr = gainedscore.toString()
-                    feedback.textContent = "Correct, you got" + gainedscorestr + "points"
+
+                    feedback.textContent = "Correct, you got" + gainedscore + "points"
                     lastanswercorrect = true
-                    scoredisplay.textContent = score
+                    scoredisplay.textContent = "Score: " + score
                 } else if (selected !== answer) {
                     gainedscore = 50*mult
                     score = score-gainedscore
-                    let gainedscorestr = gainedscore.toString()
-                    feedback.textContent = "Oh no, you lost" + gainedscorestr + "points"
+
+                    feedback.textContent = "Oh no, you lost " + gainedscore + "points"
                     wronganswers++
-                    scoredisplay.textContent = score
+                    scoredisplay.textContent = "Score: " + score
                     lastanswercorrect = false
                     let wronganswersstr = wronganswers.toString()
-                    wronganswerdisplay.textContent = wronganswersstr
+                    wronganswerdisplay.textContent = "Wrong answers: " + wronganswersstr
                 }
 
             } else {
@@ -123,16 +126,15 @@ async function sheetFunction() {
                 const answer = currentQuestion.correct_answer
                 if (selected === answer && isInTasks) {
                     gainedscore = 50*mult
-                    let gainedscorestr = gainedscore.toString()
-                    feedback.textContent = "Correct, you got"+ gainedscorestr + "points"
+                    feedback.textContent = "Correct, you got "+ gainedscore + "points"
                     score = score+gainedscore
-                    scoredisplay.textContent = score
+                    scoredisplay.textContent = "Score: " + score
                 } else {
                     gainedscore = 25*mult
-                    let gainedscorestr = gainedscore.toString()
-                    feedback.textContent = "Oh no, you lost"+ gainedscorestr + "points"
+
+                    feedback.textContent = "Oh no, you lost "+ gainedscore + "points"
                     score = score-gainedscore
-                    scoredisplay.textContent = score
+                    scoredisplay.textContent = "Score: " + score
                 }}
             setTimeout(nextQuestion, 2000)
         }
