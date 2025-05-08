@@ -15,7 +15,6 @@ fetch("/new_game/old_user/fetch")
             insideTable.appendChild(button);
         });
     });
-
 document.getElementById("new_game-btn").addEventListener("click", () => {
   window.location.href = "/new_game";
 });
