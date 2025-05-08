@@ -179,7 +179,12 @@ def create_new_user(username):
 def new_user():
     return render_template("new_user.html")
 
-# HAHMONLUONTI PÄÄTTYY TÄHÄN:
+# HAHMONLUONTI PÄÄTTYY TÄHÄN.
+
+# PELIN LOPETUS:
+@app.route("/new_game/finish")
+def finish():
+    return render_template("finish.html")
 
 # REITIN PITUUDEN VALINTA TÄHÄN:
 
