@@ -65,7 +65,7 @@ def scoreboard():
 #Luodaan sanakirja sql:n palauttamista arvoista
 #Arvot ovat sanakirjassa valmiiksi järjestyksessä, koska sql-kysely järjestää ne! Ei tarvetta sorttailla
 def scoreboard_json():
-    sql = f"select screen_name, high_score from game where high_score != 0 order by high_score desc limit 5;"
+    sql = "select screen_name, high_score from game where high_score != 0 order by high_score desc limit 5;"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
@@ -82,24 +82,25 @@ def save_score(user):
     new_high_score = False
     data = request.get_json()
     score = data.get('score')
-    sql1 = f"select high_score from game where screen_name = '{user}';"
+    sql1 = "select high_score from game where screen_name = %s;"
     cursor = yhteys.cursor()
-    cursor.execute(sql1)
+    cursor.execute(sql1, (user,))
     high_score = cursor.fetchone()
     if high_score is None or high_score[0] is None:
         new_high_score = True
-        sql2 = f"update game set high_score = {score} where screen_name = '{user}';"
-        cursor.execute(sql2)
+        sql2 = f"update game set high_score = {score} where screen_name = %s;"
+        cursor.execute(sql2, (user,))
         yhteys.commit()
         cursor.close()
     elif high_score[0] < score:
         new_high_score = True
-        sql2 = f"update game set high_score = {score} where screen_name = '{user}';"
-        cursor.execute(sql2)
+        sql2 = f"update game set high_score = {score} where screen_name = %s;"
+        cursor.execute(sql2, (user,))
         yhteys.commit()
         cursor.close()
-    else: new_high_score = False
-    return jsonify({"new_high_score": new_high_score})                                                             #Tarkistetaan toimiiko true/false
+    else:
+        new_high_score = False
+    return jsonify({"new_high_score": new_high_score})
 
 # HAHMON VALINTA JA LUONTI:
 
@@ -128,9 +129,9 @@ def old_users_fetch():
 @app.route('/new_game/old_user/<username>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def get_user(username):
-    sql = f"select screen_name from game where screen_name = '{username}';"
+    sql = "select screen_name from game where screen_name = %s;"
     cursor = yhteys.cursor()
-    cursor.execute(sql)
+    cursor.execute(sql, (username,))
     result = cursor.fetchone()
     cursor.close()
     if not result:
@@ -146,9 +147,9 @@ def create_new_user(username):
     #Huom, sql-injektion esto puuttuu :D
     try:
         user = username
-        sql = f"select screen_name from game where screen_name = '{user}';"
+        sql = "select screen_name from game where screen_name = %s;"
         cursor = yhteys.cursor()
-        cursor.execute(sql)
+        cursor.execute(sql, (user,))
         result = cursor.fetchone()
 
         if result:
@@ -160,8 +161,8 @@ def create_new_user(username):
         next_id = cursor.fetchone()[0]
 
         # tungetaan käyttäjä sql:ään
-        sql2 = f"INSERT INTO game (id, location, screen_name, score, high_score) VALUES ('{next_id}', 'EFHK', '{user}', 0, 0);"
-        cursor.execute(sql2)
+        sql2 = "insert into game (id, location, screen_name, score, high_score) values (%s, 'EFHK', %s, 0, 0);"
+        cursor.execute(sql2, (next_id, user))
         yhteys.commit()
         cursor.close()
         return jsonify({'username': user})
