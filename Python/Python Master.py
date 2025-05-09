@@ -129,9 +129,9 @@ def old_users_fetch():
 @app.route('/new_game/old_user/<username>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
 def get_user(username):
-    sql = f"select screen_name from game where screen_name = '{username}';"
+    sql = "select screen_name from game where screen_name = %s;"
     cursor = yhteys.cursor()
-    cursor.execute(sql)
+    cursor.execute(sql, (username,))
     result = cursor.fetchone()
     cursor.close()
     if not result:
@@ -147,9 +147,9 @@ def create_new_user(username):
     #Huom, sql-injektion esto puuttuu :D
     try:
         user = username
-        sql = f"select screen_name from game where screen_name = '{user}';"
+        sql = "select screen_name from game where screen_name = %s;"
         cursor = yhteys.cursor()
-        cursor.execute(sql)
+        cursor.execute(sql, (user,))
         result = cursor.fetchone()
 
         if result:
@@ -161,8 +161,8 @@ def create_new_user(username):
         next_id = cursor.fetchone()[0]
 
         # tungetaan käyttäjä sql:ään
-        sql2 = f"INSERT INTO game (id, location, screen_name, score, high_score) VALUES ('{next_id}', 'EFHK', '{user}', 0, 0);"
-        cursor.execute(sql2)
+        sql2 = "insert into game (id, location, screen_name, score, high_score) values (%s, 'EFHK', %s, 0, 0);"
+        cursor.execute(sql2, (next_id, user))
         yhteys.commit()
         cursor.close()
         return jsonify({'username': user})
