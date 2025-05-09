@@ -124,7 +124,7 @@ def old_users_fetch():
     users_list = []
     for user in users:
         users_list.append(user[0])
-    return jsonify(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
+    return jsonify(users_list)
 
 @app.route('/new_game/old_user/<username>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
@@ -137,8 +137,8 @@ def get_user(username):
     if not result:
         return jsonify({"error": "Not found", "code": 404}), 404
     user = result[0]
-    return jsonify({'username': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
-                                            # ELI tämä vain päivittää user-arvon bäkkärille mutta ei palauta mitään :)
+    return jsonify({'username': user})
+
 
 @app.route("/new_game/new_user/<username>", methods=['GET'])
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
@@ -183,6 +183,31 @@ def questions():
 @app.route("/new_game/finish")
 def finish():
     return render_template("finish.html")
+
+# KARTTAAN KOORDINAATIT
+@app.route("/map")
+def map():
+    return render_template("map.html")
+
+@app.route("/map/coordinates/<country>")
+def coordinates(country):
+    cursor = yhteys.cursor()
+    airport_sql = f"select id from airport where iso_country = (select iso_country from country where name = '{country}') limit 1;"
+    cursor.execute(airport_sql)
+    airport = cursor.fetchone()[0]
+    sql = f"select latitude_deg from airport where airport.id = '{airport}';"  #ident vai maa?
+    cursor.execute(sql)
+    lat = cursor.fetchone()[0]
+    sql2 = sql = f"select longitude_deg from airport where airport.id = '{airport}';"
+    cursor.execute(sql2)
+    lon = cursor.fetchone()[0]
+    sql3 = "select latitude_deg from airport where iso_country = (select iso_country from country where name = 'Finland');"
+    cursor.execute(sql3)
+    latH = cursor.fetchone()[0]
+    sql4 = "select longitude_deg from airport where iso_country = (select iso_country from country where name = 'Finland');"
+    cursor.execute(sql4)
+    lonH = cursor.fetchone()[0]
+    return jsonify({"latitude": lat, "longitude": lon, "latH": latH, "lonH": lonH})
 
 # REITIN PITUUDEN VALINTA TÄHÄN:
 
@@ -240,6 +265,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                             airport_list.append(row[0])
                             country_list.append(row[1])
                             tehdyt = tehdyt + 1
+                cursor.close()
             return airport_list, country_list #palauttaa listat json:oitavaksi :D
 
         def wrong_country_selector(length): #valitsee väärät maat kysymyksiä varten
@@ -262,6 +288,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                         if row[1] not in country_list and row[1] not in wrong_country_list:
                             wrong_country_list.append(row[1]) #lisää maan väärien maiden listaan ja lisää yhden toiston laskuriin
                             tehdyt = tehdyt + 1
+                cursor.close()
             return wrong_country_list
 
         def question_sheet_creator(length): #luo kysymyslomakkeet
@@ -318,6 +345,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     result = cursor.fetchall()
                     for row in result:
                         clue = row[0]
+                cursor.close()
                 correct_answer_position = ''
                 if country3 == a:
                     correct_answer_position = 'a'
@@ -334,6 +362,7 @@ def backend(length): #pääfunktio (joka on vaa funktio, joka toteuttaa 5 funkti
                     cursor = yhteys.cursor(dictionary=True)
                     cursor.execute(sql2)
                     result = cursor.fetchone()
+                    cursor.close()
                     #Pauliinan koodia edellisestä peliversiosta, varmaan selkämpää kuin mun :D
 
                     if result:
@@ -393,4 +422,4 @@ def page_not_found(error):
     return jsonify({"error": "Not found", "code": 404}), 404
 
 if __name__ == '__main__':
-    app.run(use_reloader=True, host='127.0.0.1', port=2910) #pyörittää apin
+    app.run(use_reloader=True, host='127.0.0.1', port=3000) #pyörittää apin
