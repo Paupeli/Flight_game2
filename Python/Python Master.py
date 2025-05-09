@@ -124,7 +124,7 @@ def old_users_fetch():
     users_list = []
     for user in users:
         users_list.append(user[0])
-    return jsonify(users_list)                                               # !!!! DROP DOWN VALIKKO >> LINKKI /old_user/<user> >> uuden käyttäjän valinta ?
+    return jsonify(users_list)
 
 @app.route('/new_game/old_user/<username>')
 # tämä palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
@@ -137,8 +137,8 @@ def get_user(username):
     if not result:
         return jsonify({"error": "Not found", "code": 404}), 404
     user = result[0]
-    return jsonify({'username': user})          # !!!!!!!!!!! LINKATAAN USER-valinta frontissa SUORAAN PELIN JAVASCRIPTIIN !!!!!!!!!!!!!!!!!
-                                            # ELI tämä vain päivittää user-arvon bäkkärille mutta ei palauta mitään :)
+    return jsonify({'username': user})
+
 
 @app.route("/new_game/new_user/<username>", methods=['GET'])
 # tämä luo ja tallentaa käyttäjän JA palauttaa arvon muuttujalle user > käytetään myöhemmin tallennettaessa pisteitä, jne
