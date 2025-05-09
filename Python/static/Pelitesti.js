@@ -109,14 +109,14 @@ async function sheetFunction() {
                     gainedscore = 100*mult
                     score = score+gainedscore
 
-                    feedback.textContent = "Correct, you got" + gainedscore + "points"
+                    feedback.textContent = "Correct, you got" + gainedscore + " points"
                     lastanswercorrect = true
                     scoredisplay.textContent = "Score: " + score
                 } else if (selected !== answer) {
                     gainedscore = 50*mult
                     score = score-gainedscore
 
-                    feedback.textContent = "Oh no, you lost " + gainedscore + "points"
+                    feedback.textContent = "Oh no, you lost " + gainedscore + " points"
                     wronganswers++
                     scoredisplay.textContent = "Score: " + score
                     lastanswercorrect = false
@@ -129,13 +129,13 @@ async function sheetFunction() {
                 const answer = currentQuestion.answer
                 if (selected === answer && isInTasks) {
                     gainedscore = 50*mult
-                    feedback.textContent = "Correct, you got "+ gainedscore + "points"
+                    feedback.textContent = "Correct, you got "+ gainedscore + " points"
                     score = score+gainedscore
                     scoredisplay.textContent = "Score: " + score
                 } else {
                     gainedscore = 25*mult
 
-                    feedback.textContent = "Oh no, you lost "+ gainedscore + "points"
+                    feedback.textContent = "Oh no, you lost "+ gainedscore + " points"
                     score = score-gainedscore
                     scoredisplay.textContent = "Score: " + score
                 }}
