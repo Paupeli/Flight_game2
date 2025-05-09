@@ -65,7 +65,7 @@ def scoreboard():
 #Luodaan sanakirja sql:n palauttamista arvoista
 #Arvot ovat sanakirjassa valmiiksi järjestyksessä, koska sql-kysely järjestää ne! Ei tarvetta sorttailla
 def scoreboard_json():
-    sql = f"select screen_name, high_score from game where high_score != 0 order by high_score desc limit 5;"
+    sql = "select screen_name, high_score from game where high_score != 0 order by high_score desc limit 5;"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
@@ -82,24 +82,25 @@ def save_score(user):
     new_high_score = False
     data = request.get_json()
     score = data.get('score')
-    sql1 = f"select high_score from game where screen_name = '{user}';"
+    sql1 = "select high_score from game where screen_name = %s;"
     cursor = yhteys.cursor()
-    cursor.execute(sql1)
+    cursor.execute(sql1, (user,))
     high_score = cursor.fetchone()
     if high_score is None or high_score[0] is None:
         new_high_score = True
-        sql2 = f"update game set high_score = {score} where screen_name = '{user}';"
-        cursor.execute(sql2)
+        sql2 = f"update game set high_score = {score} where screen_name = %s;"
+        cursor.execute(sql2, (user,))
         yhteys.commit()
         cursor.close()
     elif high_score[0] < score:
         new_high_score = True
-        sql2 = f"update game set high_score = {score} where screen_name = '{user}';"
-        cursor.execute(sql2)
+        sql2 = f"update game set high_score = {score} where screen_name = %s;"
+        cursor.execute(sql2, (user,))
         yhteys.commit()
         cursor.close()
-    else: new_high_score = False
-    return jsonify({"new_high_score": new_high_score})                                                             #Tarkistetaan toimiiko true/false
+    else:
+        new_high_score = False
+    return jsonify({"new_high_score": new_high_score})
 
 # HAHMON VALINTA JA LUONTI:
 
