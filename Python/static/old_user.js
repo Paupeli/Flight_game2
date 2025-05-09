@@ -6,10 +6,12 @@ fetch("/new_game/old_user/fetch")
         const insideTable = document.getElementById('insideTable');
         data.forEach(username => {
             const button = document.createElement('button');
+
             button.textContent = username;
             button.className = 'username-button';
 
             button.addEventListener('click', () => {
+                sessionStorage.setItem('username', username);              //Lisätty vanhan käyttäjän tallennus !!
                 window.location.href = '/new_game/pick_length';
             });
             insideTable.appendChild(button);

@@ -12,8 +12,8 @@ let feedback = document.querySelector('#feedback')
 async function sheetFunction() {
     console.log('Fetching..')
     try {
-        const gameLength = localStorage.getItem('gameLength');
-        const username = localStorage.getItem('username');
+        const gameLength = sessionStorage.getItem('gameLength');
+        const username = sessionStorage.getItem('username');
         const response = await fetch(`http://127.0.0.1:3000/createroute/${gameLength}`)
         const jsondata = await response.json()
 
@@ -70,8 +70,8 @@ async function sheetFunction() {
             }
 
             else {
-            localStorage.setItem('finalScore', score);
-            localStorage.setItem('username', username);
+            sessionStorage.setItem('finalScore', score);
+            sessionStorage.setItem('username', username);
             window.location.href =("/new_game/finish")
                 }
             }
