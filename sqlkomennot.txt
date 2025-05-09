@@ -1,0 +1,484 @@
+ALTER TABLE airport DROP COLUMN elevation_ft;
+ALTER TABLE airport DROP COLUMN iso_region;
+ALTER TABLE airport DROP COLUMN municipality;
+ALTER TABLE airport DROP COLUMN scheduled_service;
+ALTER TABLE airport DROP COLUMN gps_code;
+ALTER TABLE airport DROP COLUMN iata_code;
+ALTER TABLE airport DROP COLUMN local_code;
+ALTER TABLE airport DROP COLUMN home_link;
+ALTER TABLE airport DROP COLUMN wikipedia_link;
+ALTER TABLE country DROP COLUMN wikipedia_link;
+ALTER TABLE country DROP COLUMN keywords;
+ALTER TABLE game DROP COLUMN co2_consumed;
+ALTER TABLE game DROP COLUMN co2_budget;
+ALTER TABLE game ADD score VARCHAR(40);
+ALTER TABLE game ADD COLUMN high_score float;
+ALTER TABLE game MODIFY COLUMN high_score collate utf8mb4_uca1400_ai_ci;
+
+delete from airport where type = "heliport";
+delete from airport where type = "closed";
+delete from airport where type = "small_airport";
+delete from airport where type = "seaplane_base";
+delete from airport where type = "medium_airport";
+delete from airport where type = "Balloonport";
+delete from airport where continent = "AF";
+delete from airport where continent = "SA";
+delete from airport where continent = "NA";
+delete from airport where continent = "OC";
+delete from airport where name="Esenbo?a International Airport";
+delete from airport where name="Antalya International Airport";
+delete from airport where name="Adnan Menderes International Airport";
+delete from airport where name="Dalaman International Airport";
+delete from airport where name="Milas Bodrum International Airport";
+delete from airport where name="Istanbul Sabiha Gökçen International Air";
+delete from airport where name="?stanbul Airport";
+delete from airport where name="Koltsovo Airport";
+delete from airport where name="Frankfurt am Main Airport";
+delete from airport where name="Hamburg Helmut Schmidt Airport";
+delete from airport where name="Cologne Bonn Airport";
+delete from airport where name="Düsseldorf Airport";
+delete from airport where name="Munich Airport";
+delete from airport where name="Nuremberg Airport";
+delete from airport where name="Leipzig/Halle Airport";
+delete from airport where name="Stuttgart Airport";
+delete from airport where name="Hannover Airport";
+delete from airport where name="Belfast International Airport";
+delete from airport where name="Birmingham International Airport";
+delete from airport where name="Manchester Airport";
+delete from airport where name="London Luton Airport";
+delete from airport where name="London Gatwick Airport";
+delete from airport where name="Glasgow International Airport";
+delete from airport where name="London Stansted Airport";
+delete from airport where name="Eindhoven Airport";
+delete from airport where name="Shannon Airport";
+delete from airport where name="Billund Airport";
+delete from airport where name="Gothenburg-Landvetter Airport";
+delete from airport where name="Bergen Airport, Flesland";
+delete from airport where name="Tromsø Airport, Langnes";
+delete from airport where name="Trondheim Airport, Værnes";
+delete from airport where name="Stavanger Airport, Sola";
+delete from airport where name="Catania-Fontanarossa Airport";
+delete from airport where name="Falcone–Borsellino Airport";
+delete from airport where name="Cagliari Elmas Airport";
+delete from airport where name="Malpensa International Airport";
+delete from airport where name="Milan Bergamo Airport";
+delete from airport where name="Turin Airport";
+delete from airport where name="Bologna Guglielmo Marconi Airport";
+delete from airport where name="Verona Villafranca Airport";
+delete from airport where name="Venice Marco Polo Airport";
+delete from airport where name="Naples International Airport";
+delete from airport where name="Pisa International Airport";
+delete from airport where name="Bordeaux-Mérignac Airport";
+delete from airport where name="Toulouse-Blagnac Airport";
+delete from airport where name="Lyon Saint-Exupéry Airport";
+delete from airport where name="Marseille Provence Airport";
+delete from airport where name="Nice-Côte d'Azur Airport";
+delete from airport where name="Paris-Orly Airport";
+delete from airport where name="EuroAirport Basel-Mulhouse-Freiburg Airp";
+delete from airport where name="Fuerteventura Airport";
+delete from airport where name="Gran Canaria Airport";
+delete from airport where name="César Manrique-Lanzarote Airport";
+delete from airport where name="Tenerife Sur Airport";
+delete from airport where name="Alicante-Elche Miguel Hernández Airport";
+delete from airport where name="Josep Tarradellas Barcelona-El Prat Airp";
+delete from airport where name="Ibiza Airport";
+delete from airport where name="Málaga-Costa del Sol Airport";
+delete from airport where name="Palma de Mallorca Airport";
+delete from airport where name="Santiago-Rosalía de Castro Airport";
+delete from airport where name="Lipetsk Air Base";
+delete from airport where name="Grozny North Airport";
+delete from airport where name="Olenya Air Base";
+delete from airport where name="Vladivostok International Airport";
+delete from airport where name="Pulkovo Airport";
+delete from airport where name="Krasnoyarsk International Airport";
+delete from airport where name="Novosibirsk Tolmachevo Airport";
+delete from airport where name="Platov International Airport";
+delete from airport where name="Sochi International Airport";
+delete from airport where name="Zhukovsky International Airport";
+delete from airport where name="Domodedovo International Airport";
+delete from airport where name="Vnukovo International Airport";
+delete from airport where name="Kazan International Airport";
+delete from airport where name="Gagarin International Airport";
+delete from airport where name="Ufa International Airport";
+delete from airport where name="Kurumoch International Airport";
+delete from airport where name="Gda?sk Lech Wa??sa Airport";
+delete from airport where name="Kraków John Paul II International Airpor";
+delete from airport where name="Burgas Airport";
+delete from airport where name="Varna Airport";
+delete from airport where name="Heraklion International Nikos Kazantzaki";
+delete from airport where name="Thessaloniki Macedonia International Air";
+delete from airport where name="Faro Airport";
+delete from airport where name="João Paulo II Airport";
+delete from airport where name="Francisco de Sá Carneiro Airport";
+delete from airport where name="Geneva Cointrin International Airport";
+delete from airport where name="Boryspil International Airport";
+delete from airport where name="Zagreb Airport";
+
+
+insert into country (iso_country,name,continent) values ("EN","England","EU");
+insert into country (iso_country,name,continent) values ("ND","Scotland","EU");
+
+UPDATE airport
+SET iso_country = "EN" 
+WHERE name = "London Heathrow airport";
+
+UPDATE airport
+SET iso_country = "ND"
+WHERE name = "Edinburgh Airport";
+
+SET @row_number = 0;
+UPDATE airport
+SET id = (@row_number := @row_number + 1);
+
+
+CREATE TABLE tasks(
+   tasks_id int AUTO_INCREMENT NOT NULL,
+   iso_country VARCHAR(40)NULL,
+   task TEXT NULL, 
+   option_a VARCHAR (500) NULL,
+   option_b VARCHAR (500) NULL,
+   option_c VARCHAR (500) NULL,
+   answer VARCHAR (500) NULL,
+   PRIMARY KEY(tasks_id)
+);
+
+
+CREATE TABLE clues(
+   clue_id int AUTO_INCREMENT NOT NULL,
+   iso_country VARCHAR(40) NOT NULL,
+   clue VARCHAR(500) NOT NULL, 
+   PRIMARY KEY(clue_id)
+);
+
+ALTER TABLE clues
+MODIFY COLUMN iso_country VARCHAR (40)
+COLLATE latin1_swedish_ci;
+
+ALTER TABLE tasks
+MODIFY COLUMN iso_country VARCHAR (40)
+COLLATE latin1_swedish_ci;
+
+INSERT INTO tasks (iso_country, task, option_a, option_b, option_c, answer)
+values ("AL", "Say thank you in Albanian", "a. Faleminderit", "b. Hvala", "c. Cześć", "a"),
+("AM", "Play a traditional Armenian string instrument", "a. Sitar", "b. Balalaika", "c. Duduk", "c"),
+("AT", "Bake a traditional Austrian dessert that consists of layers of sponge cake and jam and chocolate", "a. Apfelstrudel", "b. Sachertorte", "c. Linzer Torte", "b"),
+("AZ", "Cook the Azerbaijani national dish that consists of rice, saffron, and various meats", "a. Dolma", "b. Qutab", "c. Plov", "c"),
+("BY", "Get an autograph from a Belarusian Noble Prize- winning author", "a. Svetlana Alexievich", "b. Ales Adamovich", "c. Vasil Bykov", "a"),
+("BE", "Go to the place where they make the famous Belgian Waffle", "a. Wallonia", "b. Flanders", "c. Brussels", "c"),
+("BG", "Go to a UNESCO World Heritage site located in Bulgaria", "a. Rila Monastery", "b. Boyana Church", "c. Nessebar", "b"),
+("CY", "Find the flag of Cyprus. Which two symbols are featured in the flag?", "a. A dove and a sword", "b. a map of Cyprus and olive branches", "c. A ship and a sun", "b"),
+("CZ", "Go to a UNESCO World Heritage site located in Czech", "a. Brno", "b. Plzen", "c. Prague", "c"),
+("DK", "Visit the famous Viking Ship Museum", "a. Aalborg", "b. Odense", "c. Roskilde", "c"),
+("EN", "Visit a famous prehistoric monument in Wiltshire", "a. Stonehenge", "b. Hadrian's Wall", "c. The White Cliffs of Dover", "a"),
+("EE", "Take a picture of the national bird of Estonia", "a. European Robin", "b. White Stork", "c. Barn Swallow", "c"), 
+("FI", "Go to a reindeer farm in Lapland. What is the reindeer type native to Lapland?", "a. Arctic reindeer", "b. Sámi reindeer", "c. Lapland reindeer", "b"),
+("FR", "Climb up the Eiffel Tower. How many steps does it take to reach the second level?", "a. 324 steps", "b. 1665 steps", "c. 700 steps", "b"), 
+("GE", "Dance the traditional dance of Georgia", "a. Kartuli", "b. Lezginka", "c. Saman", "a"),  
+("DE", "Go to the home city of Oktoberfest", "a. Hamburg", "b. Munich", "c. Berlin", "b"), 
+("GR", "Visit the island that is famous for its blue-domed churches and whitewashed buildings", "a. Mykonos", "b. Crete", "c. Santorini", "c"),
+("HU", "Visit Buda castle. On which hill is it located in Budapest?", "a. Castle hill", "b. Gellert hill", "c. Margaret hill", "a"), 
+("IS", "Visit the Blue Lagoon. Which type of energy source does the water come from?", "a. Hydroelectric", "b. Geothermal", "c. Solar", "b"),  
+("IE", "Visit the Cliffs of Moher. How many meters above the Atlantic Ocean do the cliffs rise?", "a. 100 meters", "b. 200 meters", "c. 300 meters", "b"),   
+("IT", "Visit the Sistine Chapel in Vatican City. Who painted the ceiling of the Chapel?", "a. Leonardo da Vinci", "b. Raphael", "c. Michelangelo", "c"),   
+("LV", "Find a traditional Latvian folk costume. What colour of linen does the costume often include for women?", "a. Blue", "b. Red", "c. Green", "b"),   
+("LT", "Visit St. Anne’s Church in Vilnius. In which architectur, al style is the church built?", "a. Gothic", "b. Baroque", "c. Renaissance", "a"),  
+("LU", "Hike the Müllerthal Trail. The trail is also known as Little Switzerland of Luxembourg due to its", "a. Mountainous terrain", "b. Swiss-style architecture", "c. Unique rock formations and forests", "c"),   
+("MT", "Visit the island of Gozo. When did the famous rock arch Azure Window collapse?", "a. 2015", "b. 2017", "c. 2009", "b"),   
+("ME", "Visit the UNESCO World Heritage site Kotor Old Town. Which architectural style is most prominent in the town?", "a. Venetian Gothic", "b. Ottoman", "c. Baroque", "a"),  
+("NL", "Visit the Rijksmuseum that is home to many famous works of art. Which artist painted The Night Watch displayed at the museum?", "a. Vincent van Gogh", "b. Rembrandt", "c. Johannes Vermeer", "b"),     
+("MK", "Visit Lake Orhid that is one of the oldest and deepest lakes in Europe. The lake is shared by which two countries?", "a. North Macedonia and Bulgaria", "b. North Macedonia and Albania", "c. North Macedonia and Serbia", "b"),   
+("NO", "Go to the Lofoten Islands. Which type of whale can be spotted in the waters there?", "a. Blue whale", "b. Beluga whale", "c. Orga", "c"),   
+("PL", "Visit the city of Wrocław. On which river is the city located on?", "a. Vistula river", "b. Oder river", "c. Bug river", "b"),   
+("PT", "Ride the famous Tram 28 in Lisbon. Which neighbourhood does it pass through?", "a. Alfama", "b. Bairro Alto", "c. Chiado", "a"),  
+("RO", "Visit Bran Castle. Which region of Romania is the castle located in?", "a. Transylvania", "b. Wallachia", "c. Moldavia", "a"),   
+("RU", "Go to The Red Square. Which Russian city is it located in?", "a. St. Petersburg", "b. Moscow", "c. Kazan", "b"),   
+("ND", "Take part in The Highland Games event. Which type of event the Highland Games were traditionally held to celebrate?", "a. Harvest festival", "b. Royal coronations", "c. Clan gatherings", "c"),   
+("RS", "Go to Tara National Park. Which part of Serbia is the park located in?", "a. Central Serbia", "b. Eastern Serbia", "c. Western Serbia", "c"),  
+("SK", "Go to a traditional Slovak restaurant. Which main ingredient is Kapustnica a traditional Slovak soup made with?", "a. Potatoes", "b. Sauerkraut", "c. Mushrooms", "b"),   
+("SI", "Visit Lake Bled. During which geological period was the lake formed?", "a. Ice Age", "b. Jurassic period", "c. Mesozoic era", "a"),	   
+("ES", "Visit La Sagrada Familia in Barcelona. Which architect designed it?", "a. Antoni Gaudi", "b. Francisco Goya", "c. Rafael Moneo", "a"),    
+("SE", "Visit Skansen, an open-air museum in Stockholm. Which island is Skansen located on?", "a. Södermalm", "b. Kungsholmen", "c. Djurgården", "c"),   
+("CH", "Find Lindt chocolate factory. Which city is the home of the factory?", "a. Geneva", "b. Zurich", "c. Lausanne", "b"),   
+("TR", "Take a hot air balloon ride over Cappadocia. What volcanic material created the soft rock formations that formed the Fairy Chimneys?", "a. Granite", "b. Tuff", "c. Limestone", "b"),  
+("UA", "Find a bandura that is a traditional Ukrainian instrument. Which other type of instrument does it resemble?", "a. Violin", "b. Accordion", "c. Harp", "c");
+
+insert into clues (country, clue)
+values ("AL", "Tirana is the capital of this country.");
+insert into clues (country, clue)
+values ("AL", "This country is called “Republika e Shqipërisë” in their language.");
+insert into clues (country, clue)
+values ("AL", "This country’s currency is lek.");
+insert into clues (country, clue)
+values ("AM", "This country won the World Team Chess Championship in 2011.");
+insert into clues (country, clue)
+values ("AM", "Yerevan Vernissage is a large open-air market in this country.");
+insert into clues (country, clue)
+values ("AM", "Members of the band System of a Down are descended from this country.");
+insert into clues (country, clue)
+values ("AT", "This country’s name is Republik Österreich in their official language.");
+insert into clues (country, clue)
+values ("AT", "Wolfgang Amadeus Mozart was from this country.");
+insert into clues (country, clue)
+values ("AT", "Red Bull energy drink comes from this country.");
+insert into clues (country, clue)
+values ("AZ", "Azim Azimzade was an artist, satirist and caricaturist from this country.");
+insert into clues (country, clue)
+values ("AZ", "Baku is the capital city of this country.");
+insert into clues (country, clue)
+values ("AZ", "The Palace of the Shirvanshahs is located in this country.");
+insert into clues (country, clue)
+values ("BY", "Victoria Azarenka is a professional tennis player from this country.");
+insert into clues (country, clue)
+values ("BY", "The Mir Castle Complex is located in this country.");
+insert into clues (country, clue)
+values ("BY", "Dzyarzhynskaya Hara is the highest point of this country.");
+insert into clues (country, clue)
+values ("BE", "This country has three official languages: Dutch, French and German.");
+insert into clues (country, clue)
+values ("BE", "City of Antwerp is located in this country.");
+insert into clues (country, clue)
+values ("BE", "The Smurfs come from this country.");
+insert into clues (country, clue)
+values ("BG", "Pirin National Park is located in this country.");
+insert into clues (country, clue)
+values ("BG", "Survakane is a tradition in this country.");
+insert into clues (country, clue)
+values ("BG", "In this country Kukeri perform traditional rituals intended to scare away evil spirits.");
+insert into clues (country, clue)
+values ("CY", "This country has two official languages; Greek and Turkish.");
+insert into clues (country, clue)
+values ("CY", "Souvla is a popular dish from this country.");
+insert into clues (country, clue)
+values ("CY", "Limassol Carnival Festival takes place in this country.");
+insert into clues (country, clue)
+values ("CZ", "This country has historically been known as Bohemia.");
+insert into clues (country, clue)
+values ("CZ", "Škoda auto is originally from this country.");
+insert into clues (country, clue)
+values ("CZ", "Lake Černé jezero is located in this country.");
+insert into clues (country, clue)
+values ("DK", "LEGO was invented in this country.");
+insert into clues (country, clue)
+values ("DK", "The Little Mermaid comes originally from this country.");
+insert into clues (country, clue)
+values ("DK", "The Roskilde Festival takes place in this country.");
+insert into clues (country, clue)
+values ("EN", "Henry VIII is known for his many marriages. He was the King of this country.");
+insert into clues (country, clue)
+values ("EN", "Sir Isaac Newton was from this country.");
+insert into clues (country, clue)
+values ("EN", "The University of Oxford is located in this country.");
+insert into clues (country, clue)
+values ("EE", "Saaremaa is the biggest island in this country.");
+insert into clues (country, clue)
+values ("EE", "Karl Menning was from this country.");
+insert into clues (country, clue)
+values ("EE", "Finnish people travel to this country to buy cheaper alcohol.");
+insert into clues (country, clue)
+values ("FI", "Kantele is the national instrument of this country.");
+insert into clues (country, clue)
+values ("FI", "Santa Claus Village is located in this country.");
+insert into clues (country, clue)
+values ("FI", "This country has the most heavy metal bands per capita.");
+
+insert into clues (country, clue)
+values ("FR", "This is the most visited country in the world.");
+insert into clues (country, clue)
+values ("FR", "This country is known as 'L'Hexagone'.");
+insert into clues (country, clue)
+values ("FR", "Luxury fashion houses, such as Chanel, Louis Vuitton and Givenchy come from this country.");
+insert into clues (country, clue)
+values ("GE", "This country is called Sakartvelo in its native language.");
+insert into clues (country, clue)
+values ("GE", "This country is the birthplace of wine.");
+insert into clues (country, clue)
+values ("GE", "Veryovkina Cave is located in this country.");
+insert into clues (country, clue)
+values ("DE", "Hard rock band Scorpions are from this country.");
+insert into clues (country, clue)
+values ("DE", "The Hovawart dog breed is from this country.");
+insert into clues (country, clue)
+values ("DE", "The Wacken Open Air festival is held in this country.");
+insert into clues (country, clue)
+values ("GR", "This country is officially the Hellenic Republic.");
+insert into clues (country, clue)
+values ("GR", "The first Olympic Games took place in this country.");
+insert into clues (country, clue)
+values ("GR", "Minotaur is a mythical creature in this country’s mythology.");
+insert into clues (country, clue)
+values ("HU", "The Széchenyi Medicinal Bath is located in this country.");
+insert into clues (country, clue)
+values ("HU", "The Bogyiszló Orchestra is from this country.");
+insert into clues (country, clue)
+values ("HU", "Pörkölt originates from this country.");
+insert into clues (country, clue)
+values ("IS", "This country is an island country with over 130 volcanoes.");
+insert into clues (country, clue)
+values ("IS", "The largest glacier mass in Europe can be found in this country.");
+insert into clues (country, clue)
+values ("IS", "LazyTown, a children's educational musical television series, is from this country.");
+insert into clues (country, clue)
+values ("IE", "Shamrock is a symbol of this country.");
+insert into clues (country, clue)
+values ("IE", "Gaelic football comes from this country.");
+insert into clues (country, clue)
+values("IE", "Colcannon is a traditional dish in this country.");
+insert into clues (country, clue)
+values ("IT", "This country is famous for pizza and pasta.");
+insert into clues (country, clue)
+values ("IT", "Lake Garda is in this country.");
+insert into clues (country, clue)
+values ("IT", "Leonardo da Vinci was from this country.");
+
+insert into clues (country, clue)
+values ("LV", "Livonian and Latgalian are recognized languages in this country.");
+insert into clues (country, clue)
+values ("LV", "Turaida Castle is located in this country.");
+insert into clues (country, clue)
+values ("LV", "A daina is a traditional form of music or poetry from this country.");
+insert into clues (country, clue)
+values ("LT", "Tauragnas is the deepest lake in this country.");
+insert into clues (country, clue)
+values ("LT", "Kaunas is the second largest city in this country.");
+insert into clues (country, clue)
+values ("LT", "Monika Linkytė is from this country.");
+insert into clues (country, clue)
+values ("LU", "This country’s motto is 'Mir wëlle bleiwe wat mir sinn''We want to stay what we are'");
+insert into clues (country, clue)
+values ("LU", "This country has the same name as its capital city.");
+insert into clues (country, clue)
+values ("LU", "The Court of Justice of the European Union is seated in this country.");
+insert into clues (country, clue)
+values ("MT", "This island country is located between Sicily and North Africa.");
+insert into clues (country, clue)
+values ("MT", "This country’s total area is 316 km2.");
+insert into clues (country, clue)
+values ("MT", "This was the first country in the European Union to ban conversion therapy.");
+insert into clues (country, clue)
+values ("ME", "Podgorica is the capital of this country.");
+insert into clues (country, clue)
+values ("ME", "Oro, or ‘eagle dance’, is the national folk dance of this country.");
+insert into clues (country, clue)
+values ("ME", "Our Lady of the Rocks is an artificial island located in this country.");
+insert into clues (country, clue)
+values ("NL", "This country’s name literally means “lower countries”.");
+insert into clues (country, clue)
+values ("NL", "The tallest people in the world by average height come from this country.");
+insert into clues (country, clue)
+values ("NL", "This country is known for its tulips, windmills, and wooden shoes.");
+insert into clues (country, clue)
+values ("MK", "The ancient kingdom of Paeonia roughly corresponds to most of this present-day country.");
+insert into clues (country, clue)
+values ("MK", "Mavrovo National Park is located in this country.");
+insert into clues (country, clue)
+values ("MK", "Ohrid Summer Festival is one of the most important cultural events in this country.");
+insert into clues (country, clue)
+values ("NO", "This country is known for its fjords.");
+insert into clues (country, clue)
+values ("NO", "Edvard Munch was from this country.");
+insert into clues (country, clue)
+values ("NO", "The Bukta Festival takes place in this country.");
+insert into clues (country, clue)
+values ("PL", "Kielbasa is from this country.");
+insert into clues (country, clue)
+values ("PL", "The world's first written mention of vodka originates from this country.");
+insert into clues (country, clue)
+values ("PL", "The Medieval Town of Toruń is located in this country.");
+insert into clues (country, clue)
+values ("PT", "Mirandese is a language that is spoken in a small area in this country.");
+insert into clues (country, clue)
+values ("PT", "The second longest bridge in Europe, Vasco da Gama Bridge, is located in this country.");
+insert into clues (country, clue)
+values ("PT", "Cristiano Ronaldo is from this country.");
+insert into clues (country, clue)
+values ("RO", "Moldoveanu Peak is the highest mountain peak in this country.");
+insert into clues (country, clue)
+values ("RO", "Corvin Castle is located in this country.");
+insert into clues (country, clue)
+values ("RO", "Nicolae Paulescu comes from this country.");
+insert into clues (country, clue)
+values ("RU", "Nicholas II/Nikolai II was the last reigning Emperor of this country.");
+insert into clues (country, clue)
+values ("RU", "This country extends across eleven time zones.");
+insert into clues (country, clue)
+values ("RU", "Beef Stroganoff is a dish from this country.");
+insert into clues (country, clue)
+values ("ND", "The great Highland bagpipe is native to this country.");
+insert into clues (country, clue)
+values ("ND", "The Herald, which is the longest running national newspaper in the world, is from this country.");
+insert into clues (country, clue)
+values ("ND", "The kilt is from this country.");
+insert into clues (country, clue)
+values ("RS", "This country’s official language is the only European language with active digraphia; it uses both Cyrillic and Latin alphabets.");
+insert into clues (country, clue)
+values ("RS", "This country is the world’s second largest producer of plums.");
+insert into clues (country, clue)
+values ("RS", "Golubac Fortress is located in this country.");
+insert into clues (country, clue)
+values ("SK", "The national anthem of this country is 'Nad Tatrou sa blýska'.");
+insert into clues (country, clue)
+values ("SK", "The Andy Warhol Museum of Modern Art is located in this country.");
+insert into clues (country, clue)
+values ("SK", "Bojnice Castle is located in this country.");
+insert into clues (country, clue)
+values ("SI", "A hayrack is a freestanding vertical drying rack that is found chiefly in this country.");
+insert into clues (country, clue)
+values ("SI", "Triglav is the highest point of this country.");
+insert into clues (country, clue)
+values ("SI", "Ljubljana is the capital of this country.");
+insert into clues (country, clue)
+values ("ES", "Sierra Nevada is located in this country.");
+insert into clues (country, clue)
+values ("ES", "This country borders Portugal.");
+insert into clues (country, clue)
+values ("ES", "Manchego cheese is from this country.");
+insert into clues (country, clue)
+values ("SE", "IKEA comes from this country.");
+insert into clues (country, clue)
+values ("SE", "Avicii Arena is located in this country.");
+insert into clues (country, clue)
+values ("SE", "Stieg Larsson was from this country.");
+insert into clues (country, clue)
+values ("CH", "This country’s official languages are German, French, Italian and Romansh.");
+insert into clues (country, clue)
+values ("CH", "William Tell is the legendary folk hero of this country.");
+insert into clues (country, clue)
+values ("CH", "Fondue comes from this country.");
+insert into clues (country, clue)
+values ("TR", "Ankara is the capital of this country.");
+insert into clues (country, clue)
+values ("TR", "Constantinople was a historical city. It was renamed in 1930. It was located in this country.");
+insert into clues (country, clue)
+values ("TR", "Angora cats originally come from this country.");
+insert into clues (country, clue)
+values ("UA", "This country is the largest country entirely in Europe.");
+insert into clues (country, clue)
+values ("UA", "This country has won the Eurovision Song Contest three times: 2004, 2016 and 2022.");
+insert into clues (country, clue)
+values ("UA", "Kazka means fairy tale in this country’s language.");
+
+
+alter table clues
+add foreign key (iso_country)
+references country (iso_country);
+
+alter table tasks
+add foreign key (iso_country)
+references country (iso_country);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
