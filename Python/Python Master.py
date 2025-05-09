@@ -192,11 +192,13 @@ def map():
 @app.route("/map/coordinates/<country>")
 def coordinates(country):
     cursor = yhteys.cursor()
-    airport = f"select id from airport where iso_country = (select iso_country from country where name = '{country}' limit 1;"
+    airport_sql = f"select id from airport where iso_country = (select iso_country from country where name = '{country}') limit 1;"
+    cursor.execute(airport_sql)
+    airport = cursor.fetchone()[0]
     sql = f"select latitude_deg from airport where airport.id = '{airport}';"  #ident vai maa?
     cursor.execute(sql)
     lat = cursor.fetchone()[0]
-    sql2 = sql = f"select longitude_deg from airport where airport.id = '{airport}';;"
+    sql2 = sql = f"select longitude_deg from airport where airport.id = '{airport}';"
     cursor.execute(sql2)
     lon = cursor.fetchone()[0]
     sql3 = "select latitude_deg from airport where iso_country = (select iso_country from country where name = 'Finland');"
