@@ -109,7 +109,7 @@ async function sheetFunction() {
                     gainedscore = 100*mult
                     score = score+gainedscore
 
-                    feedback.textContent = "Correct, you got" + gainedscore + " points"
+                    feedback.textContent = "Correct, you got " + gainedscore + " points"
                     lastanswercorrect = true
                     scoredisplay.textContent = "Score: " + score
                 } else if (selected !== answer) {
